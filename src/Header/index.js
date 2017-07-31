@@ -1,5 +1,5 @@
-import {stateTree} from './stateTree';
-import {ComponentTemplate} from './ComponentTemplate';
+import {createStateTree} from './createStateTree';
+import {Header} from './Header';
 import {reducer} from './reducer';
 import * as actionCreators from './actionCreators';
-export {stateTree, ComponentTemplate, reducer, actionCreators};
+export {createStateTree, Header, reducer, actionCreators};

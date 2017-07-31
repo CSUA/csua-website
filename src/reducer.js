@@ -8,10 +8,9 @@ function reducer(state = stateTree, action) {
   }
 };
 
-reducer = combineReducers(
-  {
-  }
-)
+// reducer = combineReducers({
+//
+// });
 
 
 export {reducer};

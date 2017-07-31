@@ -1,13 +1,17 @@
-import {createStateTree} from './stateTree';
+import {createStateTree} from './createStateTree';
 import {combineReducers} from 'redux';
 
-function reducer(state = createStateTree(), action) {
+let defaultState = createStateTree();
+
+function reducer(state = defaultState, action) {
   switch(action.type) {
     default:
       return state;
   }
 }
 
-reducer = combineReducers();
+reducer = combineReducers({
+  
+});
 
 export {reducer};

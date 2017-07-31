@@ -10,9 +10,10 @@ import {Content} from 'yui-md/lib/Content';
 import {reducer} from './reducer';
 
 import './style.scss'
+import {Header} from './Header';
 
 //Application state store.
-// let store = createStore(reducer);
+let store = createStore(reducer);
 
 class App extends React.Component {
   constructor() {
@@ -23,6 +24,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={'app-root'}>
+        <Header/>
         <Content/>
       </div>
     );
@@ -31,13 +33,13 @@ class App extends React.Component {
 
 setTimeout(()=>
 ReactDOM.render(
-  //  <Provider store={store}>
-    // <BrowserRouter>
-    //   <Route path={'/'}>
+   <Provider store={store}>
+    <BrowserRouter>
+      <Route path={'/'}>
         <App/>
-    //   </Route>
-    // </BrowserRouter>
-  //  </Provider>
+      </Route>
+    </BrowserRouter>
+   </Provider>
   , document.getElementById('app')
 )
 , 0);

@@ -1,11 +1,16 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import './style.scss';
-import {staticData} from 'staticResources';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 
-class ComponentTemplate extends React.Component {
+import './style.scss';
+
+import {AppBar} from 'yui-md/lib/AppBar';
+import {Tab} from 'yui-md/lib/Tab';
+import {TabList} from 'yui-md/lib/TabList';
+import logo from 'static/images/logos/logo.svg';
+
+class Header extends React.Component {
   constructor() {
     super();
     this.render = this.render.bind(this);
@@ -13,8 +18,12 @@ class ComponentTemplate extends React.Component {
 
   render() {
     return (
-      <div>
-      </div>
+      <AppBar height={82} backgroundColor={'transparent'}>
+        <h2 style={{display: 'inline-block'}}>CSUA</h2>
+        <TabList>
+
+        </TabList>
+      </AppBar>
     );
   }
 }
@@ -31,6 +40,6 @@ function mapDispatchToProps(dispatch, ownProps) {
   };
 }
 
-ComponentTemplate = withRouter(connect(mapStateToProps, mapDispatchToProps)(ComponentTemplate));
+Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 
-export {ComponentTemplate};
+export {Header};

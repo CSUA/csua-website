@@ -1,4 +1,4 @@
-import {createStateTree} from './stateTree';
+import {createStateTree} from './createStateTree';
 import {combineReducers} from 'redux';
 
 function reducer(state = createStateTree(), action) {
@@ -8,6 +8,8 @@ function reducer(state = createStateTree(), action) {
   }
 }
 
-reducer = combineReducers();
+reducer = combineReducers({
+  
+});
 
 export {reducer};

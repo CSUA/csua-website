@@ -13,10 +13,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      static: path.resolve(__dirname, './src/static')
+      static: path.resolve(__dirname, './src/static'),
     },
     extensions: [
-      '.js', '.jsx', '.css', ',scss'
+      '.js', '.jsx', '.css', '.scss'
     ]
   },
   module: {
@@ -43,6 +43,13 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [{loader: "style-loader"}, {loader: "css-loader"}, {loader: "sass-loader"}]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
       }
     ]
   },
