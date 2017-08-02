@@ -11,7 +11,9 @@ import {Tab} from 'yui-md/lib/Tab';
 import {TabList} from 'yui-md/lib/TabList';
 import {Menu} from 'yui-md/lib/Menu';
 import {MenuItem} from 'yui-md/lib/MenuItem';
+import {_NavCreator} from './_NavCreator';
 import logo from 'static/images/logos/logo.svg';
+
 
 class Header extends React.Component {
   constructor() {
@@ -33,39 +35,13 @@ class Header extends React.Component {
 
   render() {
     return (
-      <AppBar height={82} backgroundColor={'transparent'}>
-        <h2 style={{display: 'inline-block'}}>CSUA</h2>
-        <TabList style={{width: '50%', marginLeft: '150px'}}>
-          <Tab onMouseEnter={() => this.setMenuActive('aboutMenu', true)}
-            onMouseLeave={() => this.setMenuActive('aboutMenu', false)}
-            label='About'>
-            <Menu dense fastExpand
-              active={this.state.isActive.aboutMenu}
-              setActive={(active) => this.setMenuActive('aboutMenu', active)}
-              expand={'vertical'}
-              style={{minWidth: '100%',
-                      fontSize: '10px'}}>
-              <MenuItem>Politburo</MenuItem>
-              <MenuItem>Officers</MenuItem>
-              <MenuItem>Constitution</MenuItem>
-            </Menu>
-          </Tab>
-          <Tab onMouseEnter={() => this.setMenuActive('eventsMenu', true)}
-            onMouseLeave={() => this.setMenuActive('eventsMenu', false)}
-            label='Events'>
-            <Menu dense fastExpand
-              active={this.state.isActive.eventsMenu}
-              setActive={(active) => this.setMenuActive('eventsMenu', active)}
-              expand={'vertical'}
-              style={{minWidth: '100%',
-                      fontSize: '10px'}}>
-              <MenuItem>Workshops</MenuItem>
-              <MenuItem>asdf</MenuItem>
-              <MenuItem>asdf</MenuItem>
-            </Menu>
-          </Tab>
-          <Tab>Hi2</Tab>
-        </TabList>
+      <AppBar height={82}
+        style={{paddingTop: '12px', boxSizing: 'border-box'}}
+        className={'z-depth-1'}
+        backgroundColor={'transparent'}>
+        <img style={{height: '40px', marginBottom: '-12px'}} src={logo}/>
+        <h2 style={{display: 'inline-block'}}>&nbsp;&nbsp;CSUA</h2>
+        <_NavCreator/>
       </AppBar>
     );
   }

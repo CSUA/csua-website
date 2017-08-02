@@ -11,6 +11,7 @@ import {reducer} from './reducer';
 
 import './style.scss'
 import {Header} from './Header';
+import {Pages} from './Pages';
 
 //Application state store.
 let store = createStore(reducer);
@@ -25,7 +26,9 @@ class App extends React.Component {
     return (
       <div className={'app-root'}>
         <Header/>
-        <Content/>
+        <Content>
+          <Pages/>
+        </Content>
       </div>
     );
   }

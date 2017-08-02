@@ -54,15 +54,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin([
-      { from: 'src/static/', to: 'static'}
-    ])
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     NODE_ENV: JSON.stringify('production')
-    //   }
-    // })
-    // ,
-    // new UglifyEsPlugin()
+  //   new CopyWebpackPlugin([
+  //     { from: 'src/static/', to: 'static'}
+  //   ]),
+  //   new webpack.DefinePlugin({
+  //     'process.env': {
+  //       NODE_ENV: JSON.stringify('production')
+  //     }
+  //   })
+  //   ,
+  //   new UglifyEsPlugin()
   ]
 };
