@@ -6,6 +6,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import io from 'socket.io-client';
 
 import {Content} from 'yui-md/lib/Content';
+import {StickyFooter} from 'yui-md/lib/StickyFooter';
 
 import {reducer} from './reducer';
 
@@ -28,6 +29,7 @@ class App extends React.Component {
         <Header/>
         <Content>
           <Pages/>
+          <StickyFooter/>
         </Content>
       </div>
     );

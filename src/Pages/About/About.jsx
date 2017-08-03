@@ -4,6 +4,9 @@ import './style.scss';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 
+import {IconButton} from 'yui-md/lib/Button';
+
+import _PaperBorder from './_PaperBorder';
 import officersImg from 'static/images/Officers_FA16.jpg';
 
 class About extends React.Component {
@@ -15,7 +18,10 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <img src={officersImg} width='100%'/>
+        <_PaperBorder/>
+        <h1 className={'centered-title'}>CSUA</h1>
+        <p className={'centered-subtitle'}>The home for all things CS.</p>
+        <div className={'centered-subtitle'}><IconButton large icon='keyboard_arrow_down'/></div>
       </div>
     );
   }

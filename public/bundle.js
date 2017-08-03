@@ -16109,13 +16109,14 @@ exports.createStateTree = createStateTree;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Button__ = __webpack_require__(367);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Button__["a"]; });
-/* unused harmony reexport IconButton */
-/* unused harmony reexport FloatingActionButton */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return __WEBPACK_IMPORTED_MODULE_0__Button__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IconButton", function() { return __WEBPACK_IMPORTED_MODULE_0__Button__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FloatingActionButton", function() { return __WEBPACK_IMPORTED_MODULE_0__Button__["b"]; });
 
 
-/* harmony default export */ __webpack_exports__["b"] = (__WEBPACK_IMPORTED_MODULE_0__Button__["a" /* Button */]);
+/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__Button__["a" /* Button */]);
 
 
 /***/ }),
@@ -16192,6 +16193,8 @@ var _socket2 = _interopRequireDefault(_socket);
 
 var _Content = __webpack_require__(336);
 
+var _StickyFooter = __webpack_require__(341);
+
 var _reducer = __webpack_require__(348);
 
 __webpack_require__(350);
@@ -16235,7 +16238,8 @@ var App = function (_React$Component) {
         React.createElement(
           _Content.Content,
           null,
-          React.createElement(_Pages.Pages, null)
+          React.createElement(_Pages.Pages, null),
+          React.createElement(_StickyFooter.StickyFooter, null)
         )
       );
     }
@@ -36913,10 +36917,7 @@ class Content extends __WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"] {
 
   style() {
     let style = { paddingTop: this.state.appBarPadding + 'px',
-      minHeight: 'calc(100vh - ' + this.state.heightOffset + 'px)',
-      paddingLeft: this.state.drawerPadding,
-      maxWidth: 'calc(100vw - ' + this.state.drawerPadding + 'px)',
-      width: 'calc(100vw - ' + this.state.drawerPadding + 'px)'
+      paddingLeft: this.state.drawerPadding
     };
     return style;
   }
@@ -36979,7 +36980,7 @@ class Content extends __WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"] {
     let footerElement = null;
     for (var index in children) {
       let childElement = children[index];
-      if (childElement.type === __WEBPACK_IMPORTED_MODULE_4__StickyFooter__["a" /* default */]) {
+      if (childElement.type === __WEBPACK_IMPORTED_MODULE_4__StickyFooter__["default"]) {
         footerElement = children.splice(index, 1);
       }
     }
@@ -37000,7 +37001,6 @@ class Content extends __WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"] {
 Content = Object(__WEBPACK_IMPORTED_MODULE_2__utils_provideSizeClass__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_3_guac_hoc_lib_Guac__["default"])(Content));
 
 /* unused harmony default export */ var _unused_webpack_default_export = (Content);
-
 
 
 /***/ }),
@@ -37185,11 +37185,12 @@ function provideWindowSize(WrappedComponent) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StickyFooter__ = __webpack_require__(342);
-/* unused harmony reexport StickyFooter */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StickyFooter", function() { return __WEBPACK_IMPORTED_MODULE_0__StickyFooter__["a"]; });
 
 
-/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__StickyFooter__["a" /* StickyFooter */]);
+/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__StickyFooter__["a" /* StickyFooter */]);
 
 
 /***/ }),
@@ -37433,7 +37434,7 @@ exports = module.exports = __webpack_require__(11)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
 
 // module
-exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\ndiv.content {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  top: 0px;\n  left: 0px;\n  width: calc(100vw - (2 * 8px));\n  max-width: calc(100% - (2 * 8px)); }\n\n.content.s {\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.content.m, .content.l {\n  transition: all 0.39s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.content-container {\n  padding: 8px;\n  flex: 1 0 auto; }\n", ""]);
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\ndiv.content {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  min-height: 100vh;\n  min-width: 100%;\n  width: 100%;\n  max-width: 100%;\n  top: 0px;\n  left: 0px; }\n\n.content.s {\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.content.m, .content.l {\n  transition: all 0.39s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.content-container {\n  padding: 8px;\n  flex: 1 0 auto; }\n", ""]);
 
 // exports
 
@@ -37782,10 +37783,7 @@ class AppBar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
   style() {
     let style = { marginLeft: this.state.drawerPadding,
-      maxWidth: 'calc(100% - ' + this.state.drawerPadding + 'px)',
-      width: 'calc(100% - ' + this.state.drawerPadding + 'px)',
-      height: this.getHeight()
-    };
+      height: this.getHeight() };
     if (this.props.backgroundColor) {
       style.backgroundColor = this.props.backgroundColor;
     }
@@ -37934,7 +37932,7 @@ exports = module.exports = __webpack_require__(11)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
 
 // module
-exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.app-bar {\n  width: 100%;\n  z-index: 9999;\n  background-color: #3f51b5;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.app-bar.fixed {\n  position: fixed; }\n\n.pad-top {\n  height: 24px;\n  background-color: #002984; }\n\n.app-bar-header {\n  height: 56px;\n  background-color: transparent;\n  position: relative;\n  display: flex;\n  align-items: center; }\n  .app-bar-header .header-content {\n    position: absolute;\n    margin-left: 72px;\n    width: calc(100% - 72px); }\n  .app-bar-header .header-content.prominent {\n    padding-top: 56px;\n    height: 72px;\n    margin-left: 72px;\n    width: calc(100% - 72px); }\n\n.app-bar.prominent {\n  height: 128px; }\n", ""]);
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.app-bar {\n  box-sizing: border-box;\n  width: 100%;\n  z-index: 9999;\n  background-color: #3f51b5;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.app-bar.fixed {\n  position: fixed; }\n\n.pad-top {\n  height: 24px;\n  background-color: #002984; }\n\n.app-bar-header {\n  height: 56px;\n  background-color: transparent;\n  position: relative;\n  display: flex;\n  align-items: center; }\n  .app-bar-header .header-content {\n    box-sizing: border-box;\n    position: absolute;\n    padding-left: 72px;\n    width: 100%; }\n  .app-bar-header .header-content.prominent {\n    padding-top: 56px;\n    height: 72px;\n    padding-left: 72px;\n    width: 100%; }\n\n.app-bar.prominent {\n  height: 128px; }\n", ""]);
 
 // exports
 
@@ -38067,7 +38065,7 @@ class Tab extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
       onClick: this.onClick,
       onMouseOver: this.onMouseOver
     });
-    return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5__Button__["a" /* Button */], _extends({}, passedProps, { children: this.props.children }));
+    return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5__Button__["Button"], _extends({}, passedProps, { children: this.props.children }));
   }
 }
 
@@ -38370,8 +38368,8 @@ function getAnimationTimeBySize(s) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Button; });
-/* unused harmony export IconButton */
-/* unused harmony export FloatingActionButton */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return IconButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FloatingActionButton; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_scss__ = __webpack_require__(368);
@@ -38875,7 +38873,7 @@ exports = module.exports = __webpack_require__(11)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
 
 // module
-exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .menu, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1, .menu {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.menu {\n  padding-top: 8px;\n  padding-bottom: 8px;\n  top: 0;\n  left: 0;\n  min-width: 100%;\n  background-color: #ffffff;\n  margin-bottom: 8px;\n  vertical-align: middle;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n  .menu * {\n    text-overflow: clip;\n    white-space: nowrap;\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.fast-expand {\n  transition: none; }\n  .menu.fast-expand * {\n    transition: none, color 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.hidden {\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n  .menu.hidden * {\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.hidden.fast-expand {\n  transition: none; }\n  .menu.hidden.fast-expand * {\n    transition: none; }\n\n.menu.hidden.expand-vertical {\n  transform: translateY(-50%) scaleY(0); }\n  .menu.hidden.expand-vertical * {\n    transform: translateY(-50%) scaleY(0); }\n\n.menu.hidden.expand-horizontal {\n  transform: translateX(-50%) scaleX(0); }\n  .menu.hidden.expand-horizontal * {\n    transform: translateX(-50%) scaleX(0); }\n\n.menu.hidden.expand-both {\n  transform: translateX(-50%) translateY(-50%) scale(0); }\n  .menu.hidden.expand-both * {\n    transform: translateX(-50%) translateY(-50%) scale(0); }\n", ""]);
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .menu, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1, .menu {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.menu {\n  padding-top: 8px;\n  padding-bottom: 8px;\n  top: 0;\n  left: 0;\n  min-width: 100%;\n  background-color: #ffffff;\n  margin-bottom: 8px;\n  vertical-align: middle;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n  .menu * {\n    text-overflow: clip;\n    white-space: nowrap;\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.fast-expand {\n  transition: none; }\n  .menu.fast-expand * {\n    transition: clear, color 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.hidden {\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n  .menu.hidden * {\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.hidden.fast-expand {\n  transition: none; }\n  .menu.hidden.fast-expand * {\n    transition: clear, color 0.3s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.menu.hidden.expand-vertical {\n  transform: translateY(-50%) scaleY(0); }\n  .menu.hidden.expand-vertical * {\n    transform: translateY(-50%) scaleY(0); }\n\n.menu.hidden.expand-horizontal {\n  transform: translateX(-50%) scaleX(0); }\n  .menu.hidden.expand-horizontal * {\n    transform: translateX(-50%) scaleX(0); }\n\n.menu.hidden.expand-both {\n  transform: translateX(-50%) translateY(-50%) scale(0); }\n  .menu.hidden.expand-both * {\n    transform: translateX(-50%) translateY(-50%) scale(0); }\n", ""]);
 
 // exports
 
@@ -38926,7 +38924,7 @@ class MenuItem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     });
 
     return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-      __WEBPACK_IMPORTED_MODULE_3__Button__["b" /* default */],
+      __WEBPACK_IMPORTED_MODULE_3__Button__["default"],
       passedProps,
       this.props.children
     );
@@ -38978,7 +38976,7 @@ exports = module.exports = __webpack_require__(11)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
 
 // module
-exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.menu-item.important {\n  float: left;\n  font-weight: normal;\n  text-align: left;\n  min-width: 180px;\n  margin: 0px;\n  width: 100%;\n  background-color: inherit;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  vertical-align: middle;\n  padding-left: 16px;\n  height: 48px;\n  font-size: 16px;\n  line-height: calc(48px - 2 * 8px); }\n  @media only screen and (min-width: 980px) {\n    .menu-item.important {\n      padding-left: 24px;\n      height: 32px;\n      font-size: 15px;\n      line-height: calc(32px - 2 * 8px); } }\n\n.menu-item.important:hover {\n  color: #ffab00; }\n\n.menu-item.important.dense {\n  padding-top: 8px;\n  padding-bottom: 8px;\n  vertical-align: middle;\n  padding-left: 16px;\n  height: 32px;\n  font-size: 14px;\n  line-height: calc(32px - 2 * 8px); }\n  @media only screen and (min-width: 980px) {\n    .menu-item.important.dense {\n      padding-top: 4px;\n      padding-bottom: 4px;\n      height: 24px;\n      font-size: 13px;\n      line-height: calc(24px - 2 * 4px); } }\n\n.menu-item.important.sub-item {\n  padding-left: 64px; }\n", ""]);
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.menu-item.important {\n  float: left;\n  font-weight: normal;\n  text-align: left;\n  min-width: 180px;\n  margin: 0px;\n  width: 100%;\n  background-color: inherit;\n  box-sizing: border-box;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  vertical-align: middle;\n  padding-left: 16px;\n  height: 48px;\n  font-size: 16px;\n  line-height: calc(48px - 2 * 8px); }\n  @media only screen and (min-width: 980px) {\n    .menu-item.important {\n      padding-left: 24px;\n      height: 32px;\n      font-size: 15px;\n      line-height: calc(32px - 2 * 8px); } }\n\n.menu-item.important:hover {\n  color: #ffab00; }\n\n.menu-item.important.dense {\n  padding-top: 8px;\n  padding-bottom: 8px;\n  vertical-align: middle;\n  padding-left: 16px;\n  height: 32px;\n  font-size: 14px;\n  line-height: calc(32px - 2 * 8px); }\n  @media only screen and (min-width: 980px) {\n    .menu-item.important.dense {\n      padding-top: 4px;\n      padding-bottom: 4px;\n      height: 24px;\n      font-size: 13px;\n      line-height: calc(24px - 2 * 4px); } }\n\n.menu-item.important.sub-item {\n  padding-left: 64px; }\n", ""]);
 
 // exports
 
@@ -39153,7 +39151,7 @@ exports = module.exports = __webpack_require__(11)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
 
 // module
-exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.tab-list {\n  display: inline-block;\n  width: 100%;\n  position: relative; }\n  @media only screen and (min-width: 980px) {\n    .tab-list {\n      width: calc(100% - 160px);\n      margin-right: 80px;\n      margin-left: 80px; } }\n\n.indicator {\n  display: inline-block;\n  position: absolute;\n  background-color: #ffc400;\n  height: 3px;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  overflow: active;\n  pointer-events: none; }\n", ""]);
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.tab-list {\n  display: inline-block;\n  width: 100%;\n  position: relative;\n  box-sizing: border-box; }\n  @media only screen and (min-width: 980px) {\n    .tab-list {\n      margin-right: 80px;\n      margin-left: 80px; } }\n\n.indicator {\n  display: inline-block;\n  position: absolute;\n  background-color: #ffc400;\n  height: 3px;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  overflow: active;\n  pointer-events: none; }\n", ""]);
 
 // exports
 
@@ -39648,6 +39646,12 @@ var _redux = __webpack_require__(20);
 
 var _reactRouter = __webpack_require__(9);
 
+var _Button = __webpack_require__(148);
+
+var _PaperBorder2 = __webpack_require__(402);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
 var _Officers_FA = __webpack_require__(397);
 
 var _Officers_FA2 = _interopRequireDefault(_Officers_FA);
@@ -39680,7 +39684,22 @@ var About = function (_React$Component) {
       return React.createElement(
         'div',
         null,
-        React.createElement('img', { src: _Officers_FA2.default, width: '100%' })
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'h1',
+          { className: 'centered-title' },
+          'CSUA'
+        ),
+        React.createElement(
+          'p',
+          { className: 'centered-subtitle' },
+          'The home for all things CS.'
+        ),
+        React.createElement(
+          'div',
+          { className: 'centered-subtitle' },
+          React.createElement(_Button.IconButton, { large: true, icon: 'keyboard_arrow_down' })
+        )
       );
     }
   }]);
@@ -39737,10 +39756,10 @@ if(false) {
 
 exports = module.exports = __webpack_require__(11)(undefined);
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\nh1.centered-title {\n  width: 100%;\n  padding-top: 10vh;\n  text-align: center;\n  font-size: 100px;\n  margin-top: 10vh;\n  padding-top: 17.5vh;\n  margin-bottom: 0px; }\n  @media only screen and (max-width: 480px) {\n    h1.centered-title {\n      font-size: 70px; } }\n\n.centered-subtitle {\n  padding-left: 10vw;\n  padding-right: 10vw;\n  box-sizing: border-box;\n  width: 100%;\n  text-align: center;\n  font-size: 30px;\n  margin-top: 10px; }\n  @media only screen and (max-width: 480px) {\n    .centered-subtitle {\n      font-size: 25px; } }\n", ""]);
 
 // exports
 
@@ -39848,6 +39867,155 @@ function actionCreatorTemplate() {
 }
 
 exports.actionCreatorTemplate = actionCreatorTemplate;
+
+/***/ }),
+/* 402 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._PaperBorder = undefined;
+
+var _PaperBorder2 = __webpack_require__(403);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _PaperBorder3.default;
+exports._PaperBorder = _PaperBorder3.default;
+
+/***/ }),
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._PaperBorder = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var React = _interopRequireWildcard(_react);
+
+__webpack_require__(404);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _PaperBorder = function (_React$Component) {
+  _inherits(_PaperBorder, _React$Component);
+
+  function _PaperBorder() {
+    _classCallCheck(this, _PaperBorder);
+
+    var _this = _possibleConstructorReturn(this, (_PaperBorder.__proto__ || Object.getPrototypeOf(_PaperBorder)).call(this));
+
+    _this.render = _this.render.bind(_this);
+    return _this;
+  }
+
+  _createClass(_PaperBorder, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement(
+              'div',
+              { className: 'left-overhang z-depth-3' },
+              React.createElement('div', { className: 'left-overhang-accent z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-1 z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-2 z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-3 z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-4 z-depth-1' })
+            ),
+            React.createElement(
+              'div',
+              { className: 'top-overhang z-depth-2' },
+              React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-3 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-4 z-depth-2' }),
+              React.createElement('div', { className: 'top-paper-5 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-6 z-depth-2' })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return _PaperBorder;
+}(React.Component);
+
+exports.default = _PaperBorder;
+exports._PaperBorder = _PaperBorder;
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(405);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(12)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/sass-loader/lib/loader.js!./style.scss", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/sass-loader/lib/loader.js!./style.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 405 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(11)(undefined);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);", ""]);
+
+// module
+exports.push([module.i, ".primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.primary {\n  background-color: #3f51b5; }\n\n.secondary {\n  background-color: #ab47bc; }\n\n.accent {\n  accent-color: #ffc400; }\n\n.z-shadow-base, .z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4, .z-depth-5, .z-depth-6, .z-depth-7, .z-depth-8 {\n  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }\n\n.z-depth-0 {\n  box-shadow: none; }\n\n.z-depth-1 {\n  box-shadow: 0px 2px 2px 0px rgba(38, 50, 56, 0.28), 0px 3px 1px -2px rgba(38, 50, 56, 0.24), 0px 1px 5px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-2 {\n  box-shadow: 0px 3.5px 4px 0px rgba(38, 50, 56, 0.28), 0px 2px 4px -1px rgba(38, 50, 56, 0.24), 0px 2.5px 9px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-3 {\n  box-shadow: 0px 5px 6px 0px rgba(38, 50, 56, 0.28), 0px 1px 7px -1px rgba(38, 50, 56, 0.24), 0px 4px 13px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-4 {\n  box-shadow: 0px 6.5px 8px 0px rgba(38, 50, 56, 0.28), 0px 0px 10px -1px rgba(38, 50, 56, 0.24), 0px 5.5px 17px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-5 {\n  box-shadow: 0px 8px 10px 0px rgba(38, 50, 56, 0.28), 0px -1px 13px -1px rgba(38, 50, 56, 0.24), 0px 7px 21px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-6 {\n  box-shadow: 0px 9.5px 12px 0px rgba(38, 50, 56, 0.28), 0px -2px 16px -1px rgba(38, 50, 56, 0.24), 0px 8.5px 25px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-7 {\n  box-shadow: 0px 11px 14px 0px rgba(38, 50, 56, 0.28), 0px -3px 19px -1px rgba(38, 50, 56, 0.24), 0px 10px 29px 0px rgba(38, 50, 56, 0.36); }\n\n.z-depth-8 {\n  box-shadow: 0px 12.5px 16px 0px rgba(38, 50, 56, 0.28), 0px -4px 22px -1px rgba(38, 50, 56, 0.24), 0px 11.5px 33px 0px rgba(38, 50, 56, 0.36); }\n\nbody {\n  margin: 0px;\n  min-width: 300px;\n  min-height: 300px;\n  color: rgba(38, 50, 56, 0.9);\n  font-family: 'Roboto', sans-serif; }\n  body * {\n    clear: both; }\n\n.nostyle-container {\n  style: none; }\n\n.has-nav-text {\n  text-align: center;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: medium;\n  text-transform: uppercase; }\n\n.paper-border {\n  top: 74px;\n  left: 0px;\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  max-width: 100%;\n  max-height: 100vh;\n  overflow: hidden;\n  z-index: -1; }\n\n.paper-canvas {\n  position: relative;\n  transform: rotate(12deg); }\n\n.main-paper {\n  position: absolute;\n  width: 200%;\n  height: 100vh;\n  top: -15vh;\n  left: 0px;\n  background-color: rgba(3, 169, 244, 0.4); }\n  .main-paper .left-overhang {\n    position: absolute;\n    width: 15%;\n    height: 100vh;\n    top: 10vh;\n    left: 0px;\n    background-color: #002984; }\n    .main-paper .left-overhang .left-overhang-accent {\n      position: absolute;\n      width: 100%;\n      height: 20vh;\n      top: 70vh;\n      left: 0px;\n      background-color: #790e8b; }\n    .main-paper .left-overhang .left-paper-1 {\n      position: absolute;\n      width: 100%;\n      height: 20vh;\n      top: 10%;\n      left: clear;\n      background-color: #3f51b5;\n      right: 0px; }\n    .main-paper .left-overhang .left-paper-2 {\n      position: absolute;\n      width: 20%;\n      height: 70vh;\n      top: 0px;\n      left: clear;\n      background-color: #757de8;\n      min-width: 50px;\n      right: 0px; }\n    .main-paper .left-overhang .left-paper-3 {\n      position: absolute;\n      width: 40%;\n      height: 70vh;\n      top: 0px;\n      left: clear;\n      background-color: #757de8;\n      min-width: 70px;\n      right: calc(15% + 50px); }\n    .main-paper .left-overhang .left-paper-4 {\n      position: absolute;\n      width: 100%;\n      height: 20vh;\n      top: 65%;\n      left: clear;\n      background-color: #3f51b5;\n      right: 0px; }\n  .main-paper .top-overhang {\n    position: absolute;\n    width: 200%;\n    height: 30vh;\n    top: -5vh;\n    left: 0px;\n    background-color: #790e8b; }\n    .main-paper .top-overhang .top-paper-1 {\n      position: absolute;\n      width: 100%;\n      height: 30vh;\n      top: -1.5vh;\n      left: 0px;\n      background-color: #002984; }\n    .main-paper .top-overhang .top-paper-2 {\n      position: absolute;\n      width: 100%;\n      height: 30vh;\n      top: -5vh;\n      left: 0px;\n      background-color: #3f51b5; }\n    .main-paper .top-overhang .top-paper-3 {\n      position: absolute;\n      width: 50%;\n      height: 30vh;\n      top: -5vh;\n      left: 15%;\n      background-color: #757de8; }\n    .main-paper .top-overhang .top-paper-4 {\n      position: absolute;\n      width: 15%;\n      height: 40vh;\n      top: 0px;\n      left: 20%;\n      background-color: #ab47bc; }\n    .main-paper .top-overhang .top-paper-5 {\n      position: absolute;\n      width: 15%;\n      height: 40vh;\n      top: 0px;\n      left: 22%;\n      background-color: #757de8; }\n    .main-paper .top-overhang .top-paper-6 {\n      position: absolute;\n      width: 15%;\n      height: 40vh;\n      top: 0px;\n      left: 23%;\n      background-color: #df78ef; }\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

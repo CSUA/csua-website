@@ -1,1 +1,28 @@
 @import '~static/styles/style.scss';
+@import '~yui-md/lib/styles/style.scss';
+
+h1.centered-title {
+  width: 100%;
+  padding-top: 10vh;
+  text-align: center;
+  font-size: 100px;
+  margin-top: 10vh;
+  padding-top: 17.5vh;
+  margin-bottom: 0px;
+  @media #{$mobile-query} {
+    font-size: 70px;
+  }
+}
+
+.centered-subtitle {
+  padding-left: 10vw;
+  padding-right: 10vw;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 10px;
+  @media #{$mobile-query} {
+    font-size: 25px;
+  }
+}
