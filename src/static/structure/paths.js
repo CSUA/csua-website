@@ -11,6 +11,7 @@ let paths = {
   workshops: '/events/workshops',
   recruiting: '/events/recruiting',
   generalMeetings: '/events/gms',
+  socials: '/events/socials',
   findAJob: '/industry/jobs'
 };
 

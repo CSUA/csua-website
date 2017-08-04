@@ -32,7 +32,7 @@
 .main-paper {
   @include paper(200%, 100vh, 0px, -15vh, rgba($tertiary-color, 0.4));
   .right-overhang {
-    @include paper(100%, 100vh, calc(35% + 150px), -10vh, $tertiary-color-dark);
+    @include paper(100%, 100vh, calc(32% + 200px), -10vh, $tertiary-color-dark);
     .right-paper-1 {
       @include paper(100%, 100vh, 2%, 0px, $tertiary-color);
     }

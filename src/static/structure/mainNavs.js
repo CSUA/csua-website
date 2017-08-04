@@ -17,7 +17,8 @@ let aboutNavs = [
 let eventNavs = [
   new Nav('Workshops', paths.workshops),
   new Nav('Recruiting', paths.recruiting),
-  new Nav('General Meetings', paths.gms)
+  new Nav('General Meetings', paths.gms),
+  new Nav('Socials', paths.socials)
 ];
 
 let industryNavs = [
