@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import './style.scss';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import {Guac} from 'guac-hoc/lib/Guac';
 
 class ComponentTemplate extends React.Component {
   constructor() {
     super();
-    this.render = this.render.bind(this);
+    this.bindAllMethods();
   }
 
   render() {
@@ -30,6 +31,6 @@ function mapDispatchToProps(dispatch, ownProps) {
   };
 }
 
-ComponentTemplate = withRouter(connect(mapStateToProps, mapDispatchToProps)(ComponentTemplate));
+ComponentTemplate = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(ComponentTemplate)));
 
 export {ComponentTemplate};

@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import './style.scss';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import {Guac} from 'guac-hoc/lib/Guac';
 
 import {About} from './About';
 
 class Pages extends React.Component {
   constructor() {
     super();
-    this.render = this.render.bind(this);
+    this.bindAllMethods();
   }
 
   render() {
@@ -33,6 +34,6 @@ function mapDispatchToProps(dispatch, ownProps) {
   };
 }
 
-Pages = withRouter(connect(mapStateToProps, mapDispatchToProps)(Pages));
+Pages = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Pages)));
 
 export {Pages};
