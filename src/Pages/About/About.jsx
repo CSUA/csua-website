@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import './style.scss';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import {Row, Col} from 'react-flexbox-grid';
+import {Row, Col} from 'yui-md/lib';
 
 import {IconButton} from 'yui-md/lib/Button';
 import {Icon} from 'yui-md/lib/Icon';
@@ -33,7 +33,7 @@ class About extends React.Component {
         <div className={'intro-area'}>
           <h1 className={'centered'}>The Computer Science Undergraduate Association</h1>
           <Row>
-            <Col xs={12} sm={6} lg={4} className={'card-column'}>
+            <Col sm={12} md={6} lg={4} className={'card-column'}>
               <Card>
                 <h3 className={'centered card-title'}>Hello World!</h3>
                 <Icon className={'centered'}>lightbulb_outline</Icon>
@@ -45,7 +45,7 @@ class About extends React.Component {
                 </p>
               </Card>
             </Col>
-            <Col xs={12} sm={6} lg={4} className={'card-column'}>
+            <Col sm={12} md={6} lg={4} className={'card-column'}>
               <Card>
                 <h3 className={'centered card-title'}>Who We Are</h3>
                 <Icon className={'centered'}>face</Icon>
@@ -57,7 +57,7 @@ class About extends React.Component {
                 </p>
               </Card>
             </Col>
-            <Col xs={12} sm={6} lg={4} className={'card-column'}>
+            <Col sm={12} md={6} lg={4} className={'card-column'}>
               <Card>
                 <h3 className={'centered card-title'}>Need Help?</h3>
                 <Icon className={'centered'}>help_outline</Icon>
@@ -69,14 +69,14 @@ class About extends React.Component {
                 </p>
               </Card>
             </Col>
-            <Col xs={12} sm={6} lg={8} className={'card-column'}>
+            <Col sm={12} md={6} lg={8} className={'card-column'}>
               <Card>
                 <img src={officersImg} style={{width: '100%'}}/>
                 <small>CSUA officers at Hearst Mining Circle.</small>
               </Card>
             </Col>
 
-            <Col xs={12} sm={6} lg={4} className={'card-column'}>
+            <Col sm={12} lg={4} className={'card-column'}>
               <Card>
                 <h3 className={'centered card-title'}>Resources</h3>
                 <Icon className={'centered'}>bookmark_border</Icon>
