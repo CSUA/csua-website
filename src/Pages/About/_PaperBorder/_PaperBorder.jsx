@@ -17,8 +17,6 @@ class _PaperBorder extends React.Component {
               <div className={'right-paper-2 z-depth-1'}/>
               <div className={'right-paper-3 z-depth-1'}/>
               <div className={'right-paper-4 z-depth-2'}/>
-              <div className={'right-paper-5 z-depth-1'}/>
-              <div className={'right-paper-6 z-depth-1'}/>
             </div>
             <div className={'left-overhang z-depth-3'}>
               <div className={'left-overhang-accent z-depth-1'}/>
