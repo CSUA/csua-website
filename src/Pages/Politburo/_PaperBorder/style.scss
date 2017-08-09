@@ -16,9 +16,9 @@
   left: 0px;
   position: absolute;
   width: 100%;
-  height: 120vh;
+  height: 100vh;
   max-width: 100%;
-  max-height: 120vh;
+  max-height: 100vh;
   overflow: hidden;
   z-index: -1;
 }
@@ -26,22 +26,18 @@
 .paper-canvas {
   backface-visibility: hidden;
   position: relative;
-  transform: rotate(-12deg) translateX(-30vw);
+  transform: rotate(-20deg) translateX(-10vw) translateY(-5vh);
 }
 
 .main-paper {
-  @include paper(200%, 100vh, 0px, -20vh, rgba($tertiary-color, 0.4));
+  @include paper(200%, 26vh, 0px, -15vh, rgba($tertiary-color, 0.4));
   .top-paper-1 {
-    @include paper(100%, 100vh, 0px, -75vh, rgba($tertiary-color, 0.6));
+    @include paper(100%, 30vh, 0px, -17vh, rgba($tertiary-color, 0.6));
   }
   .top-paper-2 {
-    @include paper(100%, 100vh, 0px, -79vh, rgba($tertiary-color, 1));
+    @include paper(100%, 30vh, 0px, -21vh, rgba($tertiary-color, 1));
   }
   .top-paper-3 {
-    @include paper(100%, 100vh, 0px, -85vh, rgba($tertiary-color-dark, 1));
+    @include paper(100%, 30vh, 0px, -27vh, rgba($tertiary-color-dark, 1));
   }
-}
-
-.paper1 {
-
 }

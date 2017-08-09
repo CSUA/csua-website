@@ -6,37 +6,51 @@
   text-align: center;
 }
 
-.about-page {
+.pb-page {
   min-height: 110vh;
   .title-area {
-    height: 85vh;
     div.title {
-      padding-top: 10vh;
-      font-size: 100px;
-      font-weight: 600;
-      margin-top: 10vh;
-      padding-top: 17.5vh;
+      font-size: 60px;
+      font-weight: 500;
+      margin-top: 15vh;
       margin-bottom: 0px;
       @media #{$mobile-query} {
-        font-size: 60px;
+        font-size: 50px;
       }
     }
 
     .subtitle {
-      padding-left: 15vw;
-      padding-right: 15vw;
       box-sizing: border-box;
-      font-size: 30px;
-      margin-top: 10px;
+      font-size: 25px;
+      margin-top: 20px;
+      line-height: 1.5;
+      margin-bottom: 20px;
       @media #{$mobile-query} {
         font-size: 20px;
+      }
+      padding-left: 4%;
+      padding-right: 4%;
+
+      @media #{$tablet-query} {
+        padding-left: calc(16% - 57.6px);
+        padding-right: calc(16% - 57.6px);
+      }
+
+      @media #{$desktop-query} {
+        padding-left: calc(38% - 215px);
+        padding-right: calc(38% - 215px);
       }
     }
   }
 
   .intro-area {
-    padding-left: 8%;
-    padding-right: 8%;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    @media #{$tablet-query} {
+      padding-left: calc(16% - 76.8px);
+      padding-right: calc(16% - 76.8px);
+    }
 
     @media #{$desktop-query} {
       padding-left: calc(38% - 294px);
@@ -49,6 +63,8 @@
     }
     .card-container {
       box-sizing: border-box;
+      padding-bottom: 16px;
+      padding-top: 16px;
       margin: 0px;
       height: 100%;
       flex: 0 1 auto;
