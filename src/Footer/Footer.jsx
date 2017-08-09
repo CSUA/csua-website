@@ -20,7 +20,7 @@ class Footer extends React.Component {
   render() {
     return (
       <StickyFooter className={this.className()}>
-        Hi
+        Copyright © 2017 CSUA. All rights reserved. Designed by Eric Hou.
       </StickyFooter>
     );
   }

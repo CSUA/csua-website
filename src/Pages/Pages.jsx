@@ -6,6 +6,7 @@ import {withRouter} from 'react-router';
 import {Guac} from 'guac-hoc/lib/Guac';
 
 import {About} from './About';
+import {Politburo} from './Politburo';
 
 class Pages extends React.Component {
   constructor() {
@@ -16,7 +17,7 @@ class Pages extends React.Component {
   render() {
     return (
       <div>
-        <About/>
+        <Politburo/>
       </div>
     );
   }

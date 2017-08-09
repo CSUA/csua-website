@@ -27,9 +27,8 @@ class App extends React.Component {
     return (
       <div className={'app-root'}>
         <Header/>
-        <Content>
+        <Content footerComponent={<Footer/>}>
           <Pages/>
-          <Footer/>
         </Content>
       </div>
     );

@@ -1,0 +1,68 @@
+@import '~static/styles/style.scss';
+@import '~yui-md/lib/styles/style.scss';
+
+.centered {
+  width: 100%;
+  text-align: center;
+}
+
+.about-page {
+  min-height: 110vh;
+  .title-area {
+    height: 85vh;
+    div.title {
+      padding-top: 10vh;
+      font-size: 100px;
+      font-weight: 600;
+      margin-top: 10vh;
+      padding-top: 17.5vh;
+      margin-bottom: 0px;
+      @media #{$mobile-query} {
+        font-size: 60px;
+      }
+    }
+
+    .subtitle {
+      padding-left: 15vw;
+      padding-right: 15vw;
+      box-sizing: border-box;
+      font-size: 30px;
+      margin-top: 10px;
+      @media #{$mobile-query} {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .intro-area {
+    padding-left: 8%;
+    padding-right: 8%;
+
+    @media #{$desktop-query} {
+      padding-left: calc(38% - 294px);
+      padding-right: calc(38% - 294px);
+    }
+
+    .card-title {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .card-container {
+      box-sizing: border-box;
+      margin: 0px;
+      height: 100%;
+      flex: 0 1 auto;
+    }
+    .card-column {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-text {
+      font-weight: 300;
+      padding-left: 5%;
+      padding-right: 5%;
+      line-height: 1.6;
+    }
+  }
+}
