@@ -4,6 +4,7 @@ import './style.scss';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import {Guac} from 'guac-hoc/lib/Guac';
+import {StickyFooter} from 'yui-md/lib/StickyFooter';
 
 class Footer extends React.Component {
   constructor() {
@@ -11,10 +12,16 @@ class Footer extends React.Component {
     this.bindAllMethods();
   }
 
+  className() {
+    let className = 'footer';
+    return className;
+  }
+
   render() {
     return (
-      <div>
-      </div>
+      <StickyFooter className={this.className()}>
+        Hi
+      </StickyFooter>
     );
   }
 }

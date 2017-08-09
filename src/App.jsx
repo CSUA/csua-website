@@ -6,13 +6,13 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import io from 'socket.io-client';
 
 import {Content} from 'yui-md/lib/Content';
-import {StickyFooter} from 'yui-md/lib/StickyFooter';
 
 import {reducer} from './reducer';
 
 import './style.scss'
 import {Header} from './Header';
 import {Pages} from './Pages';
+import {Footer} from './Footer';
 
 //Application state store.
 let store = createStore(reducer);
@@ -29,7 +29,7 @@ class App extends React.Component {
         <Header/>
         <Content>
           <Pages/>
-          <StickyFooter/>
+          <Footer/>
         </Content>
       </div>
     );

@@ -57,6 +57,12 @@ class About extends React.Component {
                 </p>
               </Card>
             </Col>
+            <Col sm={12} lg={8} className={'card-column'}>
+              <Card>
+                <img src={wozImg} style={{width: '100%'}}/>
+                <small>CSUA members hacking into the night.</small>
+              </Card>
+            </Col>
             <Col sm={12} md={6} lg={4} className={'card-column'}>
               <Card>
                 <h3 className={'centered card-title'}>Need Help?</h3>
@@ -66,6 +72,14 @@ class About extends React.Component {
                 You can find a list of available tutors and office hours here.
                 For events, click here. You can also drop by the office any time,
                 and an available tutor will help you.
+                </p>
+              </Card>
+            </Col>
+            <Col sm={12} md={6} lg={4} className={'card-column'}>
+              <Card>
+                <h3 className={'centered card-title'}>Upcoming Events</h3>
+                <Icon className={'centered'}>event_note</Icon>
+                <p className={'card-text'}> 9/1 - 5PM - Wozniak Lounge
                 </p>
               </Card>
             </Col>

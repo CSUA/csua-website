@@ -9,18 +9,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "guac-hoc": "0.0.23",
-    "mongodb": "^2.2.30",
+    "mongodb": "^2.2.31",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-flexbox-grid": "^1.1.3",
+    "react-flexbox-grid": "^1.1.4",
     "react-icons": "^2.2.5",
-    "react-redux": "^5.0.5",
+    "react-redux": "^5.0.6",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
-    "yui-md": "^0.1.0"
+    "yui-md": "^0.1.1"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -48,6 +48,6 @@
     "style-loader": "^0.18.2",
     "svg-react-loader": "^0.4.4",
     "uglify-es-webpack-plugin": "^0.10.0",
-    "webpack": "^3.4.1"
+    "webpack": "^3.5.1"
   }
 }

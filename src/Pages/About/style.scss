@@ -37,6 +37,12 @@
   .intro-area {
     padding-left: 8%;
     padding-right: 8%;
+
+    @media #{$desktop-query} {
+      padding-left: calc(38% - 294px);
+      padding-right: calc(38% - 294px);
+    }
+
     .card-title {
       margin-top: 10px;
       margin-bottom: 10px;
