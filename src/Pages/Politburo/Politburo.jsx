@@ -45,6 +45,9 @@ class Politburo extends React.Component {
                 <small>Newly elected Politburo members in the Wozniak Lounge.</small>
               </Card>
             </Col>
+            <Col sm={12} className={'card-column'}>
+
+            </Col>
           </Row>
         </div>
       </div>

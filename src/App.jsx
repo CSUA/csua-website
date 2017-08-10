@@ -25,25 +25,28 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className={'app-root'}>
-        <Header/>
-        <Content footerComponent={<Footer/>}>
-          <Pages/>
-        </Content>
-      </div>
-    );
+      <Provider store={store}>
+       <BrowserRouter>
+         <Route path={'/'}>
+          <div className={'app-root'}>
+            <Header/>
+            <Content footerComponent={<Footer/>}>
+              <Pages/>
+            </Content>
+          </div>
+        </Route>
+      </BrowserRouter>
+    </Provider>
+        );
   }
 }
 
 setTimeout(()=>
 ReactDOM.render(
-   <Provider store={store}>
-    <BrowserRouter>
-      <Route path={'/'}>
-        <App/>
-      </Route>
-    </BrowserRouter>
-   </Provider>
+  <App/>
   , document.getElementById('app')
 )
 , 0);
+
+export default App;
+export {App};

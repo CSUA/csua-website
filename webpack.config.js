@@ -4,12 +4,13 @@ var _ = require('lodash');
 var os = require('os');
 const UglifyEsPlugin = require('uglify-es-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  entry: './src/App.jsx',
+  entry: {bundle: './src/App.jsx'},
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   resolve: {
     alias: {
@@ -50,15 +51,23 @@ module.exports = {
     ]
   },
   plugins: [
-  //   new CopyWebpackPlugin([
-  //     { from: 'src/static/', to: 'static'}
-  //   ]),
-  //   new webpack.DefinePlugin({
-  //     'process.env': {
-  //       NODE_ENV: JSON.stringify('production')
-  //     }
-  //   })
-  //   ,
-  //   new UglifyEsPlugin()
+    new CopyWebpackPlugin([
+      { from: 'src/static/', to: 'static'}
+    ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new UglifyEsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
   ]
 };

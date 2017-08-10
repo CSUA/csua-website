@@ -1,0 +1,84 @@
+@import '~static/styles/style.scss';
+@import '~yui-md/lib/styles/style.scss';
+
+.centered {
+  width: 100%;
+  text-align: center;
+}
+
+.pb-page {
+  min-height: 110vh;
+  .title-area {
+    div.title {
+      font-size: 60px;
+      font-weight: 500;
+      margin-top: 15vh;
+      margin-bottom: 0px;
+      @media #{$mobile-query} {
+        font-size: 50px;
+      }
+    }
+
+    .subtitle {
+      box-sizing: border-box;
+      font-size: 25px;
+      margin-top: 20px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      @media #{$mobile-query} {
+        font-size: 20px;
+      }
+      padding-left: 4%;
+      padding-right: 4%;
+
+      @media #{$tablet-query} {
+        padding-left: calc(16% - 57.6px);
+        padding-right: calc(16% - 57.6px);
+      }
+
+      @media #{$desktop-query} {
+        padding-left: calc(38% - 215px);
+        padding-right: calc(38% - 215px);
+      }
+    }
+  }
+
+  .intro-area {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    @media #{$tablet-query} {
+      padding-left: calc(16% - 76.8px);
+      padding-right: calc(16% - 76.8px);
+    }
+
+    @media #{$desktop-query} {
+      padding-left: calc(38% - 294px);
+      padding-right: calc(38% - 294px);
+    }
+
+    .card-title {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .card-container {
+      box-sizing: border-box;
+      padding-bottom: 16px;
+      padding-top: 16px;
+      margin: 0px;
+      height: 100%;
+      flex: 0 1 auto;
+    }
+    .card-column {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-text {
+      font-weight: 300;
+      padding-left: 5%;
+      padding-right: 5%;
+      line-height: 1.6;
+    }
+  }
+}

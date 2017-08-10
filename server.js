@@ -8,10 +8,17 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+app.get('/bundle.js', (req, res, next) => {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'application/javascript');
+  next();
+});
+
 app.use(express.static('public'));
 app.use(favicon(path.join(__dirname, 'public/static/images/logos/favicon.ico')));
 
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
@@ -23,6 +30,9 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3002,
-  () => console.log('Express/Node server started on port 3002')
+app.listen(3002,
+  () => console.log('Node/express server started on port 3002')
+);
+server.listen(3003,
+  () => console.log('Socket.io server started on port 3003')
 );
