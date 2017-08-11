@@ -4,8 +4,6 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import {Guac} from 'guac-hoc/lib/Guac';
 
-import './style.scss';
-
 import {AppBar} from 'yui-md/lib/AppBar';
 import {Tab} from 'yui-md/lib/Tab';
 import {TabList} from 'yui-md/lib/TabList';

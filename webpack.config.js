@@ -27,7 +27,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: path.resolve(__dirname, 'node_modules'),
         query: {
-          presets:[ 'es2015', 'react', 'stage-0' ]
+          presets:[ 'env', 'react']
         }
       },
       {
@@ -51,23 +51,23 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin([
-      { from: 'src/static/', to: 'static'}
-    ]),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new UglifyEsPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new CompressionPlugin({
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8
-    })
+    // new CopyWebpackPlugin([
+    //   { from: 'src/static/', to: 'static'}
+    // ]),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // }),
+    // new UglifyEsPlugin(),
+    // new webpack.optimize.DedupePlugin(),
+    // new webpack.optimize.AggressiveMergingPlugin(),
+    // new CompressionPlugin({
+    //   asset: "[path].gz[query]",
+    //   algorithm: "gzip",
+    //   test: /\.js$|\.css$|\.html$/,
+    //   threshold: 10240,
+    //   minRatio: 0.8
+    // })
   ]
 };

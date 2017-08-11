@@ -8,12 +8,12 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-app.get('/bundle.js', (req, res, next) => {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.set('Content-Type', 'application/javascript');
-  next();
-});
+// app.get('/bundle.js', (req, res, next) => {
+//   req.url = req.url + '.gz';
+//   res.set('Content-Encoding', 'gzip');
+//   res.set('Content-Type', 'application/javascript');
+//   next();
+// });
 
 app.use(express.static('public'));
 app.use(favicon(path.join(__dirname, 'public/static/images/logos/favicon.ico')));
