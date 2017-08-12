@@ -20,7 +20,7 @@ class About extends React.Component {
 
   render() {
     return (
-      <div className={'about-page'}>
+      <div className={'about-page page'}>
         <_PaperBorder/>
           <div className={'title-area'}>
             <div className={'centered title'}>CSUA</div>

@@ -29,7 +29,7 @@ class Politburo extends React.Component {
 
   render() {
     return (
-      <div className={'pb-page'}>
+      <div className={'pb-page page'}>
         <_PaperBorder/>
         <div className={'title-area'}>
           <div className={'centered title'}>Politburo</div>
@@ -50,10 +50,10 @@ class Politburo extends React.Component {
             <Col xs={12} className={'card-column'}>
               <Card>
                 <Row className={'card-content'}>
-                  <Col xs={12} md={7} lg={4} style={{overflow: 'hidden'}}>
+                  <Col xs={12} md={6} lg={5} style={{overflow: 'hidden'}}>
                     <img src={meganImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
                   </Col>
-                  <Col xs={12} md={5} lg={8} className={'card-text-area'}>
+                  <Col xs={12} md={6} lg={7} className={'card-text-area'}>
                     <p className={'header'}>President</p>
                     <p className={'name subheader'}>Megan Zhu</p>
                     <p className={'email subheader'}>president@csua.berkeley.edu</p>
@@ -67,9 +67,9 @@ class Politburo extends React.Component {
                 </Row>
               </Card>
             </Col>
-            <Col xs={12} className={'card-column'}>
+            <Col xs={12}className={'card-column'}>
               <Card>
-                <Row className={'card-content'} reverse={'md lg'}>
+                <Row className={'card-content'}>
                   <Col xs={12} md={6} lg={5}  style={{overflow: 'hidden'}}>
                     <img src={ericImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
                   </Col>
@@ -87,6 +87,119 @@ class Politburo extends React.Component {
                     <p>Please contact Eric for any questions regarding events,
                       info sessions, speaking events, or sponsorships. Thank you
                       for your support and interest in the CSUA.</p>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col className={'card-column'}>
+              <Card>
+                <Row className={'card-content'}>
+                  <Col xs={12} md={6} lg={5}  style={{overflow: 'hidden'}}>
+                    <img src={jonathanImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
+                  </Col>
+                  <Col xs={12} md={6} lg={7} className={'card-text-area'}>
+                    <p className={'header'}>VP - Technology</p>
+                    <p className={'name subheader'}>Jonathan Tan</p>
+                    <p className={'email subheader'}>vp@csua.berkeley.edu</p>
+                    <Divider horizontal margin/>
+                    <p>The VP of Technology administers and maintains the technical
+                      resources of the CSUA, such as the computer equipment,
+                      servers, and list-serves. The VP is also the head of our
+                      root staff and a liaison with all campus IT and technical
+                      services. The VP solves or delegates the solving of any
+                      technical issues.
+                    </p>
+                    <p>If you have any questions about your account or the CSUA
+                      servers or software, please contact Jonathan.</p>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col className={'card-column'}>
+              <Card>
+                <Row className={'card-content'}>
+                  <Col xs={12} md={6} lg={5}  style={{overflow: 'hidden'}}>
+                    <img src={yitzImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
+                  </Col>
+                  <Col xs={12} md={6} lg={7} className={'card-text-area'}>
+                    <p className={'header'}>Secretary/Treasurer</p>
+                    <p className={'name subheader'}>Yitz Deng</p>
+                    <p className={'email subheader'}>treasurer@csua.berkeley.edu</p>
+                    <Divider horizontal margin/>
+                    <p>The Secretary/Treasurer takes minutes at meetings, maintains
+                      the CSUA's monetary and physical resources (office, study
+                        lounge, library, etc.), and keeps all financial and non-
+                        financial records. The Secretary/Treasurer is also the
+                        liaison with any University funding programs or facility
+                        maintenance and the primary signatory power with the ASUC.</p>
+                    <p>Please contact Yitz for questions about the CSUA's budget,
+                      resources, or records.</p>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col className={'card-column'}>
+              <Card>
+                <Row className={'card-content'}>
+                  <Col xs={12} md={6} lg={5}  style={{overflow: 'hidden'}}>
+                    <img src={rayImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
+                  </Col>
+                  <Col xs={12} md={6} lg={7} className={'card-text-area'}>
+                    <p className={'header'}>External Events Director</p>
+                    <p className={'name subheader'}>Ray Pan</p>
+                    <p className={'email subheader'}>externalevents@csua.berkeley.edu</p>
+                    <Divider horizontal margin/>
+                    <p>The External Events Coordinator plans all external CSUA
+                      events. An external event is defined as an event sponsored
+                      by a company. The External Events Coordinator works closely
+                      with the VP of Industrial Relations and the Internal Events
+                      Coordinator.</p>
+                    <p>Please contact Ray for any questions regarding upcoming
+                      external events or with offers for potential future events.</p>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col className={'card-column'}>
+              <Card>
+                <Row className={'card-content'}>
+                  <Col xs={12} md={6} lg={5}  style={{overflow: 'hidden'}}>
+                    <img src={neilImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
+                  </Col>
+                  <Col xs={12} md={6} lg={7} className={'card-text-area'}>
+                    <p className={'header'}>Internal Events Director</p>
+                    <p className={'name subheader'}>Neil Lingarker</p>
+                    <p className={'email subheader'}>internalevents@csua.berkeley.edu</p>
+                    <Divider horizontal margin/>
+                    <p>The Internal Events Coordinator plans all internal CSUA
+                      events. An internal event is defined as an event that does
+                      not have a company sponsor. This includes general meetings,
+                      intersocial events, and alumni events. The Internal Events
+                      Coordinator works closely with the External Events Coordinator.
+                    </p>
+                    <p>Please direct internal events questions to Neil.</p>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col className={'card-column'}>
+              <Card>
+                <Row className={'card-content'}>
+                  <Col xs={12} md={6} lg={5}  style={{overflow: 'hidden'}}>
+                    <img src={emilyImg} style={{minHeight: '100%', minWidth: '100%', alignSelf: 'center'}}/>
+                  </Col>
+                  <Col xs={12} md={6} lg={7} className={'card-text-area'}>
+                    <p className={'header'}>Outreach</p>
+                    <p className={'name subheader'}>Emily Gosti</p>
+                    <p className={'email subheader'}>outreach@csua.berkeley.edu</p>
+                    <Divider horizontal margin/>
+                    <p>The Outreach chair maintains or delegates the maintenance
+                      of the website and various social media accounts. The
+                      Outreach chair also publicizes all CSUA events to the
+                      student body, promotes interaction between current students
+                      and alumni, and welcomes new members.</p>
+                    <p>If you are a student interested in joining the CSUA,
+                      feel free to reach out to Emily.</p>
                   </Col>
                 </Row>
               </Card>

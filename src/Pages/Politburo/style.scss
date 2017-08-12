@@ -43,46 +43,11 @@
   }
 
   .info-area {
-    padding-left: 0px;
-    padding-right: 0px;
-
     p.name.subheader {
       margin-bottom: 6px;
     }
     p.email.subheader {
       margin-top: 6px;
-    }
-
-    @media #{$tablet-query} {
-      padding-left: calc(16% - 76.8px);
-      padding-right: calc(16% - 76.8px);
-    }
-
-    @media #{$desktop-query} {
-      padding-left: calc(38% - 294px);
-      padding-right: calc(38% - 294px);
-    }
-
-    .card-title {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    .card-container {
-      box-sizing: border-box;
-      margin: 0px;
-      height: 100%;
-      flex: 0 1 auto;
-    }
-    .card-column {
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-text {
-      font-weight: 300;
-      padding-left: 5%;
-      padding-right: 5%;
-      line-height: 1.6;
     }
   }
 }

@@ -22,7 +22,7 @@
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
     "save-dev": "^2.0.0",
-    "yui-md": "^0.1.4"
+    "yui-md": "^0.1.5"
   },
   "devDependencies": {
     "babel": "^6.23.0",

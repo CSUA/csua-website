@@ -1,2 +1,16 @@
 @import './Politburo/style.scss';
 @import './About/style.scss';
+
+.page {
+  > * {
+    @media #{$tablet-query} {
+      padding-left: calc(16% - 76.8px);
+      padding-right: calc(16% - 76.8px);
+    }
+
+    @media #{$desktop-query} {
+      padding-left: calc(38% - 294px);
+      padding-right: calc(38% - 294px);
+    }
+  }
+}
