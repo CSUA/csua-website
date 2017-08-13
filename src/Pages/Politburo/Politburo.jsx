@@ -2,6 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import LazyLoad from 'react-lazy-load';
 import {Row, Col} from 'yui-md/lib';
 
 import {IconButton} from 'yui-md/lib/Button';
@@ -42,7 +43,9 @@ class Politburo extends React.Component {
         <div className={'info-area'}>
           <Card className={'card-content'}>
             <CardImageArea>
-              <img src={pbImg} style={{width: '100%'}}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={pbImg} style={{width: '100%'}}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea>
               <p>Newly elected Politburo members in the Wozniak Lounge.</p>
@@ -50,7 +53,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={meganImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={meganImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>President</p>
@@ -66,7 +71,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={ericImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={ericImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>VP - Industry Relations</p>
@@ -86,7 +93,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={jonathanImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={jonathanImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>VP - Technology</p>
@@ -106,7 +115,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={yitzImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={yitzImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>Secretary/Treasurer</p>
@@ -125,7 +136,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={rayImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={rayImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>External Events Coordinator</p>
@@ -143,7 +156,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={jasonImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={jasonImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>Internal Events Coordinator</p>
@@ -161,7 +176,9 @@ class Politburo extends React.Component {
           </Card>
           <Card>
             <CardImageArea xs={12} md={6} lg={5}>
-              <img src={emilyImg}/>
+              <LazyLoad debounce={false} throttle={50}>
+                <img src={emilyImg}/>
+              </LazyLoad>
             </CardImageArea>
             <CardTextArea xs={12} md={6} lg={7}>
               <p className={'header'}>Outreach</p>

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
 import {Guac} from 'guac-hoc/lib/Guac';
+import {Route, Switch} from 'react-router-dom';
 
 import {About} from './About';
 import {Politburo} from './Politburo';
@@ -17,7 +18,10 @@ class Pages extends React.Component {
   render() {
     return (
       <div className={'page'}>
-        <Constitution/>
+        <Switch>
+        <Route path='/about/politburo' component={Politburo}/>
+        <Route component={About}/>
+        </Switch>
       </div>
     );
   }

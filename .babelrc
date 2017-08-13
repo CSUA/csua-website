@@ -1,6 +1,10 @@
 {
   "plugins": [
   ],
+  "ignore": [
+    "*.scss",
+    "*.css"
+  ],
   "presets": [
     "react",
     "env"

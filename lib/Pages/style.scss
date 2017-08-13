@@ -1,1 +1,24 @@
-@import '~static/styles/style.scss';
+@import './Politburo/style.scss';
+@import './About/style.scss';
+@import './Constitution/style.scss';
+
+.page {
+  min-height: 50vh;
+  width: 100%;
+  box-sizing: border-box;
+  h3.page-title {
+    margin-top: 10vh;
+  }
+  > * {
+    min-height: 50vh;
+    @media #{$tablet-query} {
+      padding-left: calc(30% - 144px);
+      padding-right: calc(30% - 144px);
+    }
+
+    @media #{$desktop-query} {
+      padding-left: calc(45% - 291px);
+      padding-right: calc(45% - 291px);
+    }
+  }
+}
