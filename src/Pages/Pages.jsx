@@ -6,6 +6,7 @@ import {Guac} from 'guac-hoc/lib/Guac';
 
 import {About} from './About';
 import {Politburo} from './Politburo';
+import {Constitution} from './Constitution';
 
 class Pages extends React.Component {
   constructor() {
@@ -15,8 +16,8 @@ class Pages extends React.Component {
 
   render() {
     return (
-      <div>
-        <Politburo/>
+      <div className={'page'}>
+        <Constitution/>
       </div>
     );
   }

@@ -6,7 +6,7 @@ import {Row, Col} from 'yui-md/lib';
 
 import {IconButton} from 'yui-md/lib/Button';
 import {Icon} from 'yui-md/lib/Icon';
-import {Card} from 'yui-md/lib/Card';
+import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
 
 import _PaperBorder from './_PaperBorder';
 import officersImg from 'static/images/Officers_FA16.jpg';
@@ -23,75 +23,94 @@ class About extends React.Component {
       <div className={'about-page page'}>
         <_PaperBorder/>
           <div className={'title-area'}>
-            <div className={'centered title'}>CSUA</div>
-            <p className={'centered subtitle'}>The home for all things CS.</p>
+            <h1 className={'centered'}>CSUA</h1>
+            <h4 className={'centered'}>The home for all things CS.</h4>
             <div className={'centered subtitle'}>
                 <IconButton large icon='keyboard_arrow_down'/>
             </div>
           </div>
-          <div className={'intro-area'}>
-            <h1 className={'centered'}>The Computer Science Undergraduate Association</h1>
+          <div className={'info-area'}>
+            <h4 className={'centered'}>The Computer Science Undergraduate Association</h4>
+            <br/>
             <Row>
-              <Col xs={12} md={6} lg={4} className={'card-column'}>
+              <Col xs={12} md={6} className={'card-column'}>
                 <Card>
-                  <h3 className={'centered card-title'}>Hello World!</h3>
-                  <Icon className={'centered'}>lightbulb_outline</Icon>
-                  <p className={'card-text'}>The CSUA is here to make every step of
-                    your undergraduate computer science experience smoother, easier,
-                    and more fun! Looking for an internship or a job? Want to learn more CS skills?
-                    Need help in a class? We have it all! Come to our events or visit
-                    us at 311 Soda Hall to check us out.
-                  </p>
+                  <CardTextArea>
+                    <p className={'centered title'}>Hello World!</p>
+                    <Icon className={'centered'}>lightbulb_outline</Icon>
+                    <p>The CSUA is here to make every step of
+                      your undergraduate computer science experience smoother, easier,
+                      and more fun! Looking for an internship or a job? Want to learn more CS skills?
+                      Need help in a class? We have it all! Come to our events or visit
+                      us at 311 Soda Hall to check us out.
+                    </p>
+                  </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} lg={4} className={'card-column'}>
+              <Col xs={12} md={6} className={'card-column'}>
                 <Card>
-                  <h3 className={'centered card-title'}>Who We Are</h3>
-                  <Icon className={'centered'}>face</Icon>
-                  <p className={'card-text'}>We are a group of smart, enthusiastic,
-                    and fun-loving EECS and CS students who are passionate about
-                    computer science. We are researchers, TAs, GSIs, hackers, hardware
-                    gurus, open-sourcers, professionals, geeks, women, men, and in between.
-                    But most importantly, we're proud members of the CS community.
-                  </p>
+                  <CardTextArea>
+                    <p className={'centered title'}>Who We Are</p>
+                    <Icon className={'centered'}>face</Icon>
+                    <p>We are a group of smart, enthusiastic,
+                      and fun-loving EECS and CS students who are passionate about
+                      computer science. We are researchers, TAs, GSIs, hackers, hardware
+                      gurus, open-sourcers, professionals, geeks, women, men, and in between.
+                      But most importantly, we're proud members of the CS community.
+                    </p>
+                  </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} lg={8} className={'card-column'}>
+              <Col xs={12} className={'card-column'}>
                 <Card>
-                  <img src={wozImg} style={{width: '100%'}}/>
-                  <small>CSUA members hacking into the night.</small>
+                  <CardImageArea>
+                    <img src={wozImg} style={{maxHeight: '100%', maxWidth: '100%', alignSelf: 'center'}}/>
+                  </CardImageArea>
+                  <CardTextArea>
+                    <small>CSUA members hacking into the night.</small>
+                  </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} lg={4} className={'card-column'}>
+              <Col xs={12} md={6} className={'card-column'}>
                 <Card>
-                  <h3 className={'centered card-title'}>Need Help?</h3>
-                  <Icon className={'centered'}>help_outline</Icon>
-                  <p className={'card-text'}>The CSUA offers tutoring services,
-                  major declaration panels, internship workshops, and recruiting events.
-                  You can find a list of available tutors and office hours here.
-                  For events, click here. You can also drop by the office any time,
-                  and an available tutor will help you.
-                  </p>
+                  <CardTextArea>
+                    <p className={'centered title'}>Need Help?</p>
+                    <Icon className={'centered'}>help_outline</Icon>
+                    <p>The CSUA offers tutoring services,
+                    major declaration panels, internship workshops, and recruiting events.
+                    You can find a list of available tutors and office hours here.
+                    For events, click here. You can also drop by the office any time,
+                    and an available tutor will help you.
+                    </p>
+                  </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} lg={4} className={'card-column'}>
+              <Col xs={12} md={6} className={'card-column'}>
                 <Card>
-                  <h3 className={'centered card-title'}>Upcoming Events</h3>
-                  <Icon className={'centered'}>event_note</Icon>
-                  <p className={'card-text'}> 9/1 - 5PM - Wozniak Lounge
-                  </p>
+                  <CardTextArea>
+                    <p className={'centered title'}>Upcoming Events</p>
+                    <Icon className={'centered'}>event_note</Icon>
+                    <p> 9/1 - 5PM - Wozniak Lounge
+                    </p>
+                  </CardTextArea>
                 </Card>
               </Col>
               <Col xs={12} md={6} lg={8} className={'card-column'}>
                 <Card>
-                  <img src={officersImg} style={{width: '100%'}}/>
-                  <small>CSUA officers at Hearst Mining Circle.</small>
+                  <CardImageArea>
+                    <img src={officersImg} style={{width: '100%'}}/>
+                  </CardImageArea>
+                  <CardTextArea>
+                    <small>CSUA officers at Hearst Mining Circle.</small>
+                  </CardTextArea>
                 </Card>
               </Col>
               <Col xs={12} lg={4} className={'card-column'}>
                 <Card>
-                  <h3 className={'centered card-title'}>Resources</h3>
-                  <Icon className={'centered'}>bookmark_border</Icon>
+                  <CardTextArea>
+                    <p className={'centered title'}>Resources</p>
+                    <Icon className={'centered'}>bookmark_border</Icon>
+                  </CardTextArea>
                 </Card>
               </Col>
             </Row>

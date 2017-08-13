@@ -71,7 +71,11 @@ class _NavCreator extends React.Component {
 
   render() {
     return (
-      <TabList style={{margin: '10px', marginBottom: '0px', boxSizing: 'border-box', maxWidth: '70%', float:'right'}}>
+      <TabList style={{margin: '10px',
+                        marginBottom: '-10px',
+                        boxSizing: 'border-box',
+                        maxWidth: '70%',
+                        float:'right'}}>
         {this.calcNavComponents(this.props)}
       </TabList>
     );

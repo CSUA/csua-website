@@ -1,53 +1,5 @@
 @import './_PaperBorder/style.scss';
 
-.centered {
-  width: 100%;
-  text-align: center;
-}
-
 .pb-page {
   min-height: 110vh;
-  .title-area {
-    div.title {
-      font-size: 60px;
-      font-weight: 500;
-      margin-top: 15vh;
-      margin-bottom: 0px;
-      @media #{$mobile-query} {
-        font-size: 50px;
-      }
-    }
-
-    .subtitle {
-      box-sizing: border-box;
-      font-size: 25px;
-      margin-top: 20px;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      @media #{$mobile-query} {
-        font-size: 20px;
-      }
-      padding-left: 4%;
-      padding-right: 4%;
-
-      @media #{$tablet-query} {
-        padding-left: calc(16% - 57.6px);
-        padding-right: calc(16% - 57.6px);
-      }
-
-      @media #{$desktop-query} {
-        padding-left: calc(38% - 215px);
-        padding-right: calc(38% - 215px);
-      }
-    }
-  }
-
-  .info-area {
-    p.name.subheader {
-      margin-bottom: 6px;
-    }
-    p.email.subheader {
-      margin-top: 6px;
-    }
-  }
 }

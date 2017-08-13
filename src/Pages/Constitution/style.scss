@@ -1,0 +1,23 @@
+@import './_PaperBorder/style.scss';
+.constitution-page {
+  min-height: 110vh;
+  .card {
+    @include side-padding(20%);
+    @include vertical-padding(24px);
+  }
+}
+
+.collapse-vertical {
+  @include vertical-margin(-12px);
+}
+
+.duty-list {
+  margin-top: -12px;
+  width: fit-content;
+  max-width: calc(5% + 300px);
+  margin-right: auto;
+  margin-left: auto;
+  li {
+    padding: 0px;
+  }
+}

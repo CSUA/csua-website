@@ -10,6 +10,8 @@
 }
 
 .about-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
   top: 74px;
   left: 0px;
   position: absolute;
