@@ -20,6 +20,7 @@ class Pages extends React.Component {
       <div className={'page'}>
         <Switch>
         <Route path='/about/politburo' component={Politburo}/>
+        <Route path='/about/constitution' component={Constitution}/>
         <Route component={About}/>
         </Switch>
       </div>

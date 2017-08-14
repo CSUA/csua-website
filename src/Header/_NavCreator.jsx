@@ -6,6 +6,7 @@ import {TabList} from 'yui-md/lib/TabList';
 import {Menu} from 'yui-md/lib/Menu';
 import {MenuItem} from 'yui-md/lib/MenuItem';
 import mainNavs from 'static/structure/mainNavs.js';
+import {withRouter} from 'react-router';
 
 /*
   Props:
@@ -30,6 +31,10 @@ class _NavCreator extends React.Component {
     this.setState({isActive: this.state.isActive});
   }
 
+  pushHistory(href) {
+    setTimeout(() => this.props.history.push(href), 300);
+  }
+
 /*
   Only allows 2-deep navs
 */
@@ -47,7 +52,9 @@ class _NavCreator extends React.Component {
         //Generate menu items for the subnavs
         for (var i2 in nav.subnavs) {
           let subnav = nav.subnavs[i2];
-          menuItems.push(<MenuItem key={i2}>{subnav.name}</MenuItem>);
+          menuItems.push(<MenuItem key={i2} onClick={() => this.pushHistory(subnav.href)}>
+                            {subnav.name}
+                          </MenuItem>);
         }
         //Generate menu for the subnavs
         menu = <Menu dense fastExpand
@@ -61,7 +68,8 @@ class _NavCreator extends React.Component {
       navComponents.push(<Tab
         key={i}
         onMouseEnter={() => this.setMenuActive(nav.name, true)}
-        onMouseLeave={() => this.setMenuActive(nav.name, false)}>
+        onMouseLeave={() => this.setMenuActive(nav.name, false)}
+        onClick={(event) => {console.log('Should not run on menu click'); this.pushHistory(nav.href);}}>
         {nav.name}
         {menu}
       </Tab>);
@@ -85,7 +93,7 @@ _NavCreator.defaultProps = {
   navs: mainNavs
 };
 
-_NavCreator = Guac(_NavCreator);
+_NavCreator = withRouter(Guac(_NavCreator));
 
 export default _NavCreator;
 export {_NavCreator};

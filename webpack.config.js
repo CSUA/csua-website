@@ -73,7 +73,8 @@ module.exports = [
       allChunks: true
     }),
     new CopyWebpackPlugin([
-      { from: 'src/static/', to: 'static'}
+      { from: 'src/static/', to: 'static'},
+      { from: 'src/index.html', to: 'index.html'}
     ]),
     new webpack.DefinePlugin({
       'process.env': {
