@@ -24449,7 +24449,7 @@ var globalDefaults = {
           event.persist();
           setTimeout(function () {
             return _this2.startRipple(event);
-          }, 0);
+          }, 20);
         }
       }
     }, {
@@ -24459,7 +24459,7 @@ var globalDefaults = {
 
         setTimeout(function () {
           return _this3.stopRipple(event);
-        }, 0);
+        }, 20);
       }
     }, {
       key: 'onMouseLeave',
@@ -24468,7 +24468,7 @@ var globalDefaults = {
 
         setTimeout(function () {
           return _this4.stopRipple(event);
-        }, 0);
+        }, 20);
       }
 
       //Called on click
@@ -25851,6 +25851,11 @@ var Pages = function (_React$Component) {
   }
 
   _createClass(Pages, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log('asdf');
+    }
+  }, {
     key: 'render',
     value: function render() {
       return React.createElement('div', { className: 'page' }, React.createElement(_reactRouterDom.Route, { path: '*', render: function render() {
@@ -28027,7 +28032,7 @@ var Officers = function (_React$Component) {
   _createClass(Officers, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'officers-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Officers'), React.createElement('p', { className: 'centered header' }, "Tutoring\u2003\xB7\u2003Advising\u2003\xB7\u2003Having Fun"), React.createElement('p', { className: 'centered subheader' }, 'Our officers are here to make your undergraduate computer science experience the best it can be. Need tutoring? Want help on a personal project? Looking for a job? Want to find your community? Come visit us in 311 Soda!'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_OfficerCreator3.default, null)));
+      return React.createElement('div', { className: 'officers-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Officers'), React.createElement('p', { className: 'centered header' }, "Tutoring\u2003\xB7\u2003Advising\u2003\xB7\u2003Leading"), React.createElement('p', { className: 'centered subheader' }, 'Our officers are here to make your undergraduate computer science experience the best it can be. Need tutoring? Want help on a personal project? Looking for a job? Want to find your community? Come visit us in 311 Soda!'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_OfficerCreator3.default, null)));
     }
   }]);
 

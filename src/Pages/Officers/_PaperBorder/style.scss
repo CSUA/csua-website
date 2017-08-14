@@ -28,15 +28,15 @@
   }
 
   .main-paper {
-    @include paper(200%, 26vh, 0px, -15vh, rgba($secondary-color, 0.4));
+    @include paper(200%, 50vh, 0px, -39vh, rgba($secondary-color, 0.4));
     .top-paper-1 {
-      @include paper(100%, 30vh, 0px, -14vh, rgba($secondary-color, 0.6));
+      @include paper(100%, 54vh, 0px, -14vh, rgba($secondary-color, 0.6));
     }
     .top-paper-2 {
-      @include paper(100%, 30vh, 0px, -17vh, rgba($secondary-color, 1));
+      @include paper(100%, 54vh, 0px, -17vh, rgba($secondary-color, 1));
     }
     .top-paper-3 {
-      @include paper(100%, 30vh, 0px, -23vh, rgba($secondary-color-dark, 1));
+      @include paper(100%, 54vh, 0px, -23vh, rgba($secondary-color-dark, 1));
     }
   }
 }

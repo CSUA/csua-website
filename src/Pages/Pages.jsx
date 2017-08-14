@@ -16,6 +16,10 @@ class Pages extends React.Component {
     this.bindAllMethods();
   }
 
+  componentDidMount() {
+    console.log('asdf');
+  }
+
   render() {
     return (
       <div className={'page'}>

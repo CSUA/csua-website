@@ -25,7 +25,7 @@ class Officers extends React.Component {
         <_PaperBorder/>
         <div className={'title-area'}>
           <h3 className={'centered page-title'}>Officers</h3>
-          <p className={'centered header'}>Tutoring&emsp;·&emsp;Advising&emsp;·&emsp;Having Fun</p>
+          <p className={'centered header'}>Tutoring&emsp;·&emsp;Advising&emsp;·&emsp;Leading</p>
           <p className={'centered subheader'}>Our officers are here to make your
             undergraduate computer science experience the best it can be. Need
             tutoring? Want help on a personal project? Looking for a job? Want
