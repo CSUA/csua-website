@@ -32,7 +32,7 @@ class _NavCreator extends React.Component {
   }
 
   pushHistory(href) {
-    setTimeout(() => this.props.history.push(href), 100);
+    setTimeout(() => this.props.history.push(href), 0);
   }
 
 /*
