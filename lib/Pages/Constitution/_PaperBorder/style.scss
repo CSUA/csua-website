@@ -24,7 +24,8 @@
   .paper-canvas {
     backface-visibility: hidden;
     position: relative;
-    transform: rotate(20deg) translateX(-50%) translateY(-10vh);
+    height: 100%;
+    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh);
   }
 
   .main-paper {

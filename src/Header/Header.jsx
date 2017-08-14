@@ -62,4 +62,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Header)));
 
+export default Header;
 export {Header};

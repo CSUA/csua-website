@@ -1,0 +1,18 @@
+@import './_PaperBorder/style.scss';
+
+.officers-page {
+  min-height: 110vh;
+
+  .info-area {
+    .card {
+      height: 100%;
+      flex: 1 1 auto;
+      .card-image-area {
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+  }
+}

@@ -497,4 +497,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 Constitution = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Constitution)));
 
+export default Constitution;
 export {Constitution};

@@ -1,0 +1,42 @@
+@mixin paper($width, $height, $left, $top, $background-color) {
+  position: absolute;
+  backface-visibility: hidden;
+  width: $width;
+  height: $height;
+  top: $top;
+  left: $left;
+  background-color: $background-color;
+}
+
+.officers-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+
+  .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh);
+  }
+
+  .main-paper {
+    @include paper(200%, 26vh, 0px, -15vh, rgba($secondary-color, 0.4));
+    .top-paper-1 {
+      @include paper(100%, 30vh, 0px, -14vh, rgba($secondary-color, 0.6));
+    }
+    .top-paper-2 {
+      @include paper(100%, 30vh, 0px, -17vh, rgba($secondary-color, 1));
+    }
+    .top-paper-3 {
+      @include paper(100%, 30vh, 0px, -23vh, rgba($secondary-color-dark, 1));
+    }
+  }
+}

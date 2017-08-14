@@ -2,8 +2,10 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
-import {Row, Col} from 'yui-md/lib';
 
+import LazyLoad from 'react-lazy-load';
+
+import {Row, Col} from 'yui-md/lib';
 import {IconButton} from 'yui-md/lib/Button';
 import {Icon} from 'yui-md/lib/Icon';
 import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
@@ -33,7 +35,7 @@ class About extends React.Component {
             <h4 className={'centered'}>The Computer Science Undergraduate Association</h4>
             <br/>
             <Row>
-              <Col xs={12} md={6} className={'card-column'}>
+              <Col xs={12} md={6}>
                 <Card>
                   <CardTextArea>
                     <p className={'centered title'}>Hello World!</p>
@@ -47,7 +49,7 @@ class About extends React.Component {
                   </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} className={'card-column'}>
+              <Col xs={12} md={6}>
                 <Card>
                   <CardTextArea>
                     <p className={'centered title'}>Who We Are</p>
@@ -61,7 +63,7 @@ class About extends React.Component {
                   </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} className={'card-column'}>
+              <Col xs={12}>
                 <Card>
                   <CardImageArea>
                     <img src={wozImg} style={{maxHeight: '100%', maxWidth: '100%', alignSelf: 'center'}}/>
@@ -71,7 +73,7 @@ class About extends React.Component {
                   </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} className={'card-column'}>
+              <Col xs={12} md={6}>
                 <Card>
                   <CardTextArea>
                     <p className={'centered title'}>Need Help?</p>
@@ -85,7 +87,7 @@ class About extends React.Component {
                   </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} className={'card-column'}>
+              <Col xs={12} md={6}>
                 <Card>
                   <CardTextArea>
                     <p className={'centered title'}>Upcoming Events</p>
@@ -95,7 +97,7 @@ class About extends React.Component {
                   </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} md={6} lg={8} className={'card-column'}>
+              <Col xs={12} lg={8}>
                 <Card>
                   <CardImageArea>
                     <img src={officersImg} style={{width: '100%'}}/>
@@ -105,7 +107,7 @@ class About extends React.Component {
                   </CardTextArea>
                 </Card>
               </Col>
-              <Col xs={12} lg={4} className={'card-column'}>
+              <Col xs={12} lg={4}>
                 <Card>
                   <CardTextArea>
                     <p className={'centered title'}>Resources</p>
@@ -134,4 +136,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 About = withRouter(connect(mapStateToProps, mapDispatchToProps)(About));
 
+export default About;
 export {About};

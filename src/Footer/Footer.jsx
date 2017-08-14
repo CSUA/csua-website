@@ -39,4 +39,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 Footer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Footer)));
 
+export default Footer;
 export {Footer};

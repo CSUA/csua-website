@@ -10,7 +10,7 @@ import {withRouter} from 'react-router';
 
 /*
   Props:
-  - navs: navs specified by mainNavs.js
+  - navs <array>: navs specified by mainNavs.js
 */
 class _NavCreator extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class _NavCreator extends React.Component {
   }
 
   pushHistory(href) {
-    setTimeout(() => this.props.history.push(href), 300);
+    setTimeout(() => this.props.history.push(href), 100);
   }
 
 /*
@@ -69,7 +69,7 @@ class _NavCreator extends React.Component {
         key={i}
         onMouseEnter={() => this.setMenuActive(nav.name, true)}
         onMouseLeave={() => this.setMenuActive(nav.name, false)}
-        onClick={(event) => {console.log('Should not run on menu click'); this.pushHistory(nav.href);}}>
+        onClick={(event) => this.pushHistory(nav.href)}>
         {nav.name}
         {menu}
       </Tab>);

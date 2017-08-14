@@ -64,8 +64,7 @@ class Politburo extends React.Component {
               <Divider horizontal margin/>
               <p>The President leads meetings and represents the CSUA in its duties as the
                 undergraduate computer science students' representative body. The President
-                liaisons with the University, faculty, staff, and other student organizations.
-              </p>
+                liaisons with the University, faculty, staff, and other student organizations.</p>
               <p>Please contact Megan for general questions or concerns about the CSUA.</p>
             </CardTextArea>
           </Card>
@@ -84,8 +83,7 @@ class Politburo extends React.Component {
                 companies and alumni. The VP attains sponsors for external
                 events and generates industry interest in the CSUA. The
                 VP also coordinates speakers for events, manages info
-                sessions and the job list-serve, and assists the President.
-              </p>
+                sessions and the job list-serve, and assists the President.</p>
               <p>Please contact Eric for any questions regarding events,
                 info sessions, speaking events, or sponsorships. Thank you
                 for your support and interest in the CSUA.</p>
@@ -107,8 +105,7 @@ class Politburo extends React.Component {
                 servers, and list-serves. The VP is also the head of our
                 root staff and a liaison with all campus IT and technical
                 services. The VP solves or delegates the solving of any
-                technical issues.
-              </p>
+                technical issues.</p>
               <p>If you have any questions about your account or the CSUA
                 servers or software, please contact Jonathan.</p>
             </CardTextArea>
@@ -169,8 +166,7 @@ class Politburo extends React.Component {
                 events. An internal event is defined as an event that does
                 not have a company sponsor. This includes general meetings,
                 intersocial events, and alumni events. The Internal Events
-                Coordinator works closely with the External Events Coordinator.
-              </p>
+                Coordinator works closely with the External Events Coordinator.</p>
               <p>Please direct internal events questions to Jason.</p>
             </CardTextArea>
           </Card>
@@ -214,4 +210,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 Politburo = withRouter(connect(mapStateToProps, mapDispatchToProps)(Politburo));
 
+export default Politburo;
 export {Politburo};

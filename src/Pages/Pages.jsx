@@ -7,6 +7,7 @@ import {Route, Switch} from 'react-router-dom';
 
 import {About} from './About';
 import {Politburo} from './Politburo';
+import {Officers} from './Officers';
 import {Constitution} from './Constitution';
 
 class Pages extends React.Component {
@@ -18,11 +19,13 @@ class Pages extends React.Component {
   render() {
     return (
       <div className={'page'}>
+        <Route path='*' render={() => {window.scrollTo(0, 0); return null;}}/>
         <Switch>
-        <Route path='/about/politburo' component={Politburo}/>
-        <Route path='/about/constitution' component={Constitution}/>
-        <Route component={About}/>
-        </Switch>
+          <Route path='/about/politburo' component={Politburo}/>
+          <Route path='/about/officers' component={Officers}/>
+          <Route path='/about/constitution' component={Constitution}/>
+          <Route component={About}/>
+          </Switch>
       </div>
     );
   }
@@ -42,4 +45,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 Pages = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Pages)));
 
+export default Pages;
 export {Pages};

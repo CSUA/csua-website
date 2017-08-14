@@ -32,4 +32,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 ComponentTemplate = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(ComponentTemplate)));
 
+export default ComponentTemplate;
 export {ComponentTemplate};

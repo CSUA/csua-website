@@ -48,9 +48,18 @@
 
 .yui-md-grid-col, .yui-md-grid-row {
   box-sizing: border-box;
-  transition: none; }
+  transition: none;
+  display: flex;
+  flex: 0 1 auto; }
   .yui-md-grid-col *, .yui-md-grid-row * {
     transition: none; }
+
+.yui-md-grid-row {
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+.yui-md-grid-col {
+  flex-direction: column; }
 
 @media only screen and (max-width: 480px) {
   .hidden-grid-element.yui-md-grid-col.col-xs-0,
@@ -581,7 +590,8 @@ img {
 
 .card {
   border-radius: 2px;
-  margin: 8px; }
+  margin: 8px;
+  overflow: hidden; }
 
 .card-text-area, .card-image-area {
   width: 100%; }
@@ -639,11 +649,6 @@ img {
       margin-bottom: 16px; }
   .card-content .card-action-area, .card-content.card .card-action-area {
     margin: 8px; }
-
-.yui-md-grid-col {
-  flex-direction: column;
-  display: flex;
-  flex: auto; }
 
 div.content {
   position: relative;
@@ -874,12 +879,6 @@ div.content {
   width: 100vw;
   pointer-events: none; }
 
-.yui-md-grid-row {
-  flex-direction: row;
-  flex-wrap: wrap;
-  display: flex;
-  flex: auto; }
-
 .snackbar {
   padding-right: 24px;
   padding-left: 24px;
@@ -1038,59 +1037,6 @@ html {
   min-width: 300px;
   min-height: 200px;
   line-height: 1.5em; }
-
-.pb-page .paper-border {
-  box-sizing: border-box;
-  padding: 0px;
-  top: 74px;
-  left: 0px;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100vh;
-  overflow: hidden;
-  z-index: -1; }
-  .pb-page .paper-border .paper-canvas {
-    backface-visibility: hidden;
-    position: relative;
-    height: 100%;
-    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh); }
-  .pb-page .paper-border .main-paper {
-    position: absolute;
-    backface-visibility: hidden;
-    width: 200%;
-    height: 26vh;
-    top: -15vh;
-    left: 0px;
-    background-color: rgba(3, 169, 244, 0.4); }
-    .pb-page .paper-border .main-paper .top-paper-1 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 30vh;
-      top: -14vh;
-      left: 0px;
-      background-color: rgba(3, 169, 244, 0.6); }
-    .pb-page .paper-border .main-paper .top-paper-2 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 30vh;
-      top: -17vh;
-      left: 0px;
-      background-color: #03a9f4; }
-    .pb-page .paper-border .main-paper .top-paper-3 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 30vh;
-      top: -23vh;
-      left: 0px;
-      background-color: #007ac1; }
-
-.pb-page {
-  min-height: 110vh; }
 
 .about-page .paper-border {
   box-sizing: border-box;
@@ -1274,12 +1220,8 @@ html {
     .about-page .title-area h1 {
       margin-top: 20vh; }
   .about-page .info-area .card {
-    box-sizing: border-box;
-    margin: 0px;
     height: 100%;
     flex: 1 1 auto; }
-  .about-page .info-area .card-column {
-    padding: 8px; }
 
 .constitution-page .paper-border {
   box-sizing: border-box;
@@ -1296,7 +1238,8 @@ html {
   .constitution-page .paper-border .paper-canvas {
     backface-visibility: hidden;
     position: relative;
-    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
+    height: 100%;
+    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh); }
   .constitution-page .paper-border .main-paper {
     position: absolute;
     backface-visibility: hidden;
@@ -1350,6 +1293,117 @@ html {
   margin-left: auto; }
   .duty-list li {
     padding: 0px; }
+
+.officers-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .officers-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
+  .officers-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 26vh;
+    top: -15vh;
+    left: 0px;
+    background-color: rgba(171, 71, 188, 0.4); }
+    .officers-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 30vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(171, 71, 188, 0.6); }
+    .officers-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 30vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #ab47bc; }
+    .officers-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 30vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #790e8b; }
+
+.officers-page {
+  min-height: 110vh; }
+  .officers-page .info-area .card {
+    height: 100%;
+    flex: 1 1 auto; }
+    .officers-page .info-area .card .card-image-area img {
+      max-width: 100%;
+      max-height: 100%; }
+
+.pb-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .pb-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    height: 100%;
+    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh); }
+  .pb-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 26vh;
+    top: -15vh;
+    left: 0px;
+    background-color: rgba(3, 169, 244, 0.4); }
+    .pb-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 30vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(3, 169, 244, 0.6); }
+    .pb-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 30vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #03a9f4; }
+    .pb-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 30vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #007ac1; }
+
+.pb-page {
+  min-height: 110vh; }
 
 .page {
   min-height: 50vh;
@@ -1429,9 +1483,18 @@ html {
 
 .yui-md-grid-col, .yui-md-grid-row {
   box-sizing: border-box;
-  transition: none; }
+  transition: none;
+  display: flex;
+  flex: 0 1 auto; }
   .yui-md-grid-col *, .yui-md-grid-row * {
     transition: none; }
+
+.yui-md-grid-row {
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+.yui-md-grid-col {
+  flex-direction: column; }
 
 @media only screen and (max-width: 480px) {
   .hidden-grid-element.yui-md-grid-col.col-xs-0,
@@ -1962,7 +2025,8 @@ img {
 
 .card {
   border-radius: 2px;
-  margin: 8px; }
+  margin: 8px;
+  overflow: hidden; }
 
 .card-text-area, .card-image-area {
   width: 100%; }
@@ -2020,11 +2084,6 @@ img {
       margin-bottom: 16px; }
   .card-content .card-action-area, .card-content.card .card-action-area {
     margin: 8px; }
-
-.yui-md-grid-col {
-  flex-direction: column;
-  display: flex;
-  flex: auto; }
 
 div.content {
   position: relative;
@@ -2254,12 +2313,6 @@ div.content {
   height: 100vh;
   width: 100vw;
   pointer-events: none; }
-
-.yui-md-grid-row {
-  flex-direction: row;
-  flex-wrap: wrap;
-  display: flex;
-  flex: auto; }
 
 .snackbar {
   padding-right: 24px;

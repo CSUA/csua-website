@@ -10,7 +10,8 @@ import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 
 global.window = {
-  addEventListener: () => {}
+  addEventListener: () => {},
+  scrollTo: () => {}
 };
 global.document = {
   addEventListener: () => {}
