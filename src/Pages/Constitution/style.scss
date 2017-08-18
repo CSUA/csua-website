@@ -1,6 +1,6 @@
 @import './_PaperBorder/style.scss';
 .constitution-page {
-  min-height: 110vh;
+  min-height: 100vh;
   .card {
     @include side-padding(5vw);
     @include vertical-padding(24px);

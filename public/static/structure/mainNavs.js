@@ -17,12 +17,13 @@ let aboutNavs = [
 let eventNavs = [
   new Nav('Workshops', paths.workshops),
   new Nav('Recruiting', paths.recruiting),
-  new Nav('General Meetings', paths.gms),
+  new Nav('General Meetings', paths.generalMeetings),
   new Nav('Socials', paths.socials)
 ];
 
 let industryNavs = [
-  new Nav('Find a Job', paths.findAJob)
+  new Nav('Find a Job', paths.findAJob),
+  new Nav('Sponsors', paths.sponsors)
 ]
 
 let mainNavs = [

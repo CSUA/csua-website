@@ -28,6 +28,7 @@ module.exports = [
   resolve: {
     alias: {
       static: path.resolve(__dirname, './src/static'),
+      widgets: path.resolve(__dirname, './src/widgets')
     },
     extensions: [
       '.js', '.jsx', '.css', '.scss'
@@ -109,6 +110,7 @@ module.exports = [
   resolve: {
     alias: {
       static: path.resolve(__dirname, './src/static'),
+      widgets: path.resolve(__dirname, './src/widgets')
     },
     extensions: [
       '.js', '.jsx'

@@ -10,6 +10,7 @@ import {IconButton} from 'yui-md/lib/Button';
 import {Icon} from 'yui-md/lib/Icon';
 import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
 
+import EventCalendar from 'widgets/EventCalendar';
 import _PaperBorder from './_PaperBorder';
 import officersImg from 'static/images/Officers_FA16.jpg';
 import wozImg from 'static/images/Woz.jpg';
@@ -28,7 +29,7 @@ class About extends React.Component {
             <h1 className={'centered'}>CSUA</h1>
             <h4 className={'centered'}>The home for all things CS.</h4>
             <div className={'centered subtitle'}>
-                <IconButton large icon='keyboard_arrow_down'/>
+                <IconButton large onClick={() => {window.scroll(0, window.innerHeight);}} icon='keyboard_arrow_down'/>
             </div>
           </div>
           <div className={'info-area'}>
@@ -88,14 +89,7 @@ class About extends React.Component {
                 </Card>
               </Col>
               <Col xs={12} md={6}>
-                <Card>
-                  <CardTextArea>
-                    <p className={'centered title'}>Upcoming Events</p>
-                    <Icon className={'centered'}>event_note</Icon>
-                    <p> 9/1 - 5PM - Wozniak Lounge
-                    </p>
-                  </CardTextArea>
-                </Card>
+                <EventCalendar small/>
               </Col>
               <Col xs={12} lg={8}>
                 <Card>

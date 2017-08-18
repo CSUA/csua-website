@@ -604,16 +604,25 @@ img {
   .card-content .card-image-area, .card-content.card .card-image-area {
     margin: 0px;
     padding: 0px;
-    overflow: hidden; }
-    .card-content .card-image-area > :not(img), .card-content.card .card-image-area > :not(img) {
-      display: flex; }
-    .card-content .card-image-area *, .card-content.card .card-image-area * {
+    overflow: hidden;
+    display: block; }
+    .card-content .card-image-area :not(img), .card-content.card .card-image-area :not(img) {
+      flex: 1 0 auto;
+      display: flex;
+      height: 100%;
+      min-height: 100%;
+      min-width: 100%; }
+    .card-content .card-image-area img, .card-content.card .card-image-area img {
+      flex: 1 0 auto;
       display: block;
       margin: 0px;
+      max-height: 100%;
+      max-width: 100%;
       padding: 0px;
       min-height: 100%;
       min-width: 100%;
-      align-self: center; }
+      align-self: center;
+      object-fit: cover; }
   .card-content .card-text-area, .card-content.card .card-text-area {
     box-sizing: border-box;
     display: block;
@@ -988,10 +997,8 @@ div.content {
 
 @keyframes ripple-animation {
   0% {
-    transform: scale(0);
-    opacity: 0.2; }
+    transform: scale(0); }
   100% {
-    opacity: 0.2;
     transform: scale(4); } }
 
 @keyframes ripple-fade {
@@ -1214,141 +1221,20 @@ html {
         background-color: #df78ef; }
 
 .about-page {
-  min-height: 110vh; }
+  min-height: 100vh; }
   .about-page .title-area {
     height: 85vh; }
     .about-page .title-area h1 {
       margin-top: 20vh; }
   .about-page .info-area .card {
     flex: 1 1 auto; }
-
-.constitution-page .paper-border {
-  box-sizing: border-box;
-  padding: 0px;
-  top: 74px;
-  left: 0px;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100vh;
-  overflow: hidden;
-  z-index: -1; }
-  .constitution-page .paper-border .paper-canvas {
-    backface-visibility: hidden;
-    position: relative;
-    height: 100%;
-    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh); }
-  .constitution-page .paper-border .main-paper {
-    position: absolute;
-    backface-visibility: hidden;
-    width: 200%;
-    height: 50vh;
-    top: -39vh;
-    left: 0px;
-    background-color: rgba(63, 81, 181, 0.4); }
-    .constitution-page .paper-border .main-paper .top-paper-1 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 54vh;
-      top: -14vh;
-      left: 0px;
-      background-color: rgba(63, 81, 181, 0.6); }
-    .constitution-page .paper-border .main-paper .top-paper-2 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 54vh;
-      top: -17vh;
-      left: 0px;
-      background-color: #3f51b5; }
-    .constitution-page .paper-border .main-paper .top-paper-3 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 54vh;
-      top: -23vh;
-      left: 0px;
-      background-color: #002984; }
-
-.constitution-page {
-  min-height: 110vh; }
-  .constitution-page .card {
-    padding-right: 5vw;
-    padding-left: 5vw;
-    padding-top: 24px;
-    padding-bottom: 24px; }
-
-.collapse-vertical {
-  margin-top: -12px;
-  margin-bottom: -12px; }
-
-.duty-list {
-  margin-top: -12px;
-  width: fit-content;
-  max-width: calc(5% + 300px);
-  margin-right: auto;
-  margin-left: auto; }
-  .duty-list li {
-    padding: 0px; }
-
-.officers-page .paper-border {
-  box-sizing: border-box;
-  padding: 0px;
-  top: 74px;
-  left: 0px;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100vh;
-  overflow: hidden;
-  z-index: -1; }
-  .officers-page .paper-border .paper-canvas {
-    backface-visibility: hidden;
-    position: relative;
-    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
-  .officers-page .paper-border .main-paper {
-    position: absolute;
-    backface-visibility: hidden;
-    width: 200%;
-    height: 50vh;
-    top: -39vh;
-    left: 0px;
-    background-color: rgba(171, 71, 188, 0.4); }
-    .officers-page .paper-border .main-paper .top-paper-1 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 54vh;
-      top: -14vh;
-      left: 0px;
-      background-color: rgba(171, 71, 188, 0.6); }
-    .officers-page .paper-border .main-paper .top-paper-2 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 54vh;
-      top: -17vh;
-      left: 0px;
-      background-color: #ab47bc; }
-    .officers-page .paper-border .main-paper .top-paper-3 {
-      position: absolute;
-      backface-visibility: hidden;
-      width: 100%;
-      height: 54vh;
-      top: -23vh;
-      left: 0px;
-      background-color: #790e8b; }
-
-.officers-page {
-  min-height: 110vh; }
-  .officers-page .info-area .card {
-    flex: 1 1 auto; }
-    .officers-page .info-area .card .card-image-area img {
-      max-width: 100%;
-      max-height: 100%; }
+  .about-page .info-area .title-small {
+    font-size: 1.1em; }
+  .about-page .info-area .subheader-small {
+    color: rgba(38, 50, 56, 0.54);
+    margin-top: -12px;
+    font-size: 0.9em;
+    line-height: 1.1em; }
 
 .pb-page .paper-border {
   box-sizing: border-box;
@@ -1401,7 +1287,334 @@ html {
       background-color: #007ac1; }
 
 .pb-page {
-  min-height: 110vh; }
+  min-height: 100vh; }
+
+.officers-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .officers-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
+  .officers-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -39vh;
+    left: 0px;
+    background-color: rgba(171, 71, 188, 0.4); }
+    .officers-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(171, 71, 188, 0.6); }
+    .officers-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #ab47bc; }
+    .officers-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #790e8b; }
+
+.officers-page {
+  min-height: 100vh; }
+  .officers-page .info-area .card {
+    flex: 1 1 auto; }
+    .officers-page .info-area .card .card-image-area img {
+      max-width: 100%;
+      max-height: 100%; }
+
+.constitution-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .constitution-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    height: 100%;
+    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh); }
+  .constitution-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -39vh;
+    left: 0px;
+    background-color: rgba(63, 81, 181, 0.4); }
+    .constitution-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(63, 81, 181, 0.6); }
+    .constitution-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #3f51b5; }
+    .constitution-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #002984; }
+
+.constitution-page {
+  min-height: 100vh; }
+  .constitution-page .card {
+    padding-right: 5vw;
+    padding-left: 5vw;
+    padding-top: 24px;
+    padding-bottom: 24px; }
+
+.collapse-vertical {
+  margin-top: -12px;
+  margin-bottom: -12px; }
+
+.duty-list {
+  margin-top: -12px;
+  width: fit-content;
+  max-width: calc(5% + 300px);
+  margin-right: auto;
+  margin-left: auto; }
+  .duty-list li {
+    padding: 0px; }
+
+.events-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .events-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
+  .events-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -39vh;
+    left: 0px;
+    background-color: rgba(255, 196, 0, 0.4); }
+    .events-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(255, 196, 0, 0.6); }
+    .events-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #ffc400; }
+    .events-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #ffab00; }
+
+.events-page {
+  min-height: 100vh; }
+  .events-page .info-area .card {
+    flex: 1 1 auto; }
+    .events-page .info-area .card .card-image-area img {
+      max-width: 100%;
+      max-height: 100%; }
+    .events-page .info-area .card .card-text-area .calendar-iframe {
+      border: 0px;
+      margin: 0px;
+      padding: 16px;
+      box-sizing: border-box;
+      frame-border: 0px;
+      scrolling: no;
+      min-height: 600px;
+      width: 100%; }
+
+.workshops-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .workshops-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    height: 100%;
+    transform: rotate(-20deg) translateX(-50%) translateY(-7.5vh); }
+  .workshops-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -39vh;
+    left: 0px;
+    background-color: rgba(63, 81, 181, 0.4); }
+    .workshops-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(63, 81, 181, 0.6); }
+    .workshops-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #3f51b5; }
+    .workshops-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #002984; }
+
+.workshops-page {
+  min-height: 100vh; }
+  .workshops-page .info-area .card {
+    flex: 1 1 auto; }
+    .workshops-page .info-area .card .card-image-area img {
+      max-width: 100%;
+      max-height: 100%; }
+    .workshops-page .info-area .card .card-text-area .calendar-iframe {
+      border: 0px;
+      margin: 0px;
+      padding: 16px;
+      box-sizing: border-box;
+      frame-border: 0px;
+      scrolling: no;
+      min-height: 600px;
+      width: 100%; }
+
+.recruiting-page .paper-border {
+  box-sizing: border-box;
+  padding: 0px;
+  top: 74px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .recruiting-page .paper-border .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
+  .recruiting-page .paper-border .main-paper {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -39vh;
+    left: 0px;
+    background-color: rgba(3, 169, 244, 0.4); }
+    .recruiting-page .paper-border .main-paper .top-paper-1 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -14vh;
+      left: 0px;
+      background-color: rgba(3, 169, 244, 0.6); }
+    .recruiting-page .paper-border .main-paper .top-paper-2 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -17vh;
+      left: 0px;
+      background-color: #03a9f4; }
+    .recruiting-page .paper-border .main-paper .top-paper-3 {
+      position: absolute;
+      backface-visibility: hidden;
+      width: 100%;
+      height: 54vh;
+      top: -23vh;
+      left: 0px;
+      background-color: #007ac1; }
+
+.recruiting-page {
+  min-height: 100vh; }
+  .recruiting-page .info-area .card {
+    flex: 1 1 auto; }
+    .recruiting-page .info-area .card .card-image-area img {
+      max-width: 100%;
+      max-height: 100%; }
+    .recruiting-page .info-area .card .card-text-area .calendar-iframe {
+      border: 0px;
+      margin: 0px;
+      padding: 16px;
+      box-sizing: border-box;
+      frame-border: 0px;
+      scrolling: no;
+      min-height: 600px;
+      width: 100%; }
 
 .page {
   min-height: 50vh;
@@ -1424,6 +1637,86 @@ html {
   padding: 56px;
   padding-bottom: 40px;
   text-align: center; }
+
+.flyer {
+  box-sizing: border-box;
+  padding: 0px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1; }
+  .flyer .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh); }
+  .flyer .top-overhang-1 {
+    transform: rotate(-30deg);
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -40vh;
+    left: 0px;
+    background-color: #002984; }
+  .flyer .top-overhang-2 {
+    transform: rotate(-30deg);
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -45vh;
+    left: 0px;
+    background-color: #3f51b5; }
+  .flyer .top-overhang-3 {
+    position: absolute;
+    backface-visibility: hidden;
+    width: 200%;
+    height: 50vh;
+    top: -35vh;
+    left: 0px;
+    background-color: #757de8; }
+  .flyer .bottom-overhang-1 {
+    transform: rotate(-16deg);
+    position: absolute;
+    backface-visibility: hidden;
+    width: 300%;
+    height: 30vh;
+    top: 450px;
+    left: 0px;
+    background-color: #ffab00; }
+  .flyer .bottom-overhang-2 {
+    transform: rotate(-17.5deg);
+    position: absolute;
+    backface-visibility: hidden;
+    width: 300%;
+    height: 30vh;
+    top: 460px;
+    left: 0px;
+    background-color: #ffc400; }
+  .flyer .info-area {
+    padding-top: 60px; }
+    .flyer .info-area .flyer-logo {
+      display: 'inline-block';
+      z-index: 100;
+      width: 100px;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%); }
+    .flyer .info-area .divider {
+      margin: 20px; }
+    .flyer .info-area :first-child + * {
+      margin-top: 90px; }
+    .flyer .info-area .justified.title, .flyer .info-area .title.duty-list {
+      margin-right: 50px;
+      margin-left: 50px; }
+
+.flyer {
+  max-width: 600px;
+  max-height: 500px; }
 
 .app-root {
   font-family: 'Lato', sans-serif;
@@ -2038,16 +2331,25 @@ img {
   .card-content .card-image-area, .card-content.card .card-image-area {
     margin: 0px;
     padding: 0px;
-    overflow: hidden; }
-    .card-content .card-image-area > :not(img), .card-content.card .card-image-area > :not(img) {
-      display: flex; }
-    .card-content .card-image-area *, .card-content.card .card-image-area * {
+    overflow: hidden;
+    display: block; }
+    .card-content .card-image-area :not(img), .card-content.card .card-image-area :not(img) {
+      flex: 1 0 auto;
+      display: flex;
+      height: 100%;
+      min-height: 100%;
+      min-width: 100%; }
+    .card-content .card-image-area img, .card-content.card .card-image-area img {
+      flex: 1 0 auto;
       display: block;
       margin: 0px;
+      max-height: 100%;
+      max-width: 100%;
       padding: 0px;
       min-height: 100%;
       min-width: 100%;
-      align-self: center; }
+      align-self: center;
+      object-fit: cover; }
   .card-content .card-text-area, .card-content.card .card-text-area {
     box-sizing: border-box;
     display: block;
@@ -2422,10 +2724,8 @@ div.content {
 
 @keyframes ripple-animation {
   0% {
-    transform: scale(0);
-    opacity: 0.2; }
+    transform: scale(0); }
   100% {
-    opacity: 0.2;
     transform: scale(4); } }
 
 @keyframes ripple-fade {

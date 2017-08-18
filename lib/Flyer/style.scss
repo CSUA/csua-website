@@ -1,0 +1,72 @@
+@mixin paper($width, $height, $left, $top, $background-color) {
+  position: absolute;
+  backface-visibility: hidden;
+  width: $width;
+  height: $height;
+  top: $top;
+  left: $left;
+  background-color: $background-color;
+}
+
+.flyer {
+  box-sizing: border-box;
+  padding: 0px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+
+  .paper-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    transform: rotate(20deg) translateX(-50%) translateY(-10vh);
+  }
+
+  .top-overhang-1 {
+    transform: rotate(-30deg);
+    @include paper(200%, 50vh, 0px, -40vh, $primary-color-dark);
+  }
+  .top-overhang-2 {
+    transform: rotate(-30deg);
+    @include paper(200%, 50vh, 0px, -45vh, $primary-color);
+  }
+  .top-overhang-3 {
+    @include paper(200%, 50vh, 0px, -35vh, $primary-color-light);
+  }
+  .bottom-overhang-1 {
+    transform: rotate(-16deg);
+    @include paper(300%, 30vh, 0px, 450px, $accent-color-dark);
+  }
+  .bottom-overhang-2 {
+    transform: rotate(-17.5deg);
+    @include paper(300%, 30vh, 0px, 460px, $accent-color);
+  }
+  .info-area {
+    padding-top: 60px;
+    .flyer-logo {
+      display: 'inline-block';
+      z-index: 100;
+      width: 100px;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+    .divider {
+      margin: 20px;
+    }
+    :first-child + * {
+      margin-top: 90px;
+    }
+    .justified.title {
+      @include side-margin(50px);
+    }
+  }
+}
+.flyer {
+  max-width: 600px;
+  max-height: 500px;
+}

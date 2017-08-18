@@ -48,19 +48,7 @@ class Header extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-
-  };
-}
-
-Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Header)));
+Header = Guac(Header);
 
 export default Header;
 export {Header};

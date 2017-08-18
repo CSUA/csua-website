@@ -12,7 +12,8 @@ let paths = {
   recruiting: '/events/recruiting',
   generalMeetings: '/events/gms',
   socials: '/events/socials',
-  findAJob: '/industry/jobs'
+  findAJob: '/industry/jobs',
+  sponsors: '/industry/sponsors'
 };
 
 export default paths;

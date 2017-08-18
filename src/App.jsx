@@ -11,6 +11,7 @@ import {reducer} from './reducer';
 import {Header} from './Header';
 import {Pages} from './Pages';
 import {Footer} from './Footer';
+import {Flyer} from './Flyer';
 
 //Application state store.
 let store = createStore(reducer);
@@ -28,7 +29,7 @@ class App extends React.Component {
         <div className={'app-root'}>
           <Header/>
           <Content footerComponent={<Footer/>}>
-          <Pages/>
+            <Pages/>
           </Content>
         </div>
       </Route>

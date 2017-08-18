@@ -1,0 +1,29 @@
+@import './_PaperBorder/style.scss';
+
+.recruiting-page {
+  min-height: 100vh;
+
+  .info-area {
+    .card {
+      flex: 1 1 auto;
+      .card-image-area {
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .card-text-area {
+        .calendar-iframe {
+          border: 0px;
+          margin: 0px;
+          padding: 16px;
+          box-sizing: border-box;
+          frame-border: 0px;
+          scrolling: no;
+          min-height:600px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

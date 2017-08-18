@@ -17,10 +17,12 @@ global.document = {
   addEventListener: () => {}
 }
 
+var AppComponent = require('./lib/App').default;
+
 function sendBase(req, res, next) {
   fs.readFile(__dirname + '/public/index.html', 'utf8', function (error, docData) {
     if (error) throw error;
-     res.writeHead(200, {'Content-Type': 'text/html', 'Content-Encoding': 'gzip'});
+    res.writeHead(200, {'Content-Type': 'text/html', 'Content-Encoding': 'gzip'});
     const AppElement = ReactDOMServer.renderToString(
                         <StaticRouter location={req.url} context={{}}>
                           <AppComponent/>
@@ -33,32 +35,23 @@ function sendBase(req, res, next) {
   });
 }
 
-function sendZipped(req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.set('Content-Type', 'application/javascript');
-  next();
-}
-
-var AppComponent = require('./lib/App').default;
-
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-
-app.get('/bundle.js', function (req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.set('Content-Type', 'application/javascript');
-  next();
-});
-
-app.get('/bundle.css', function (req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.set('Content-Type', 'text/css');
-  next();
-});
+// 
+// app.get('/bundle.js', function (req, res, next) {
+//   req.url = req.url + '.gz';
+//   res.set('Content-Encoding', 'gzip');
+//   res.set('Content-Type', 'application/javascript');
+//   next();
+// });
+//
+// app.get('/bundle.css', function (req, res, next) {
+//   req.url = req.url + '.gz';
+//   res.set('Content-Encoding', 'gzip');
+//   res.set('Content-Type', 'text/css');
+//   next();
+// });
 
 app.get('/', sendBase);
 

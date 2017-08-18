@@ -6,7 +6,7 @@ import {TabList} from 'yui-md/lib/TabList';
 import {Menu} from 'yui-md/lib/Menu';
 import {MenuItem} from 'yui-md/lib/MenuItem';
 import mainNavs from 'static/structure/mainNavs.js';
-import {withRouter} from 'react-router';
+import {withRouter, matchPath} from 'react-router';
 
 /*
   Props:
@@ -16,23 +16,32 @@ class _NavCreator extends React.Component {
   constructor(props) {
     super(props);
     this.bindAllMethods();
-    let isActive = {};
+    let isMenuActive = {};
     for (var i in props.navs) {
-      isActive[props.navs[i].name] = false;
+      isMenuActive[props.navs[i].name] = false;
     }
     this.state = {
-      isActive: isActive
+      isMenuActive: isMenuActive,
+      activeTabKey: 0
     };
   }
 
+  calcActiveKey() {
+    for (var i in this.props.navs) {
+      if (matchPath(this.props.location.pathname, {path: this.props.navs[i].href})) {
+        return i;
+      }
+    }
+  }
+
   setMenuActive(menuName, active) {
-    let currentlyActive = typeof(active) === 'undefined' ? !this.state.isActive[menuName] : active;
-    this.state.isActive[menuName] = currentlyActive;
-    this.setState({isActive: this.state.isActive});
+    let currentlyActive = typeof(active) === 'undefined' ? !this.state.isMenuActive[menuName] : active;
+    this.state.isMenuActive[menuName] = currentlyActive;
+    this.setState({isMenuActive: this.state.isMenuActive});
   }
 
   pushHistory(href) {
-    setTimeout(() => this.props.history.push(href), 0);
+    this.props.history.push(href);
   }
 
 /*
@@ -58,7 +67,7 @@ class _NavCreator extends React.Component {
         }
         //Generate menu for the subnavs
         menu = <Menu dense fastExpand
-          active={this.state.isActive[nav.name]}
+          active={this.state.isMenuActive[nav.name]}
           setActive={(active) => this.setMenuActive(nav.name, active)}
           expand={'vertical'}
           style={{fontSize: '10px'}}>
@@ -67,9 +76,10 @@ class _NavCreator extends React.Component {
       }
       navComponents.push(<Tab
         key={i}
-        onMouseEnter={() => this.setMenuActive(nav.name, true)}
+        tabKey={i}
+        onMouseEnter={() => {this.setMenuActive(nav.name, true)}}
         onMouseLeave={() => this.setMenuActive(nav.name, false)}
-        onClick={(event) => this.pushHistory(nav.href)}>
+        onClick={(event) => {this.pushHistory(nav.href)}}>
         {nav.name}
         {menu}
       </Tab>);
@@ -83,7 +93,9 @@ class _NavCreator extends React.Component {
                         marginBottom: '-10px',
                         boxSizing: 'border-box',
                         maxWidth: '70%',
-                        float:'right'}}>
+                        float:'right'}}
+                activeTabKey={this.calcActiveKey()}
+                setActiveTabKey={(key) => {this.setState({activeTabKey: key})}}>
         {this.calcNavComponents(this.props)}
       </TabList>
     );
