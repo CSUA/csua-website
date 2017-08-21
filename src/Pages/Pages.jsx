@@ -12,6 +12,9 @@ import {Constitution} from './Constitution';
 import {Events} from './Events';
 import {Workshops} from './Workshops';
 import {Recruiting} from './Recruiting';
+import {GeneralMeetings} from './GeneralMeetings';
+import {Industry} from './Industry';
+import {Sponsors} from './Sponsors';
 
 class Pages extends React.Component {
   constructor() {
@@ -33,7 +36,10 @@ class Pages extends React.Component {
           <Route path='/about/constitution' component={Constitution}/>
           <Route path='/events/workshops' component={Workshops}/>
           <Route path='/events/recruiting' component={Recruiting}/>
+          <Route path='/events/gms' component={GeneralMeetings}/>
           <Route path='/events' component={Events}/>
+          <Route path='/industry/sponsors' component={Sponsors}/>
+          <Route path='/industry' component={Industry}/>
           <Route path='/' component={About}/>
         </Switch>
       </div>

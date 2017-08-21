@@ -1,0 +1,17 @@
+@import './_PaperBorder/style.scss';
+
+.sponsors-page {
+  min-height: 100vh;
+
+  .info-area {
+    .card {
+      flex: 1 1 auto;
+      .card-image-area {
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+  }
+}

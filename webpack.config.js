@@ -1,8 +1,8 @@
-var path = require('path');
+const path = require('path');
 const webpack = require('webpack');
-var _ = require('lodash');
-var os = require('os');
-var fs = require('fs');
+const _ = require('lodash');
+const os = require('os');
+const fs = require('fs');
 const UglifyEsPlugin = require('uglify-es-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -27,7 +27,7 @@ module.exports = [
   },
   resolve: {
     alias: {
-      static: path.resolve(__dirname, './src/static'),
+      static: path.resolve(__dirname, './static'),
       widgets: path.resolve(__dirname, './src/widgets')
     },
     extensions: [
@@ -62,7 +62,7 @@ module.exports = [
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+          'file-loader?hash=sha512&digest=hex&name=[path][name]-[hash].[ext]',
           'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }
@@ -72,11 +72,12 @@ module.exports = [
     new ExtractTextPlugin({
       filename: '[name].css',
       allChunks: true
-    }),
-    new CopyWebpackPlugin([
-      { from: 'src/static/', to: 'static'},
-      { from: 'src/index.html', to: 'index.html'}
-    ])
+    })
+    // ,
+    // new CopyWebpackPlugin([
+    //   { from: 'src/static/', to: 'static'},
+    //   { from: 'src/index.html', to: 'index.html'}
+    // ])
     // ,
     // new webpack.DefinePlugin({
     //   'process.env': {
@@ -109,7 +110,7 @@ module.exports = [
   },
   resolve: {
     alias: {
-      static: path.resolve(__dirname, './src/static'),
+      static: path.resolve(__dirname, './static'),
       widgets: path.resolve(__dirname, './src/widgets')
     },
     extensions: [

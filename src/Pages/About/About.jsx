@@ -5,6 +5,8 @@ import {withRouter} from 'react-router';
 
 import LazyLoad from 'react-lazy-load';
 
+import animateScrollTo from 'animated-scroll-to';
+
 import {Row, Col} from 'yui-md/lib';
 import {IconButton} from 'yui-md/lib/Button';
 import {Icon} from 'yui-md/lib/Icon';
@@ -23,13 +25,13 @@ class About extends React.Component {
 
   render() {
     return (
-      <div className={'about-page page'}>
+      <div className={'about-page'}>
         <_PaperBorder/>
           <div className={'title-area'}>
             <h1 className={'centered'}>CSUA</h1>
             <h4 className={'centered'}>The home for all things CS.</h4>
             <div className={'centered subtitle'}>
-                <IconButton large onClick={() => {window.scroll(0, window.innerHeight);}} icon='keyboard_arrow_down'/>
+                <IconButton large onClick={() => animateScrollTo(window.innerHeight, {speed: 800  })} icon='keyboard_arrow_down'/>
             </div>
           </div>
           <div className={'info-area'}>
