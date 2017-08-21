@@ -25,19 +25,7 @@ class Footer extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-
-  };
-}
-
-Footer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Footer)));
+Footer = Guac(Footer);
 
 export default Footer;
 export {Footer};

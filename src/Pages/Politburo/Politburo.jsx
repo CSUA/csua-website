@@ -1,25 +1,11 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {withRouter} from 'react-router';
 import LazyLoad from 'react-lazy-load';
-import {Row, Col} from 'yui-md/lib';
+import {Guac} from 'guac-hoc/lib/Guac';
 
-import {IconButton} from 'yui-md/lib/Button';
-import {Icon} from 'yui-md/lib/Icon';
 import {Card, CardTextArea, CardImageArea} from 'yui-md/lib/Card';
-import {Divider} from 'yui-md/lib/Divider';
 
 import {_PolitburoCreator} from './_PolitburoCreator';
 import {_PaperBorder} from './_PaperBorder';
-
-import meganImg from 'static/images/pb/Megan_Zhu.jpg';
-import ericImg from 'static/images/pb/Eric_Hou.jpg';
-import jonathanImg from 'static/images/pb/Jonathan_Tan.jpg';
-import jasonImg from 'static/images/pb/Jason_Ji.jpg';
-import rayImg from 'static/images/pb/Ray_Pan.jpg';
-import yitzImg from 'static/images/pb/Yitz_Deng.jpg';
-import emilyImg from 'static/images/pb/Emily_Gosti.jpg';
 
 //These resolve to image strings that webpack outputs
 import pbImg from 'static/images/pb/pb.jpg';
@@ -27,7 +13,7 @@ import pbImg from 'static/images/pb/pb.jpg';
 class Politburo extends React.Component {
   constructor() {
     super();
-    this.render = this.render.bind(this);
+    this.bindAllMethods();
   }
 
   render() {
@@ -60,19 +46,7 @@ class Politburo extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-
-  };
-}
-
-Politburo = withRouter(connect(mapStateToProps, mapDispatchToProps)(Politburo));
+Politburo = Guac(Politburo);
 
 export default Politburo;
 export {Politburo};

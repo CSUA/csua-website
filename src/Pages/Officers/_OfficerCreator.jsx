@@ -10,7 +10,7 @@ import LazyLoad from 'react-lazy-load';
 import officers from 'static/data/officers';
 /*
   Props:
-    - officers <array>: see static/data/officers for structure.
+    - officers <array<object>>: see static/data/officers for structure.
 */
 class _OfficerCreator extends React.Component {
   constructor() {
@@ -26,19 +26,20 @@ class _OfficerCreator extends React.Component {
       officerComponents.push(
         <Col key={i} xs={6} lg={4}>
           <Card>
-            <CardImageArea xs={12}>
+            <CardImageArea>
               <LazyLoad debounce={false} throttle={50}>
                 <img src={officer.img}/>
               </LazyLoad>
             </CardImageArea>
-            <CardTextArea xs={12}>
+            <CardTextArea>
               <p className={'title'}>{officer.name}</p>
               <p className={'name subheader'}>{officer.hours}</p>
               <Divider horizontal margin/>
               <p>{officer.quote}</p>
             </CardTextArea>
           </Card>
-        </Col>);
+        </Col>
+      );
     }
     return officerComponents;
   }

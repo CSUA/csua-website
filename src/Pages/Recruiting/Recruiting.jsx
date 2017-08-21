@@ -1,10 +1,6 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {withRouter} from 'react-router';
 
-import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
-import {Icon} from 'yui-md/lib/Icon';
+import {Guac} from 'guac-hoc/lib/Guac';
 import {EventCalendar} from 'widgets/EventCalendar';
 import {recruiting} from 'static/data/events';
 
@@ -13,7 +9,7 @@ import _PaperBorder from './_PaperBorder';
 class Recruiting extends React.Component {
   constructor() {
     super();
-    this.render = this.render.bind(this);
+    this.bindAllMethods();
   }
 
   render() {
@@ -35,7 +31,7 @@ class Recruiting extends React.Component {
   }
 }
 
-Recruiting = Recruiting;
+Recruiting = Guac(Recruiting);
 
 export default Recruiting;
 export {Recruiting};

@@ -483,19 +483,7 @@ class Constitution extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-
-  };
-}
-
-Constitution = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Constitution)));
+Constitution = Guac(Constitution);
 
 export default Constitution;
 export {Constitution};

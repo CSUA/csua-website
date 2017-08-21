@@ -2,6 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import {Link} from 'react-router-dom';
 
 import LazyLoad from 'react-lazy-load';
 
@@ -11,6 +12,7 @@ import {Row, Col} from 'yui-md/lib';
 
 import officersImg from 'static/images/industry/officers.jpg';
 import industryEventImg from 'static/images/industry/industry_event.jpg';
+import paths from 'static/structure/paths';
 
 import _PaperBorder from './_PaperBorder';
 
@@ -33,7 +35,7 @@ class Industry extends React.Component {
         </div>
         <div className={'info-area'}>
           <Row>
-            <Col xs={12} md={6}>
+            <Col xs={12}>
               <Card>
                 <CardTextArea>
                   <p className={'centered title'}>Cause</p>
@@ -52,23 +54,18 @@ class Industry extends React.Component {
               <Card>
                 <CardImageArea>
                   <LazyLoad>
-                    <img src={industryEventImg}/>
+                    <img src={officersImg}/>
                   </LazyLoad>
                 </CardImageArea>
-                <CardTextArea>
-                  <small>An industry panel presents their experiences.</small>
-                </CardTextArea>
-              </Card>
-            </Col>
-            <Col xs={12} md={6}>
-              <Card>
                 <CardTextArea>
                   <p className={'centered title'}>Students</p>
                   <Icon className={'centered'}>school</Icon>
                   <p>If you're a student looking for a job or an internship,
-                    please look at our upcoming recruiting events here. If you
+                    please look at our upcoming recruiting events&nbsp;
+                    <Link to={paths.recruiting}>here</Link>. If you
                     want to get exposed to skills that employers are looking for,
-                    please refer to our workshops here. To be featured in our
+                    please refer to our workshops&nbsp;
+                    <Link to={paths.workshops}>here</Link>. To be featured in our
                     resume book, stop by any one of our professional development
                     workshops and have your resume approved by a qualified CSUA
                     officer. Finally, opt-in to receive job offers from our
@@ -79,6 +76,11 @@ class Industry extends React.Component {
             </Col>
             <Col xs={12} md={6}>
               <Card>
+                <CardImageArea>
+                  <LazyLoad>
+                    <img src={industryEventImg}/>
+                  </LazyLoad>
+                </CardImageArea>
                 <CardTextArea>
                   <p className={'centered title'}>Sponsors</p>
                   <Icon className={'centered'}>domain</Icon>
@@ -88,19 +90,8 @@ class Industry extends React.Component {
                     and recruiting events. If you are an industry sponsor and are interested
                     in what the CSUA can offer your organization, please email
                     our Industry Relations department at indrel@csua.berkeley.edu.
-                    Our current and former sponsors are listed here.</p>
-                </CardTextArea>
-              </Card>
-            </Col>
-            <Col xs={12}>
-              <Card>
-                <CardImageArea>
-                  <LazyLoad>
-                    <img src={officersImg}/>
-                  </LazyLoad>
-                </CardImageArea>
-                <CardTextArea>
-                  <small>Officers in front of Hearst Mining Circle.</small>
+                    Our current and former sponsors are listed&nbsp;
+                    <Link to={paths.sponsors}>here.</Link></p>
                 </CardTextArea>
               </Card>
             </Col>

@@ -2,6 +2,8 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router';
+import {Link} from 'react-router-dom';
+import {Guac} from 'guac-hoc/lib/Guac';
 
 import LazyLoad from 'react-lazy-load';
 
@@ -16,6 +18,7 @@ import EventCalendar from 'widgets/EventCalendar';
 import _PaperBorder from './_PaperBorder';
 import officersImg from 'static/images/Officers_FA16.jpg';
 import wozImg from 'static/images/Woz.jpg';
+import paths from 'static/structure/paths';
 
 class About extends React.Component {
   constructor() {
@@ -45,7 +48,10 @@ class About extends React.Component {
                     <Icon className={'centered'}>lightbulb_outline</Icon>
                     <p>The CSUA is here to make every step of
                       your undergraduate computer science experience smoother, easier,
-                      and more fun! Looking for an internship or a job? Want to learn more CS skills?
+                      and more fun! Looking for an&nbsp;
+                      <Link to={paths.industry}>internship or a job</Link>?
+                      Want to learn more&nbsp;
+                      <Link to={paths.workshops}>CS skills</Link>?
                       Need help in a class? We have it all! Come to our events or visit
                       us at 311 Soda Hall to check us out.
                     </p>
@@ -83,8 +89,11 @@ class About extends React.Component {
                     <Icon className={'centered'}>help_outline</Icon>
                     <p>The CSUA offers tutoring services,
                     major declaration panels, internship workshops, and recruiting events.
-                    You can find a list of available tutors and office hours here.
-                    For events, click here. You can also drop by the office any time,
+                    You can find a list of available tutors and office hours&nbsp;
+                    <Link to={paths.officers}>here</Link>.
+                    For events, click&nbsp;
+                    <Link to={paths.events}>here</Link>.
+                    You can also drop by the office any time,
                     and an available tutor will help you.
                     </p>
                   </CardTextArea>
@@ -118,19 +127,7 @@ class About extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-
-  };
-}
-
-About = withRouter(connect(mapStateToProps, mapDispatchToProps)(About));
+About = Guac(About);
 
 export default About;
 export {About};

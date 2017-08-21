@@ -17,7 +17,7 @@ global.document = {
   addEventListener: () => {}
 }
 
-var AppComponent = require('./lib/App').default;
+var AppComponent = require('./src/App').default;
 
 function sendBase(req, res, next) {
   fs.readFile(__dirname + '/public/index.html', 'utf8', function (error, docData) {
@@ -38,7 +38,7 @@ function sendBase(req, res, next) {
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-// 
+//
 // app.get('/bundle.js', function (req, res, next) {
 //   req.url = req.url + '.gz';
 //   res.set('Content-Encoding', 'gzip');

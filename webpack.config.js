@@ -135,7 +135,7 @@ module.exports = [
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [{
-            loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+            loader: 'file-loader?hash=sha512&digest=hex&name=[path][name]-[hash].[ext]',
             options: {
               emitFile: false
             }

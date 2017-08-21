@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {withRouter} from 'react-router';
 
-import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
-import {Icon} from 'yui-md/lib/Icon';
 import {EventCalendar} from 'widgets/EventCalendar';
 import {workshops} from 'static/data/events';
 

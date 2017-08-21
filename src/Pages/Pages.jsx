@@ -15,15 +15,12 @@ import {Recruiting} from './Recruiting';
 import {GeneralMeetings} from './GeneralMeetings';
 import {Industry} from './Industry';
 import {Sponsors} from './Sponsors';
+import {Join} from './Join';
 
 class Pages extends React.Component {
   constructor() {
     super();
     this.bindAllMethods();
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
@@ -40,6 +37,7 @@ class Pages extends React.Component {
           <Route path='/events' component={Events}/>
           <Route path='/industry/sponsors' component={Sponsors}/>
           <Route path='/industry' component={Industry}/>
+          <Route path='/join' component={Join}/>
           <Route path='/' component={About}/>
         </Switch>
       </div>
@@ -47,19 +45,7 @@ class Pages extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-
-  };
-}
-
-Pages = withRouter(connect(mapStateToProps, mapDispatchToProps)(Guac(Pages)));
+Pages = Guac(Pages);
 
 export default Pages;
 export {Pages};

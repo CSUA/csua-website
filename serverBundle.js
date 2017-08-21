@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 121);
+/******/ 	return __webpack_require__(__webpack_require__.s = 114);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -191,7 +191,7 @@ module.exports = reactProdInvariant;
 
 
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -389,7 +389,7 @@ exports.Guac = Guac;
 
 var _prodInvariant = __webpack_require__(2);
 
-var DOMProperty = __webpack_require__(29);
+var DOMProperty = __webpack_require__(30);
 var ReactDOMComponentFlags = __webpack_require__(78);
 
 var invariant = __webpack_require__(1);
@@ -639,13 +639,127 @@ module.exports = require("react-redux");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Guac = undefined;
+
+var _utils = __webpack_require__(237);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var bindMethodNames = ['onMouseDown', 'onMouseUp', 'onMouseEnter', 'onMouseLeave', 'onClick'];
+
+/*
+NOTE: ONLY USE THIS IS YOU PLAN ON UTILIZING COMPOSITION TO COMBINE METHODS.
+THIS IS OFTEN DONE TO APPLY STYLES IN OPTIONAL LAYERS OR ADD CUSTOMIZABLE LAYERS
+OF FUNCTIONALITY TO COMPONENTS.
+
+USAGE:
+- All Guac components, when providing custom functionality for any of the above
+    method names, should implement the methods and provide any extra functionality
+    they are providing in those methods. The composition will automatically be
+    handled.
+
+- A Guac component's render() method should pass all props it is provided first,
+    then override any methods as needed.
+
+Guac provides a number of utility functions. Call it on a component to transform it.
+
+- All method names in bindMethodNames are names of special functions. They are
+    added to the WrappedComponent, and when invoked, will attempt to call both
+    the method defined within WrappedComponent and the same method passed to it
+    as a prop. This allows higher-order components to compose together layers
+    of special functions without layering extra divs and spans.
+
+    Ex: if a user passes into a higher-order component a function called onClick
+    and your higher-order component has its own onClick, you can solve this by
+    either wrapping the wrapped component in another element to handle the onClick,
+    or composing together your function and the passed function. The first option
+    is simpler but uses more DOM nodes and can have weird rendering issues. The
+    second option is much more intuitive from a user's perspective.
+
+- A special method, this.className() has been exposed. Define this method to
+    return your own class name(s). Guac will handle the composition.
+
+- Two utility methods, this.bindAllMethods() and this.deleteUsedProps(propNames)
+    have been exposed. this.bindAllMethods will bind all the methods to the class
+    instance during instantiation (put it in the constructor). this.deleteUsedProps
+    should be used during render to delete props that are not going to be used.
+    Returns a shallow-copied object with the specified keys deleted.
+*/
+function Guac(WrappedComponent) {
+  for (var methodNameID in bindMethodNames) {
+
+    //Closure to keep ownMethod reference
+    var composeFunction = function composeFunction(methodName) {
+      var ownMethod = WrappedComponent.prototype[methodName];
+      return function () {
+        ownMethod && ownMethod.call.apply(ownMethod, [this].concat(Array.prototype.slice.call(arguments)));
+        var proxyEvent = arguments[0];
+        if (proxyEvent && (!proxyEvent.isPropagationStopped || !proxyEvent.isPropagationStopped())) {
+          var _props;
+
+          this.props[methodName] && (_props = this.props)[methodName].apply(_props, arguments);
+        }
+      };
+    };
+
+    var methodName = bindMethodNames[methodNameID];
+    WrappedComponent.prototype[methodName] = composeFunction(methodName);
+  }
+
+  WrappedComponent.prototype.className = function () {
+    var ownMethod = WrappedComponent.prototype.className;
+    return function () {
+      var ownClassName = ownMethod ? ownMethod.call.apply(ownMethod, [this].concat(Array.prototype.slice.call(arguments))) : '';
+      var propsClassName = this.props.className || '';
+      return ownClassName + ' ' + propsClassName;
+    };
+  }();
+
+  WrappedComponent.prototype.style = function () {
+    var ownMethod = WrappedComponent.prototype.style;
+    return function () {
+      var ownStyle = ownMethod ? ownMethod.call.apply(ownMethod, [this].concat(Array.prototype.slice.call(arguments))) : {};
+      var propsStyle = this.props.style || {};
+      return Object.assign({}, ownStyle, propsStyle);
+    };
+  }();
+
+  //Allows usage of this.bindAllMethods() in the constructor
+  WrappedComponent.prototype.bindAllMethods = function () {
+    utils.bindAllMethods(this);
+  };
+  //Allows usage of this.deleteUsedProps(propNames)
+  WrappedComponent.prototype.deleteUsedProps = function (propNames) {
+    return utils.deleteUsedProps(this.props, propNames);
+  };
+
+  WrappedComponent.isGuacComponent = true;
+
+  return WrappedComponent;
+}
+
+exports.default = Guac;
+exports.Guac = Guac;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.CardTextArea = exports.CardImageArea = exports.Card = undefined;
 
-var _Card = __webpack_require__(262);
+var _Card = __webpack_require__(255);
 
-var _CardImageArea = __webpack_require__(264);
+var _CardImageArea = __webpack_require__(257);
 
-var _CardTextArea = __webpack_require__(266);
+var _CardTextArea = __webpack_require__(259);
 
 exports.default = _Card.Card;
 exports.Card = _Card.Card;
@@ -653,7 +767,7 @@ exports.CardImageArea = _CardImageArea.CardImageArea;
 exports.CardTextArea = _CardTextArea.CardTextArea;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -675,14 +789,14 @@ exports.CardTextArea = _CardTextArea.CardTextArea;
 var debugTool = null;
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactDebugTool = __webpack_require__(140);
+  var ReactDebugTool = __webpack_require__(133);
   debugTool = ReactDebugTool;
 }
 
 module.exports = { debugTool: debugTool };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -726,7 +840,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -743,7 +857,7 @@ module.exports = emptyFunction;
 
 
 
-var _prodInvariant = __webpack_require__(25);
+var _prodInvariant = __webpack_require__(26);
 
 var ReactCurrentOwner = __webpack_require__(19);
 
@@ -1110,23 +1224,6 @@ var ReactComponentTreeHook = {
 module.exports = ReactComponentTreeHook;
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Icon = undefined;
-
-var _Icon = __webpack_require__(250);
-
-exports.default = _Icon.Icon;
-exports.Icon = _Icon.Icon;
-
-/***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1147,7 +1244,7 @@ var _assign = __webpack_require__(4);
 
 var PooledClass = __webpack_require__(23);
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 var warning = __webpack_require__(3);
 
 var didWarnForAddedNewProperty = false;
@@ -1419,9 +1516,9 @@ var _prodInvariant = __webpack_require__(2),
 
 var CallbackQueue = __webpack_require__(79);
 var PooledClass = __webpack_require__(23);
-var ReactFeatureFlags = __webpack_require__(137);
-var ReactReconciler = __webpack_require__(30);
-var Transaction = __webpack_require__(39);
+var ReactFeatureFlags = __webpack_require__(130);
+var ReactReconciler = __webpack_require__(31);
+var Transaction = __webpack_require__(38);
 
 var invariant = __webpack_require__(1);
 
@@ -1828,109 +1925,12 @@ module.exports = warning;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Guac = undefined;
+exports.Icon = undefined;
 
-var _utils = __webpack_require__(244);
+var _Icon = __webpack_require__(243);
 
-var utils = _interopRequireWildcard(_utils);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var bindMethodNames = ['onMouseDown', 'onMouseUp', 'onMouseEnter', 'onMouseLeave', 'onClick'];
-
-/*
-NOTE: ONLY USE THIS IS YOU PLAN ON UTILIZING COMPOSITION TO COMBINE METHODS.
-THIS IS OFTEN DONE TO APPLY STYLES IN OPTIONAL LAYERS OR ADD CUSTOMIZABLE LAYERS
-OF FUNCTIONALITY TO COMPONENTS.
-
-USAGE:
-- All Guac components, when providing custom functionality for any of the above
-    method names, should implement the methods and provide any extra functionality
-    they are providing in those methods. The composition will automatically be
-    handled.
-
-- A Guac component's render() method should pass all props it is provided first,
-    then override any methods as needed.
-
-Guac provides a number of utility functions. Call it on a component to transform it.
-
-- All method names in bindMethodNames are names of special functions. They are
-    added to the WrappedComponent, and when invoked, will attempt to call both
-    the method defined within WrappedComponent and the same method passed to it
-    as a prop. This allows higher-order components to compose together layers
-    of special functions without layering extra divs and spans.
-
-    Ex: if a user passes into a higher-order component a function called onClick
-    and your higher-order component has its own onClick, you can solve this by
-    either wrapping the wrapped component in another element to handle the onClick,
-    or composing together your function and the passed function. The first option
-    is simpler but uses more DOM nodes and can have weird rendering issues. The
-    second option is much more intuitive from a user's perspective.
-
-- A special method, this.className() has been exposed. Define this method to
-    return your own class name(s). Guac will handle the composition.
-
-- Two utility methods, this.bindAllMethods() and this.deleteUsedProps(propNames)
-    have been exposed. this.bindAllMethods will bind all the methods to the class
-    instance during instantiation (put it in the constructor). this.deleteUsedProps
-    should be used during render to delete props that are not going to be used.
-    Returns a shallow-copied object with the specified keys deleted.
-*/
-function Guac(WrappedComponent) {
-  for (var methodNameID in bindMethodNames) {
-
-    //Closure to keep ownMethod reference
-    var composeFunction = function composeFunction(methodName) {
-      var ownMethod = WrappedComponent.prototype[methodName];
-      return function () {
-        ownMethod && ownMethod.call.apply(ownMethod, [this].concat(Array.prototype.slice.call(arguments)));
-        var proxyEvent = arguments[0];
-        if (proxyEvent && (!proxyEvent.isPropagationStopped || !proxyEvent.isPropagationStopped())) {
-          var _props;
-
-          this.props[methodName] && (_props = this.props)[methodName].apply(_props, arguments);
-        }
-      };
-    };
-
-    var methodName = bindMethodNames[methodNameID];
-    WrappedComponent.prototype[methodName] = composeFunction(methodName);
-  }
-
-  WrappedComponent.prototype.className = function () {
-    var ownMethod = WrappedComponent.prototype.className;
-    return function () {
-      var ownClassName = ownMethod ? ownMethod.call.apply(ownMethod, [this].concat(Array.prototype.slice.call(arguments))) : '';
-      var propsClassName = this.props.className || '';
-      return ownClassName + ' ' + propsClassName;
-    };
-  }();
-
-  WrappedComponent.prototype.style = function () {
-    var ownMethod = WrappedComponent.prototype.style;
-    return function () {
-      var ownStyle = ownMethod ? ownMethod.call.apply(ownMethod, [this].concat(Array.prototype.slice.call(arguments))) : {};
-      var propsStyle = this.props.style || {};
-      return Object.assign({}, ownStyle, propsStyle);
-    };
-  }();
-
-  //Allows usage of this.bindAllMethods() in the constructor
-  WrappedComponent.prototype.bindAllMethods = function () {
-    utils.bindAllMethods(this);
-  };
-  //Allows usage of this.deleteUsedProps(propNames)
-  WrappedComponent.prototype.deleteUsedProps = function (propNames) {
-    return utils.deleteUsedProps(this.props, propNames);
-  };
-
-  WrappedComponent.isGuacComponent = true;
-
-  return WrappedComponent;
-}
-
-exports.default = Guac;
-exports.Guac = Guac;
+exports.default = _Icon.Icon;
+exports.Icon = _Icon.Icon;
 
 /***/ }),
 /* 23 */
@@ -2071,7 +2071,7 @@ var _assign = __webpack_require__(4);
 var ReactCurrentOwner = __webpack_require__(19);
 
 var warning = __webpack_require__(21);
-var canDefineProperty = __webpack_require__(42);
+var canDefineProperty = __webpack_require__(41);
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 var REACT_ELEMENT_TYPE = __webpack_require__(91);
@@ -2397,6 +2397,12 @@ module.exports = ReactElement;
 
 /***/ }),
 /* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-lazy-load");
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2440,7 +2446,7 @@ function reactProdInvariant(code) {
 module.exports = reactProdInvariant;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2449,17 +2455,127 @@ module.exports = reactProdInvariant;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FloatingActionButton = exports.IconButton = exports.Button = undefined;
+exports.provideWindowSize = exports.provideSizeClass = exports.applyRipple = exports.ToolBar = exports.TabList = exports.Tab = exports.StickyFooter = exports.Snackbar = exports.Row = exports.Overlay = exports.MenuItem = exports.Menu = exports.Icon = exports.Drawer = exports.Divider = exports.Content = exports.Col = exports.Card = exports.Button = exports.AppBar = undefined;
 
-var _Button = __webpack_require__(249);
+var _AppBar = __webpack_require__(110);
 
-exports.default = _Button.Button;
-exports.Button = _Button.Button;
-exports.IconButton = _Button.IconButton;
-exports.FloatingActionButton = _Button.FloatingActionButton;
+var _AppBar2 = _interopRequireDefault(_AppBar);
+
+var _Button = __webpack_require__(36);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Card = __webpack_require__(13);
+
+var _Card2 = _interopRequireDefault(_Card);
+
+var _Col = __webpack_require__(74);
+
+var _Col2 = _interopRequireDefault(_Col);
+
+var _Content = __webpack_require__(109);
+
+var _Content2 = _interopRequireDefault(_Content);
+
+var _Divider = __webpack_require__(45);
+
+var _Divider2 = _interopRequireDefault(_Divider);
+
+var _Drawer = __webpack_require__(261);
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+var _Icon = __webpack_require__(22);
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _Menu = __webpack_require__(73);
+
+var _Menu2 = _interopRequireDefault(_Menu);
+
+var _MenuItem = __webpack_require__(44);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _Overlay = __webpack_require__(113);
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
+var _Row = __webpack_require__(112);
+
+var _Row2 = _interopRequireDefault(_Row);
+
+var _Snackbar = __webpack_require__(264);
+
+var _Snackbar2 = _interopRequireDefault(_Snackbar);
+
+var _StickyFooter = __webpack_require__(71);
+
+var _StickyFooter2 = _interopRequireDefault(_StickyFooter);
+
+var _Tab = __webpack_require__(42);
+
+var _Tab2 = _interopRequireDefault(_Tab);
+
+var _TabList = __webpack_require__(72);
+
+var _TabList2 = _interopRequireDefault(_TabList);
+
+var _ToolBar = __webpack_require__(266);
+
+var _ToolBar2 = _interopRequireDefault(_ToolBar);
+
+var _utils = __webpack_require__(268);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var yuiMd = {
+  AppBar: _AppBar2.default,
+  Button: _Button2.default,
+  Card: _Card2.default,
+  Col: _Col2.default,
+  Content: _Content2.default,
+  Divider: _Divider2.default,
+  Drawer: _Drawer2.default,
+  Icon: _Icon2.default,
+  Menu: _Menu2.default,
+  MenuItem: _MenuItem2.default,
+  Overlay: _Overlay2.default,
+  Row: _Row2.default,
+  Snackbar: _Snackbar2.default,
+  StickyFooter: _StickyFooter2.default,
+  Tab: _Tab2.default,
+  TabList: _TabList2.default,
+  ToolBar: _ToolBar2.default,
+  applyRipple: _utils.applyRipple,
+  provideSizeClass: _utils.provideSizeClass,
+  provideWindowSize: _utils.provideWindowSize
+};
+
+exports.default = yuiMd;
+exports.AppBar = _AppBar2.default;
+exports.Button = _Button2.default;
+exports.Card = _Card2.default;
+exports.Col = _Col2.default;
+exports.Content = _Content2.default;
+exports.Divider = _Divider2.default;
+exports.Drawer = _Drawer2.default;
+exports.Icon = _Icon2.default;
+exports.Menu = _Menu2.default;
+exports.MenuItem = _MenuItem2.default;
+exports.Overlay = _Overlay2.default;
+exports.Row = _Row2.default;
+exports.Snackbar = _Snackbar2.default;
+exports.StickyFooter = _StickyFooter2.default;
+exports.Tab = _Tab2.default;
+exports.TabList = _TabList2.default;
+exports.ToolBar = _ToolBar2.default;
+exports.applyRipple = _utils.applyRipple;
+exports.provideSizeClass = _utils.provideSizeClass;
+exports.provideWindowSize = _utils.provideWindowSize;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2475,7 +2591,7 @@ exports.FloatingActionButton = _Button.FloatingActionButton;
 
 
 
-var EventPluginHub = __webpack_require__(28);
+var EventPluginHub = __webpack_require__(29);
 var EventPluginUtils = __webpack_require__(48);
 
 var accumulateInto = __webpack_require__(75);
@@ -2598,7 +2714,7 @@ var EventPropagators = {
 module.exports = EventPropagators;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2877,7 +2993,7 @@ var EventPluginHub = {
 module.exports = EventPluginHub;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3091,7 +3207,7 @@ var DOMProperty = {
 module.exports = DOMProperty;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3107,8 +3223,8 @@ module.exports = DOMProperty;
 
 
 
-var ReactRef = __webpack_require__(138);
-var ReactInstrumentation = __webpack_require__(13);
+var ReactRef = __webpack_require__(131);
+var ReactInstrumentation = __webpack_require__(14);
 
 var warning = __webpack_require__(3);
 
@@ -3262,7 +3378,7 @@ var ReactReconciler = {
 module.exports = ReactReconciler;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3326,7 +3442,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3449,7 +3565,7 @@ DOMLazyTree.queueText = queueText;
 module.exports = DOMLazyTree;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3468,14 +3584,14 @@ module.exports = DOMLazyTree;
 var _assign = __webpack_require__(4);
 
 var ReactBaseClasses = __webpack_require__(89);
-var ReactChildren = __webpack_require__(171);
-var ReactDOMFactories = __webpack_require__(175);
+var ReactChildren = __webpack_require__(164);
+var ReactDOMFactories = __webpack_require__(168);
 var ReactElement = __webpack_require__(24);
-var ReactPropTypes = __webpack_require__(179);
-var ReactVersion = __webpack_require__(183);
+var ReactPropTypes = __webpack_require__(172);
+var ReactVersion = __webpack_require__(176);
 
-var createReactClass = __webpack_require__(184);
-var onlyChild = __webpack_require__(190);
+var createReactClass = __webpack_require__(177);
+var onlyChild = __webpack_require__(183);
 
 var createElement = ReactElement.createElement;
 var createFactory = ReactElement.createFactory;
@@ -3483,7 +3599,7 @@ var cloneElement = ReactElement.cloneElement;
 
 if (process.env.NODE_ENV !== 'production') {
   var lowPriorityWarning = __webpack_require__(60);
-  var canDefineProperty = __webpack_require__(42);
+  var canDefineProperty = __webpack_require__(41);
   var ReactElementValidator = __webpack_require__(93);
   var didWarnPropTypesDeprecated = false;
   createElement = ReactElementValidator.createElement;
@@ -3586,16 +3702,10 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = React;
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom");
-
-/***/ }),
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-lazy-load");
+module.exports = require("react-dom");
 
 /***/ }),
 /* 36 */
@@ -3607,124 +3717,14 @@ module.exports = require("react-lazy-load");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.provideWindowSize = exports.provideSizeClass = exports.applyRipple = exports.ToolBar = exports.TabList = exports.Tab = exports.StickyFooter = exports.Snackbar = exports.Row = exports.Overlay = exports.MenuItem = exports.Menu = exports.Icon = exports.Drawer = exports.Divider = exports.Content = exports.Col = exports.Card = exports.Button = exports.AppBar = undefined;
+exports.FloatingActionButton = exports.IconButton = exports.Button = undefined;
 
-var _AppBar = __webpack_require__(110);
+var _Button = __webpack_require__(242);
 
-var _AppBar2 = _interopRequireDefault(_AppBar);
-
-var _Button = __webpack_require__(26);
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _Card = __webpack_require__(12);
-
-var _Card2 = _interopRequireDefault(_Card);
-
-var _Col = __webpack_require__(74);
-
-var _Col2 = _interopRequireDefault(_Col);
-
-var _Content = __webpack_require__(109);
-
-var _Content2 = _interopRequireDefault(_Content);
-
-var _Divider = __webpack_require__(37);
-
-var _Divider2 = _interopRequireDefault(_Divider);
-
-var _Drawer = __webpack_require__(268);
-
-var _Drawer2 = _interopRequireDefault(_Drawer);
-
-var _Icon = __webpack_require__(16);
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
-var _Menu = __webpack_require__(73);
-
-var _Menu2 = _interopRequireDefault(_Menu);
-
-var _MenuItem = __webpack_require__(45);
-
-var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-var _Overlay = __webpack_require__(113);
-
-var _Overlay2 = _interopRequireDefault(_Overlay);
-
-var _Row = __webpack_require__(112);
-
-var _Row2 = _interopRequireDefault(_Row);
-
-var _Snackbar = __webpack_require__(271);
-
-var _Snackbar2 = _interopRequireDefault(_Snackbar);
-
-var _StickyFooter = __webpack_require__(71);
-
-var _StickyFooter2 = _interopRequireDefault(_StickyFooter);
-
-var _Tab = __webpack_require__(43);
-
-var _Tab2 = _interopRequireDefault(_Tab);
-
-var _TabList = __webpack_require__(72);
-
-var _TabList2 = _interopRequireDefault(_TabList);
-
-var _ToolBar = __webpack_require__(273);
-
-var _ToolBar2 = _interopRequireDefault(_ToolBar);
-
-var _utils = __webpack_require__(275);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var yuiMd = {
-  AppBar: _AppBar2.default,
-  Button: _Button2.default,
-  Card: _Card2.default,
-  Col: _Col2.default,
-  Content: _Content2.default,
-  Divider: _Divider2.default,
-  Drawer: _Drawer2.default,
-  Icon: _Icon2.default,
-  Menu: _Menu2.default,
-  MenuItem: _MenuItem2.default,
-  Overlay: _Overlay2.default,
-  Row: _Row2.default,
-  Snackbar: _Snackbar2.default,
-  StickyFooter: _StickyFooter2.default,
-  Tab: _Tab2.default,
-  TabList: _TabList2.default,
-  ToolBar: _ToolBar2.default,
-  applyRipple: _utils.applyRipple,
-  provideSizeClass: _utils.provideSizeClass,
-  provideWindowSize: _utils.provideWindowSize
-};
-
-exports.default = yuiMd;
-exports.AppBar = _AppBar2.default;
-exports.Button = _Button2.default;
-exports.Card = _Card2.default;
-exports.Col = _Col2.default;
-exports.Content = _Content2.default;
-exports.Divider = _Divider2.default;
-exports.Drawer = _Drawer2.default;
-exports.Icon = _Icon2.default;
-exports.Menu = _Menu2.default;
-exports.MenuItem = _MenuItem2.default;
-exports.Overlay = _Overlay2.default;
-exports.Row = _Row2.default;
-exports.Snackbar = _Snackbar2.default;
-exports.StickyFooter = _StickyFooter2.default;
-exports.Tab = _Tab2.default;
-exports.TabList = _TabList2.default;
-exports.ToolBar = _ToolBar2.default;
-exports.applyRipple = _utils.applyRipple;
-exports.provideSizeClass = _utils.provideSizeClass;
-exports.provideWindowSize = _utils.provideWindowSize;
+exports.default = _Button.Button;
+exports.Button = _Button.Button;
+exports.IconButton = _Button.IconButton;
+exports.FloatingActionButton = _Button.FloatingActionButton;
 
 /***/ }),
 /* 37 */
@@ -3736,32 +3736,15 @@ exports.provideWindowSize = _utils.provideWindowSize;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Divider = undefined;
-
-var _Divider = __webpack_require__(267);
-
-exports.default = _Divider.Divider;
-exports.Divider = _Divider.Divider;
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.EventCalendar = undefined;
 
-var _EventCalendar = __webpack_require__(276);
+var _EventCalendar = __webpack_require__(269);
 
 exports.default = _EventCalendar.EventCalendar;
 exports.EventCalendar = _EventCalendar.EventCalendar;
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3994,7 +3977,7 @@ var TransactionImpl = {
 module.exports = TransactionImpl;
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4010,7 +3993,7 @@ module.exports = TransactionImpl;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 var ViewportMetrics = __webpack_require__(82);
 
 var getEventModifierState = __webpack_require__(53);
@@ -4071,7 +4054,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 module.exports = SyntheticMouseEvent;
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4198,7 +4181,7 @@ function escapeTextContentForBrowser(text) {
 module.exports = escapeTextContentForBrowser;
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4229,7 +4212,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = canDefineProperty;
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4240,10 +4223,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Tab = undefined;
 
-var _Tab = __webpack_require__(246);
+var _Tab = __webpack_require__(239);
 
 exports.default = _Tab.Tab;
 exports.Tab = _Tab.Tab;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.applyRipple = undefined;
+
+var _applyRipple = __webpack_require__(240);
+
+exports.default = _applyRipple.applyRipple;
+exports.applyRipple = _applyRipple.applyRipple;
 
 /***/ }),
 /* 44 */
@@ -4255,12 +4255,12 @@ exports.Tab = _Tab.Tab;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.applyRipple = undefined;
+exports.MenuItem = undefined;
 
-var _applyRipple = __webpack_require__(247);
+var _MenuItem = __webpack_require__(246);
 
-exports.default = _applyRipple.applyRipple;
-exports.applyRipple = _applyRipple.applyRipple;
+exports.default = _MenuItem.MenuItem;
+exports.MenuItem = _MenuItem.MenuItem;
 
 /***/ }),
 /* 45 */
@@ -4272,12 +4272,12 @@ exports.applyRipple = _applyRipple.applyRipple;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MenuItem = undefined;
+exports.Divider = undefined;
 
-var _MenuItem = __webpack_require__(253);
+var _Divider = __webpack_require__(260);
 
-exports.default = _MenuItem.MenuItem;
-exports.MenuItem = _MenuItem.MenuItem;
+exports.default = _Divider.Divider;
+exports.Divider = _Divider.Divider;
 
 /***/ }),
 /* 46 */
@@ -5109,10 +5109,10 @@ module.exports = getEventModifierState;
 
 
 
-var DOMLazyTree = __webpack_require__(32);
-var Danger = __webpack_require__(149);
+var DOMLazyTree = __webpack_require__(33);
+var Danger = __webpack_require__(142);
 var ReactDOMComponentTree = __webpack_require__(7);
-var ReactInstrumentation = __webpack_require__(13);
+var ReactInstrumentation = __webpack_require__(14);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(57);
 var setInnerHTML = __webpack_require__(56);
@@ -5508,10 +5508,10 @@ module.exports = createMicrosoftUnsafeLocalFunction;
 var _assign = __webpack_require__(4);
 
 var EventPluginRegistry = __webpack_require__(47);
-var ReactEventEmitterMixin = __webpack_require__(164);
+var ReactEventEmitterMixin = __webpack_require__(157);
 var ViewportMetrics = __webpack_require__(82);
 
-var getVendorPrefixedEventName = __webpack_require__(165);
+var getVendorPrefixedEventName = __webpack_require__(158);
 var isEventSupported = __webpack_require__(52);
 
 /**
@@ -5837,9 +5837,9 @@ module.exports = ReactBrowserEventEmitter;
 var _prodInvariant = __webpack_require__(2);
 
 var ReactPropTypesSecret = __webpack_require__(87);
-var propTypesFactory = __webpack_require__(167);
+var propTypesFactory = __webpack_require__(160);
 
-var React = __webpack_require__(33);
+var React = __webpack_require__(34);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(1);
@@ -6286,7 +6286,7 @@ module.exports = KeyEscapeUtils;
 
 var _assign = __webpack_require__(4);
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 var warning = __webpack_require__(3);
 
 var validateDOMNesting = emptyFunction;
@@ -6755,7 +6755,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.provideSizeClass = undefined;
 
-var _provideSizeClass = __webpack_require__(237);
+var _provideSizeClass = __webpack_require__(230);
 
 exports.default = _provideSizeClass.provideSizeClass;
 exports.provideSizeClass = _provideSizeClass.provideSizeClass;
@@ -6798,7 +6798,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.provideWindowSize = undefined;
 
-var _provideWindowSize = __webpack_require__(238);
+var _provideWindowSize = __webpack_require__(231);
 
 exports.default = _provideWindowSize.provideWindowSize;
 exports.provideWindowSize = _provideWindowSize.provideWindowSize;
@@ -6815,7 +6815,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StickyFooter = undefined;
 
-var _StickyFooter = __webpack_require__(239);
+var _StickyFooter = __webpack_require__(232);
 
 exports.default = _StickyFooter.StickyFooter;
 exports.StickyFooter = _StickyFooter.StickyFooter;
@@ -6832,7 +6832,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TabList = undefined;
 
-var _TabList = __webpack_require__(251);
+var _TabList = __webpack_require__(244);
 
 exports.default = _TabList.TabList;
 exports.TabList = _TabList.TabList;
@@ -6849,7 +6849,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MenuWrapper = exports.Menu = undefined;
 
-var _Menu = __webpack_require__(252);
+var _Menu = __webpack_require__(245);
 
 exports.default = _Menu.Menu;
 exports.Menu = _Menu.Menu;
@@ -6867,7 +6867,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Col = undefined;
 
-var _Col = __webpack_require__(265);
+var _Col = __webpack_require__(258);
 
 exports.default = _Col.Col;
 exports.Col = _Col.Col;
@@ -7388,7 +7388,7 @@ module.exports = ViewportMetrics;
 
 
 var ExecutionEnvironment = __webpack_require__(8);
-var escapeTextContentForBrowser = __webpack_require__(41);
+var escapeTextContentForBrowser = __webpack_require__(40);
 var setInnerHTML = __webpack_require__(56);
 
 /**
@@ -7635,11 +7635,11 @@ module.exports = CSSProperty;
 
 
 
-var DOMProperty = __webpack_require__(29);
+var DOMProperty = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(7);
-var ReactInstrumentation = __webpack_require__(13);
+var ReactInstrumentation = __webpack_require__(14);
 
-var quoteAttributeValueForBrowser = __webpack_require__(163);
+var quoteAttributeValueForBrowser = __webpack_require__(156);
 var warning = __webpack_require__(3);
 
 var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + DOMProperty.ATTRIBUTE_NAME_START_CHAR + '][' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
@@ -7918,13 +7918,13 @@ module.exports = ReactPropTypesSecret;
 
 
 
-var _prodInvariant = __webpack_require__(25),
+var _prodInvariant = __webpack_require__(26),
     _assign = __webpack_require__(4);
 
 var ReactNoopUpdateQueue = __webpack_require__(90);
 
-var canDefineProperty = __webpack_require__(42);
-var emptyObject = __webpack_require__(170);
+var canDefineProperty = __webpack_require__(41);
+var emptyObject = __webpack_require__(163);
 var invariant = __webpack_require__(20);
 var lowPriorityWarning = __webpack_require__(60);
 
@@ -8245,12 +8245,12 @@ module.exports = getIteratorFn;
 
 
 var ReactCurrentOwner = __webpack_require__(19);
-var ReactComponentTreeHook = __webpack_require__(15);
+var ReactComponentTreeHook = __webpack_require__(16);
 var ReactElement = __webpack_require__(24);
 
-var checkReactTypeSpec = __webpack_require__(176);
+var checkReactTypeSpec = __webpack_require__(169);
 
-var canDefineProperty = __webpack_require__(42);
+var canDefineProperty = __webpack_require__(41);
 var getIteratorFn = __webpack_require__(92);
 var warning = __webpack_require__(21);
 var lowPriorityWarning = __webpack_require__(60);
@@ -8726,11 +8726,11 @@ module.exports = ReactDOMSelect;
 var _prodInvariant = __webpack_require__(2),
     _assign = __webpack_require__(4);
 
-var ReactCompositeComponent = __webpack_require__(195);
+var ReactCompositeComponent = __webpack_require__(188);
 var ReactEmptyComponent = __webpack_require__(99);
 var ReactHostComponent = __webpack_require__(100);
 
-var getNextDebugID = __webpack_require__(199);
+var getNextDebugID = __webpack_require__(192);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(3);
 
@@ -9040,9 +9040,9 @@ module.exports = ReactHostComponent;
 var _prodInvariant = __webpack_require__(2);
 
 var ReactCurrentOwner = __webpack_require__(19);
-var REACT_ELEMENT_TYPE = __webpack_require__(200);
+var REACT_ELEMENT_TYPE = __webpack_require__(193);
 
-var getIteratorFn = __webpack_require__(201);
+var getIteratorFn = __webpack_require__(194);
 var invariant = __webpack_require__(1);
 var KeyEscapeUtils = __webpack_require__(64);
 var warning = __webpack_require__(3);
@@ -9221,9 +9221,9 @@ module.exports = traverseAllChildren;
 var _assign = __webpack_require__(4);
 
 var PooledClass = __webpack_require__(23);
-var Transaction = __webpack_require__(39);
-var ReactInstrumentation = __webpack_require__(13);
-var ReactServerUpdateQueue = __webpack_require__(203);
+var Transaction = __webpack_require__(38);
+var ReactInstrumentation = __webpack_require__(14);
+var ReactServerUpdateQueue = __webpack_require__(196);
 
 /**
  * Executed within the scope of the `Transaction` instance. Consider these as
@@ -9317,7 +9317,7 @@ var _prodInvariant = __webpack_require__(2);
 
 var ReactCurrentOwner = __webpack_require__(19);
 var ReactInstanceMap = __webpack_require__(62);
-var ReactInstrumentation = __webpack_require__(13);
+var ReactInstrumentation = __webpack_require__(14);
 var ReactUpdates = __webpack_require__(18);
 
 var invariant = __webpack_require__(1);
@@ -9555,9 +9555,9 @@ module.exports = ReactUpdateQueue;
 var _assign = __webpack_require__(4);
 
 var ReactUpdates = __webpack_require__(18);
-var Transaction = __webpack_require__(39);
+var Transaction = __webpack_require__(38);
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 
 var RESET_BATCHED_UPDATES = {
   initialize: emptyFunction,
@@ -9626,7 +9626,7 @@ module.exports = ReactDefaultBatchingStrategy;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -9707,9 +9707,9 @@ module.exports = EventListener;
 
 
 
-var ReactDOMSelection = __webpack_require__(211);
+var ReactDOMSelection = __webpack_require__(204);
 
-var containsNode = __webpack_require__(213);
+var containsNode = __webpack_require__(206);
 var focusNode = __webpack_require__(84);
 var getActiveElement = __webpack_require__(107);
 
@@ -9880,7 +9880,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Content = undefined;
 
-var _Content = __webpack_require__(236);
+var _Content = __webpack_require__(229);
 
 exports.default = _Content.Content;
 exports.Content = _Content.Content;
@@ -9897,7 +9897,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AppBar = undefined;
 
-var _AppBar = __webpack_require__(245);
+var _AppBar = __webpack_require__(238);
 
 exports.default = _AppBar.AppBar;
 exports.AppBar = _AppBar.AppBar;
@@ -9920,7 +9920,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Row = undefined;
 
-var _Row = __webpack_require__(263);
+var _Row = __webpack_require__(256);
 
 exports.default = _Row.Row;
 exports.Row = _Row.Row;
@@ -9937,7 +9937,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Overlay = undefined;
 
-var _Overlay = __webpack_require__(270);
+var _Overlay = __webpack_require__(263);
 
 exports.default = _Overlay.Overlay;
 exports.Overlay = _Overlay.Overlay;
@@ -9946,70 +9946,28 @@ exports.Overlay = _Overlay.Overlay;
 /* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
-
-/***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "5b57d19cb9a637b54e1033e35b68334b.jpg";
-
-/***/ }),
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "2c59b1973d6d2bcc9e77b1c8264252ac.jpg";
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "8181a9249a88a1972a686a6b5fa98713.jpg";
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "cabe579e8136689e987fb7d55f95954c.jpg";
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "65574b102efce42899caf181bdd1317a.jpg";
-
-/***/ }),
-/* 120 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "6cbbb4813a5c182207fc977fc4726aa0.jpg";
-
-/***/ }),
-/* 121 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
-var _express = __webpack_require__(122);
+var _express = __webpack_require__(115);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _serveFavicon = __webpack_require__(123);
+var _serveFavicon = __webpack_require__(116);
 
 var _serveFavicon2 = _interopRequireDefault(_serveFavicon);
 
-var _mongodb = __webpack_require__(124);
+var _mongodb = __webpack_require__(117);
 
-var _fs = __webpack_require__(125);
+var _fs = __webpack_require__(118);
 
 var _fs2 = _interopRequireDefault(_fs);
 
-var _path = __webpack_require__(126);
+var _path = __webpack_require__(119);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _zlib = __webpack_require__(127);
+var _zlib = __webpack_require__(120);
 
 var _zlib2 = _interopRequireDefault(_zlib);
 
@@ -10017,7 +9975,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _server = __webpack_require__(128);
+var _server = __webpack_require__(121);
 
 var _server2 = _interopRequireDefault(_server);
 
@@ -10035,7 +9993,7 @@ global.document = {
   addEventListener: function addEventListener() {}
 };
 
-var AppComponent = __webpack_require__(234).default;
+var AppComponent = __webpack_require__(227).default;
 
 function sendBase(req, res, next) {
   _fs2.default.readFile(__dirname + '/public/index.html', 'utf8', function (error, docData) {
@@ -10054,9 +10012,9 @@ function sendBase(req, res, next) {
 }
 
 var app = (0, _express2.default)();
-var server = __webpack_require__(342).Server(app);
-var io = __webpack_require__(343)(server);
-// 
+var server = __webpack_require__(363).Server(app);
+var io = __webpack_require__(364)(server);
+//
 // app.get('/bundle.js', function (req, res, next) {
 //   req.url = req.url + '.gz';
 //   res.set('Content-Encoding', 'gzip');
@@ -10095,53 +10053,53 @@ server.listen(3003, function () {
 });
 
 /***/ }),
-/* 122 */
+/* 115 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 123 */
+/* 116 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 124 */
+/* 117 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongodb");
 
 /***/ }),
-/* 125 */
+/* 118 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 126 */
+/* 119 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 127 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = require("zlib");
 
 /***/ }),
-/* 128 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(129);
+module.exports = __webpack_require__(122);
 
 
 /***/ }),
-/* 129 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10157,9 +10115,9 @@ module.exports = __webpack_require__(129);
 
 
 
-var ReactDefaultInjection = __webpack_require__(130);
-var ReactServerRendering = __webpack_require__(228);
-var ReactVersion = __webpack_require__(233);
+var ReactDefaultInjection = __webpack_require__(123);
+var ReactServerRendering = __webpack_require__(221);
+var ReactVersion = __webpack_require__(226);
 
 ReactDefaultInjection.inject();
 
@@ -10172,7 +10130,7 @@ var ReactDOMServer = {
 module.exports = ReactDOMServer;
 
 /***/ }),
-/* 130 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10188,25 +10146,25 @@ module.exports = ReactDOMServer;
 
 
 
-var ARIADOMPropertyConfig = __webpack_require__(131);
-var BeforeInputEventPlugin = __webpack_require__(132);
-var ChangeEventPlugin = __webpack_require__(136);
-var DefaultEventPluginOrder = __webpack_require__(145);
-var EnterLeaveEventPlugin = __webpack_require__(146);
-var HTMLDOMPropertyConfig = __webpack_require__(147);
-var ReactComponentBrowserEnvironment = __webpack_require__(148);
-var ReactDOMComponent = __webpack_require__(154);
+var ARIADOMPropertyConfig = __webpack_require__(124);
+var BeforeInputEventPlugin = __webpack_require__(125);
+var ChangeEventPlugin = __webpack_require__(129);
+var DefaultEventPluginOrder = __webpack_require__(138);
+var EnterLeaveEventPlugin = __webpack_require__(139);
+var HTMLDOMPropertyConfig = __webpack_require__(140);
+var ReactComponentBrowserEnvironment = __webpack_require__(141);
+var ReactDOMComponent = __webpack_require__(147);
 var ReactDOMComponentTree = __webpack_require__(7);
-var ReactDOMEmptyComponent = __webpack_require__(204);
-var ReactDOMTreeTraversal = __webpack_require__(205);
-var ReactDOMTextComponent = __webpack_require__(206);
+var ReactDOMEmptyComponent = __webpack_require__(197);
+var ReactDOMTreeTraversal = __webpack_require__(198);
+var ReactDOMTextComponent = __webpack_require__(199);
 var ReactDefaultBatchingStrategy = __webpack_require__(104);
-var ReactEventListener = __webpack_require__(207);
-var ReactInjection = __webpack_require__(209);
-var ReactReconcileTransaction = __webpack_require__(210);
-var SVGDOMPropertyConfig = __webpack_require__(216);
-var SelectEventPlugin = __webpack_require__(217);
-var SimpleEventPlugin = __webpack_require__(218);
+var ReactEventListener = __webpack_require__(200);
+var ReactInjection = __webpack_require__(202);
+var ReactReconcileTransaction = __webpack_require__(203);
+var SVGDOMPropertyConfig = __webpack_require__(209);
+var SelectEventPlugin = __webpack_require__(210);
+var SimpleEventPlugin = __webpack_require__(211);
 
 var alreadyInjected = false;
 
@@ -10263,7 +10221,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 131 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10342,7 +10300,7 @@ var ARIADOMPropertyConfig = {
 module.exports = ARIADOMPropertyConfig;
 
 /***/ }),
-/* 132 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10358,11 +10316,11 @@ module.exports = ARIADOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ExecutionEnvironment = __webpack_require__(8);
-var FallbackCompositionState = __webpack_require__(133);
-var SyntheticCompositionEvent = __webpack_require__(134);
-var SyntheticInputEvent = __webpack_require__(135);
+var FallbackCompositionState = __webpack_require__(126);
+var SyntheticCompositionEvent = __webpack_require__(127);
+var SyntheticInputEvent = __webpack_require__(128);
 
 var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 var START_KEYCODE = 229;
@@ -10731,7 +10689,7 @@ var BeforeInputEventPlugin = {
 module.exports = BeforeInputEventPlugin;
 
 /***/ }),
-/* 133 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10831,7 +10789,7 @@ PooledClass.addPoolingTo(FallbackCompositionState);
 module.exports = FallbackCompositionState;
 
 /***/ }),
-/* 134 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10872,7 +10830,7 @@ SyntheticEvent.augmentClass(SyntheticCompositionEvent, CompositionEventInterface
 module.exports = SyntheticCompositionEvent;
 
 /***/ }),
-/* 135 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10914,7 +10872,7 @@ SyntheticEvent.augmentClass(SyntheticInputEvent, InputEventInterface);
 module.exports = SyntheticInputEvent;
 
 /***/ }),
-/* 136 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10930,8 +10888,8 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventPluginHub = __webpack_require__(28);
-var EventPropagators = __webpack_require__(27);
+var EventPluginHub = __webpack_require__(29);
+var EventPropagators = __webpack_require__(28);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactUpdates = __webpack_require__(18);
@@ -11231,7 +11189,7 @@ var ChangeEventPlugin = {
 module.exports = ChangeEventPlugin;
 
 /***/ }),
-/* 137 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11258,7 +11216,7 @@ var ReactFeatureFlags = {
 module.exports = ReactFeatureFlags;
 
 /***/ }),
-/* 138 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11275,7 +11233,7 @@ module.exports = ReactFeatureFlags;
 
 
 
-var ReactOwner = __webpack_require__(139);
+var ReactOwner = __webpack_require__(132);
 
 var ReactRef = {};
 
@@ -11352,7 +11310,7 @@ ReactRef.detachRefs = function (instance, element) {
 module.exports = ReactRef;
 
 /***/ }),
-/* 139 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11450,7 +11408,7 @@ var ReactOwner = {
 module.exports = ReactOwner;
 
 /***/ }),
-/* 140 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11467,12 +11425,12 @@ module.exports = ReactOwner;
 
 
 
-var ReactInvalidSetStateWarningHook = __webpack_require__(141);
-var ReactHostOperationHistoryHook = __webpack_require__(142);
-var ReactComponentTreeHook = __webpack_require__(15);
+var ReactInvalidSetStateWarningHook = __webpack_require__(134);
+var ReactHostOperationHistoryHook = __webpack_require__(135);
+var ReactComponentTreeHook = __webpack_require__(16);
 var ExecutionEnvironment = __webpack_require__(8);
 
-var performanceNow = __webpack_require__(143);
+var performanceNow = __webpack_require__(136);
 var warning = __webpack_require__(3);
 
 var hooks = [];
@@ -11816,7 +11774,7 @@ if (/[?&]react_perf\b/.test(url)) {
 module.exports = ReactDebugTool;
 
 /***/ }),
-/* 141 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11858,7 +11816,7 @@ var ReactInvalidSetStateWarningHook = {
 module.exports = ReactInvalidSetStateWarningHook;
 
 /***/ }),
-/* 142 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11897,7 +11855,7 @@ var ReactHostOperationHistoryHook = {
 module.exports = ReactHostOperationHistoryHook;
 
 /***/ }),
-/* 143 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11914,7 +11872,7 @@ module.exports = ReactHostOperationHistoryHook;
  * @typechecks
  */
 
-var performance = __webpack_require__(144);
+var performance = __webpack_require__(137);
 
 var performanceNow;
 
@@ -11936,7 +11894,7 @@ if (performance.now) {
 module.exports = performanceNow;
 
 /***/ }),
-/* 144 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11964,7 +11922,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = performance || {};
 
 /***/ }),
-/* 145 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11995,7 +11953,7 @@ var DefaultEventPluginOrder = ['ResponderEventPlugin', 'SimpleEventPlugin', 'Tap
 module.exports = DefaultEventPluginOrder;
 
 /***/ }),
-/* 146 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12011,9 +11969,9 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(7);
-var SyntheticMouseEvent = __webpack_require__(40);
+var SyntheticMouseEvent = __webpack_require__(39);
 
 var eventTypes = {
   mouseEnter: {
@@ -12098,7 +12056,7 @@ var EnterLeaveEventPlugin = {
 module.exports = EnterLeaveEventPlugin;
 
 /***/ }),
-/* 147 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12114,7 +12072,7 @@ module.exports = EnterLeaveEventPlugin;
 
 
 
-var DOMProperty = __webpack_require__(29);
+var DOMProperty = __webpack_require__(30);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -12339,7 +12297,7 @@ var HTMLDOMPropertyConfig = {
 module.exports = HTMLDOMPropertyConfig;
 
 /***/ }),
-/* 148 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12356,7 +12314,7 @@ module.exports = HTMLDOMPropertyConfig;
 
 
 var DOMChildrenOperations = __webpack_require__(54);
-var ReactDOMIDOperations = __webpack_require__(153);
+var ReactDOMIDOperations = __webpack_require__(146);
 
 /**
  * Abstracts away all functionality of the reconciler that requires knowledge of
@@ -12372,7 +12330,7 @@ var ReactComponentBrowserEnvironment = {
 module.exports = ReactComponentBrowserEnvironment;
 
 /***/ }),
-/* 149 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12390,11 +12348,11 @@ module.exports = ReactComponentBrowserEnvironment;
 
 var _prodInvariant = __webpack_require__(2);
 
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(33);
 var ExecutionEnvironment = __webpack_require__(8);
 
-var createNodesFromMarkup = __webpack_require__(150);
-var emptyFunction = __webpack_require__(14);
+var createNodesFromMarkup = __webpack_require__(143);
+var emptyFunction = __webpack_require__(15);
 var invariant = __webpack_require__(1);
 
 var Danger = {
@@ -12423,7 +12381,7 @@ var Danger = {
 module.exports = Danger;
 
 /***/ }),
-/* 150 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12444,8 +12402,8 @@ module.exports = Danger;
 
 var ExecutionEnvironment = __webpack_require__(8);
 
-var createArrayFromMixed = __webpack_require__(151);
-var getMarkupWrap = __webpack_require__(152);
+var createArrayFromMixed = __webpack_require__(144);
+var getMarkupWrap = __webpack_require__(145);
 var invariant = __webpack_require__(1);
 
 /**
@@ -12512,7 +12470,7 @@ function createNodesFromMarkup(markup, handleScript) {
 module.exports = createNodesFromMarkup;
 
 /***/ }),
-/* 151 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12644,7 +12602,7 @@ function createArrayFromMixed(obj) {
 module.exports = createArrayFromMixed;
 
 /***/ }),
-/* 152 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12744,7 +12702,7 @@ function getMarkupWrap(nodeName) {
 module.exports = getMarkupWrap;
 
 /***/ }),
-/* 153 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12782,7 +12740,7 @@ var ReactDOMIDOperations = {
 module.exports = ReactDOMIDOperations;
 
 /***/ }),
-/* 154 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12803,27 +12761,27 @@ module.exports = ReactDOMIDOperations;
 var _prodInvariant = __webpack_require__(2),
     _assign = __webpack_require__(4);
 
-var AutoFocusUtils = __webpack_require__(155);
-var CSSPropertyOperations = __webpack_require__(156);
-var DOMLazyTree = __webpack_require__(32);
+var AutoFocusUtils = __webpack_require__(148);
+var CSSPropertyOperations = __webpack_require__(149);
+var DOMLazyTree = __webpack_require__(33);
 var DOMNamespaces = __webpack_require__(55);
-var DOMProperty = __webpack_require__(29);
+var DOMProperty = __webpack_require__(30);
 var DOMPropertyOperations = __webpack_require__(86);
-var EventPluginHub = __webpack_require__(28);
+var EventPluginHub = __webpack_require__(29);
 var EventPluginRegistry = __webpack_require__(47);
 var ReactBrowserEventEmitter = __webpack_require__(58);
 var ReactDOMComponentFlags = __webpack_require__(78);
 var ReactDOMComponentTree = __webpack_require__(7);
-var ReactDOMInput = __webpack_require__(166);
-var ReactDOMOption = __webpack_require__(191);
+var ReactDOMInput = __webpack_require__(159);
+var ReactDOMOption = __webpack_require__(184);
 var ReactDOMSelect = __webpack_require__(95);
-var ReactDOMTextarea = __webpack_require__(192);
-var ReactInstrumentation = __webpack_require__(13);
-var ReactMultiChild = __webpack_require__(193);
+var ReactDOMTextarea = __webpack_require__(185);
+var ReactInstrumentation = __webpack_require__(14);
+var ReactMultiChild = __webpack_require__(186);
 var ReactServerRenderingTransaction = __webpack_require__(102);
 
-var emptyFunction = __webpack_require__(14);
-var escapeTextContentForBrowser = __webpack_require__(41);
+var emptyFunction = __webpack_require__(15);
+var escapeTextContentForBrowser = __webpack_require__(40);
 var invariant = __webpack_require__(1);
 var isEventSupported = __webpack_require__(52);
 var shallowEqual = __webpack_require__(63);
@@ -13797,7 +13755,7 @@ _assign(ReactDOMComponent.prototype, ReactDOMComponent.Mixin, ReactMultiChild.Mi
 module.exports = ReactDOMComponent;
 
 /***/ }),
-/* 155 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13826,7 +13784,7 @@ var AutoFocusUtils = {
 module.exports = AutoFocusUtils;
 
 /***/ }),
-/* 156 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13844,12 +13802,12 @@ module.exports = AutoFocusUtils;
 
 var CSSProperty = __webpack_require__(85);
 var ExecutionEnvironment = __webpack_require__(8);
-var ReactInstrumentation = __webpack_require__(13);
+var ReactInstrumentation = __webpack_require__(14);
 
-var camelizeStyleName = __webpack_require__(157);
-var dangerousStyleValue = __webpack_require__(159);
-var hyphenateStyleName = __webpack_require__(160);
-var memoizeStringOnly = __webpack_require__(162);
+var camelizeStyleName = __webpack_require__(150);
+var dangerousStyleValue = __webpack_require__(152);
+var hyphenateStyleName = __webpack_require__(153);
+var memoizeStringOnly = __webpack_require__(155);
 var warning = __webpack_require__(3);
 
 var processStyleName = memoizeStringOnly(function (styleName) {
@@ -14046,7 +14004,7 @@ var CSSPropertyOperations = {
 module.exports = CSSPropertyOperations;
 
 /***/ }),
-/* 157 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14063,7 +14021,7 @@ module.exports = CSSPropertyOperations;
 
 
 
-var camelize = __webpack_require__(158);
+var camelize = __webpack_require__(151);
 
 var msPattern = /^-ms-/;
 
@@ -14091,7 +14049,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 158 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14128,7 +14086,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 159 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14212,7 +14170,7 @@ function dangerousStyleValue(name, value, component, isCustomProperty) {
 module.exports = dangerousStyleValue;
 
 /***/ }),
-/* 160 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14229,7 +14187,7 @@ module.exports = dangerousStyleValue;
 
 
 
-var hyphenate = __webpack_require__(161);
+var hyphenate = __webpack_require__(154);
 
 var msPattern = /^ms-/;
 
@@ -14256,7 +14214,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 161 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14294,7 +14252,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 162 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14329,7 +14287,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 163 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14345,7 +14303,7 @@ module.exports = memoizeStringOnly;
 
 
 
-var escapeTextContentForBrowser = __webpack_require__(41);
+var escapeTextContentForBrowser = __webpack_require__(40);
 
 /**
  * Escapes attribute value to prevent scripting attacks.
@@ -14360,7 +14318,7 @@ function quoteAttributeValueForBrowser(value) {
 module.exports = quoteAttributeValueForBrowser;
 
 /***/ }),
-/* 164 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14376,7 +14334,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventPluginHub = __webpack_require__(28);
+var EventPluginHub = __webpack_require__(29);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -14397,7 +14355,7 @@ var ReactEventEmitterMixin = {
 module.exports = ReactEventEmitterMixin;
 
 /***/ }),
-/* 165 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14503,7 +14461,7 @@ function getVendorPrefixedEventName(eventName) {
 module.exports = getVendorPrefixedEventName;
 
 /***/ }),
-/* 166 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14795,7 +14753,7 @@ function _handleChange(event) {
 module.exports = ReactDOMInput;
 
 /***/ }),
-/* 167 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14814,7 +14772,7 @@ module.exports = ReactDOMInput;
 // Therefore we re-export development-only version with all the PropTypes checks here.
 // However if one is migrating to the `prop-types` npm library, they will go through the
 // `index.js` entry point, and it will branch depending on the environment.
-var factory = __webpack_require__(168);
+var factory = __webpack_require__(161);
 module.exports = function(isValidElement) {
   // It is still allowed in 15.5.
   var throwOnDirectAccess = false;
@@ -14823,7 +14781,7 @@ module.exports = function(isValidElement) {
 
 
 /***/ }),
-/* 168 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14838,12 +14796,12 @@ module.exports = function(isValidElement) {
 
 
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(3);
 
 var ReactPropTypesSecret = __webpack_require__(88);
-var checkPropTypes = __webpack_require__(169);
+var checkPropTypes = __webpack_require__(162);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -15342,7 +15300,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 169 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15410,7 +15368,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 170 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15435,7 +15393,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = emptyObject;
 
 /***/ }),
-/* 171 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15451,11 +15409,11 @@ module.exports = emptyObject;
 
 
 
-var PooledClass = __webpack_require__(172);
+var PooledClass = __webpack_require__(165);
 var ReactElement = __webpack_require__(24);
 
 var emptyFunction = __webpack_require__(50);
-var traverseAllChildren = __webpack_require__(173);
+var traverseAllChildren = __webpack_require__(166);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -15631,7 +15589,7 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 /***/ }),
-/* 172 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15648,7 +15606,7 @@ module.exports = ReactChildren;
 
 
 
-var _prodInvariant = __webpack_require__(25);
+var _prodInvariant = __webpack_require__(26);
 
 var invariant = __webpack_require__(20);
 
@@ -15748,7 +15706,7 @@ var PooledClass = {
 module.exports = PooledClass;
 
 /***/ }),
-/* 173 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15764,14 +15722,14 @@ module.exports = PooledClass;
 
 
 
-var _prodInvariant = __webpack_require__(25);
+var _prodInvariant = __webpack_require__(26);
 
 var ReactCurrentOwner = __webpack_require__(19);
 var REACT_ELEMENT_TYPE = __webpack_require__(91);
 
 var getIteratorFn = __webpack_require__(92);
 var invariant = __webpack_require__(20);
-var KeyEscapeUtils = __webpack_require__(174);
+var KeyEscapeUtils = __webpack_require__(167);
 var warning = __webpack_require__(21);
 
 var SEPARATOR = '.';
@@ -15929,7 +15887,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 module.exports = traverseAllChildren;
 
 /***/ }),
-/* 174 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15993,7 +15951,7 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 175 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16167,7 +16125,7 @@ var ReactDOMFactories = {
 module.exports = ReactDOMFactories;
 
 /***/ }),
-/* 176 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16183,10 +16141,10 @@ module.exports = ReactDOMFactories;
 
 
 
-var _prodInvariant = __webpack_require__(25);
+var _prodInvariant = __webpack_require__(26);
 
-var ReactPropTypeLocationNames = __webpack_require__(177);
-var ReactPropTypesSecret = __webpack_require__(178);
+var ReactPropTypeLocationNames = __webpack_require__(170);
+var ReactPropTypesSecret = __webpack_require__(171);
 
 var invariant = __webpack_require__(20);
 var warning = __webpack_require__(21);
@@ -16199,7 +16157,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(15);
+  ReactComponentTreeHook = __webpack_require__(16);
 }
 
 var loggedTypeFailures = {};
@@ -16241,7 +16199,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(15);
+            ReactComponentTreeHook = __webpack_require__(16);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -16259,7 +16217,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 module.exports = checkReactTypeSpec;
 
 /***/ }),
-/* 177 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16289,7 +16247,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = ReactPropTypeLocationNames;
 
 /***/ }),
-/* 178 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16311,7 +16269,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 179 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16330,12 +16288,12 @@ module.exports = ReactPropTypesSecret;
 var _require = __webpack_require__(24),
     isValidElement = _require.isValidElement;
 
-var factory = __webpack_require__(180);
+var factory = __webpack_require__(173);
 
 module.exports = factory(isValidElement);
 
 /***/ }),
-/* 180 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16354,7 +16312,7 @@ module.exports = factory(isValidElement);
 // Therefore we re-export development-only version with all the PropTypes checks here.
 // However if one is migrating to the `prop-types` npm library, they will go through the
 // `index.js` entry point, and it will branch depending on the environment.
-var factory = __webpack_require__(181);
+var factory = __webpack_require__(174);
 module.exports = function(isValidElement) {
   // It is still allowed in 15.5.
   var throwOnDirectAccess = false;
@@ -16363,7 +16321,7 @@ module.exports = function(isValidElement) {
 
 
 /***/ }),
-/* 181 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16383,7 +16341,7 @@ var invariant = __webpack_require__(20);
 var warning = __webpack_require__(21);
 
 var ReactPropTypesSecret = __webpack_require__(94);
-var checkPropTypes = __webpack_require__(182);
+var checkPropTypes = __webpack_require__(175);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -16882,7 +16840,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 182 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16950,7 +16908,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 183 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16969,7 +16927,7 @@ module.exports = checkPropTypes;
 module.exports = '15.6.1';
 
 /***/ }),
-/* 184 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16992,12 +16950,12 @@ var _require2 = __webpack_require__(24),
     isValidElement = _require2.isValidElement;
 
 var ReactNoopUpdateQueue = __webpack_require__(90);
-var factory = __webpack_require__(185);
+var factory = __webpack_require__(178);
 
 module.exports = factory(Component, isValidElement, ReactNoopUpdateQueue);
 
 /***/ }),
-/* 185 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17015,11 +16973,11 @@ module.exports = factory(Component, isValidElement, ReactNoopUpdateQueue);
 
 var _assign = __webpack_require__(4);
 
-var emptyObject = __webpack_require__(186);
-var _invariant = __webpack_require__(187);
+var emptyObject = __webpack_require__(179);
+var _invariant = __webpack_require__(180);
 
 if (process.env.NODE_ENV !== 'production') {
-  var warning = __webpack_require__(188);
+  var warning = __webpack_require__(181);
 }
 
 var MIXINS_KEY = 'mixins';
@@ -17876,7 +17834,7 @@ module.exports = factory;
 
 
 /***/ }),
-/* 186 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17901,7 +17859,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = emptyObject;
 
 /***/ }),
-/* 187 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17962,7 +17920,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 188 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17978,7 +17936,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(189);
+var emptyFunction = __webpack_require__(182);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -18034,7 +17992,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 /***/ }),
-/* 189 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18078,7 +18036,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 190 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18093,7 +18051,7 @@ module.exports = emptyFunction;
  */
 
 
-var _prodInvariant = __webpack_require__(25);
+var _prodInvariant = __webpack_require__(26);
 
 var ReactElement = __webpack_require__(24);
 
@@ -18121,7 +18079,7 @@ function onlyChild(children) {
 module.exports = onlyChild;
 
 /***/ }),
-/* 191 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18139,7 +18097,7 @@ module.exports = onlyChild;
 
 var _assign = __webpack_require__(4);
 
-var React = __webpack_require__(33);
+var React = __webpack_require__(34);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactDOMSelect = __webpack_require__(95);
 
@@ -18248,7 +18206,7 @@ var ReactDOMOption = {
 module.exports = ReactDOMOption;
 
 /***/ }),
-/* 192 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18413,7 +18371,7 @@ function _handleChange(event) {
 module.exports = ReactDOMTextarea;
 
 /***/ }),
-/* 193 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18433,14 +18391,14 @@ var _prodInvariant = __webpack_require__(2);
 
 var ReactComponentEnvironment = __webpack_require__(61);
 var ReactInstanceMap = __webpack_require__(62);
-var ReactInstrumentation = __webpack_require__(13);
+var ReactInstrumentation = __webpack_require__(14);
 
 var ReactCurrentOwner = __webpack_require__(19);
-var ReactReconciler = __webpack_require__(30);
-var ReactChildReconciler = __webpack_require__(194);
+var ReactReconciler = __webpack_require__(31);
+var ReactChildReconciler = __webpack_require__(187);
 
-var emptyFunction = __webpack_require__(14);
-var flattenChildren = __webpack_require__(202);
+var emptyFunction = __webpack_require__(15);
+var flattenChildren = __webpack_require__(195);
 var invariant = __webpack_require__(1);
 
 /**
@@ -18864,7 +18822,7 @@ var ReactMultiChild = {
 module.exports = ReactMultiChild;
 
 /***/ }),
-/* 194 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18880,7 +18838,7 @@ module.exports = ReactMultiChild;
 
 
 
-var ReactReconciler = __webpack_require__(30);
+var ReactReconciler = __webpack_require__(31);
 
 var instantiateReactComponent = __webpack_require__(96);
 var KeyEscapeUtils = __webpack_require__(64);
@@ -18896,7 +18854,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(15);
+  ReactComponentTreeHook = __webpack_require__(16);
 }
 
 function instantiateChild(childInstances, child, name, selfDebugID) {
@@ -18904,7 +18862,7 @@ function instantiateChild(childInstances, child, name, selfDebugID) {
   var keyUnique = childInstances[name] === undefined;
   if (process.env.NODE_ENV !== 'production') {
     if (!ReactComponentTreeHook) {
-      ReactComponentTreeHook = __webpack_require__(15);
+      ReactComponentTreeHook = __webpack_require__(16);
     }
     if (!keyUnique) {
       process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -19022,7 +18980,7 @@ var ReactChildReconciler = {
 module.exports = ReactChildReconciler;
 
 /***/ }),
-/* 195 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19041,17 +18999,17 @@ module.exports = ReactChildReconciler;
 var _prodInvariant = __webpack_require__(2),
     _assign = __webpack_require__(4);
 
-var React = __webpack_require__(33);
+var React = __webpack_require__(34);
 var ReactComponentEnvironment = __webpack_require__(61);
 var ReactCurrentOwner = __webpack_require__(19);
 var ReactErrorUtils = __webpack_require__(49);
 var ReactInstanceMap = __webpack_require__(62);
-var ReactInstrumentation = __webpack_require__(13);
-var ReactNodeTypes = __webpack_require__(196);
-var ReactReconciler = __webpack_require__(30);
+var ReactInstrumentation = __webpack_require__(14);
+var ReactNodeTypes = __webpack_require__(189);
+var ReactReconciler = __webpack_require__(31);
 
 if (process.env.NODE_ENV !== 'production') {
-  var checkReactTypeSpec = __webpack_require__(197);
+  var checkReactTypeSpec = __webpack_require__(190);
 }
 
 var emptyObject = __webpack_require__(97);
@@ -19927,7 +19885,7 @@ var ReactCompositeComponent = {
 module.exports = ReactCompositeComponent;
 
 /***/ }),
-/* 196 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19946,7 +19904,7 @@ module.exports = ReactCompositeComponent;
 
 var _prodInvariant = __webpack_require__(2);
 
-var React = __webpack_require__(33);
+var React = __webpack_require__(34);
 
 var invariant = __webpack_require__(1);
 
@@ -19972,7 +19930,7 @@ var ReactNodeTypes = {
 module.exports = ReactNodeTypes;
 
 /***/ }),
-/* 197 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19990,7 +19948,7 @@ module.exports = ReactNodeTypes;
 
 var _prodInvariant = __webpack_require__(2);
 
-var ReactPropTypeLocationNames = __webpack_require__(198);
+var ReactPropTypeLocationNames = __webpack_require__(191);
 var ReactPropTypesSecret = __webpack_require__(87);
 
 var invariant = __webpack_require__(1);
@@ -20004,7 +19962,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(15);
+  ReactComponentTreeHook = __webpack_require__(16);
 }
 
 var loggedTypeFailures = {};
@@ -20046,7 +20004,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(15);
+            ReactComponentTreeHook = __webpack_require__(16);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -20064,7 +20022,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 module.exports = checkReactTypeSpec;
 
 /***/ }),
-/* 198 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20094,7 +20052,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = ReactPropTypeLocationNames;
 
 /***/ }),
-/* 199 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20120,7 +20078,7 @@ function getNextDebugID() {
 module.exports = getNextDebugID;
 
 /***/ }),
-/* 200 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20145,7 +20103,7 @@ var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol
 module.exports = REACT_ELEMENT_TYPE;
 
 /***/ }),
-/* 201 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20191,7 +20149,7 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 /***/ }),
-/* 202 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20220,7 +20178,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(15);
+  ReactComponentTreeHook = __webpack_require__(16);
 }
 
 /**
@@ -20236,7 +20194,7 @@ function flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID
     var keyUnique = result[name] === undefined;
     if (process.env.NODE_ENV !== 'production') {
       if (!ReactComponentTreeHook) {
-        ReactComponentTreeHook = __webpack_require__(15);
+        ReactComponentTreeHook = __webpack_require__(16);
       }
       if (!keyUnique) {
         process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -20272,7 +20230,7 @@ function flattenChildren(children, selfDebugID) {
 module.exports = flattenChildren;
 
 /***/ }),
-/* 203 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20416,7 +20374,7 @@ var ReactServerUpdateQueue = function () {
 module.exports = ReactServerUpdateQueue;
 
 /***/ }),
-/* 204 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20434,7 +20392,7 @@ module.exports = ReactServerUpdateQueue;
 
 var _assign = __webpack_require__(4);
 
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(33);
 var ReactDOMComponentTree = __webpack_require__(7);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -20481,7 +20439,7 @@ _assign(ReactDOMEmptyComponent.prototype, {
 module.exports = ReactDOMEmptyComponent;
 
 /***/ }),
-/* 205 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20622,7 +20580,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 206 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20642,10 +20600,10 @@ var _prodInvariant = __webpack_require__(2),
     _assign = __webpack_require__(4);
 
 var DOMChildrenOperations = __webpack_require__(54);
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(33);
 var ReactDOMComponentTree = __webpack_require__(7);
 
-var escapeTextContentForBrowser = __webpack_require__(41);
+var escapeTextContentForBrowser = __webpack_require__(40);
 var invariant = __webpack_require__(1);
 var validateDOMNesting = __webpack_require__(65);
 
@@ -20789,7 +20747,7 @@ _assign(ReactDOMTextComponent.prototype, {
 module.exports = ReactDOMTextComponent;
 
 /***/ }),
-/* 207 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20814,7 +20772,7 @@ var ReactDOMComponentTree = __webpack_require__(7);
 var ReactUpdates = __webpack_require__(18);
 
 var getEventTarget = __webpack_require__(51);
-var getUnboundedScrollPosition = __webpack_require__(208);
+var getUnboundedScrollPosition = __webpack_require__(201);
 
 /**
  * Find the deepest React component completely containing the root of the
@@ -20949,7 +20907,7 @@ var ReactEventListener = {
 module.exports = ReactEventListener;
 
 /***/ }),
-/* 208 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20993,7 +20951,7 @@ function getUnboundedScrollPosition(scrollable) {
 module.exports = getUnboundedScrollPosition;
 
 /***/ }),
-/* 209 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21009,8 +20967,8 @@ module.exports = getUnboundedScrollPosition;
 
 
 
-var DOMProperty = __webpack_require__(29);
-var EventPluginHub = __webpack_require__(28);
+var DOMProperty = __webpack_require__(30);
+var EventPluginHub = __webpack_require__(29);
 var EventPluginUtils = __webpack_require__(48);
 var ReactComponentEnvironment = __webpack_require__(61);
 var ReactEmptyComponent = __webpack_require__(99);
@@ -21032,7 +20990,7 @@ var ReactInjection = {
 module.exports = ReactInjection;
 
 /***/ }),
-/* 210 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21054,8 +21012,8 @@ var CallbackQueue = __webpack_require__(79);
 var PooledClass = __webpack_require__(23);
 var ReactBrowserEventEmitter = __webpack_require__(58);
 var ReactInputSelection = __webpack_require__(106);
-var ReactInstrumentation = __webpack_require__(13);
-var Transaction = __webpack_require__(39);
+var ReactInstrumentation = __webpack_require__(14);
+var Transaction = __webpack_require__(38);
 var ReactUpdateQueue = __webpack_require__(103);
 
 /**
@@ -21215,7 +21173,7 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 module.exports = ReactReconcileTransaction;
 
 /***/ }),
-/* 211 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21233,7 +21191,7 @@ module.exports = ReactReconcileTransaction;
 
 var ExecutionEnvironment = __webpack_require__(8);
 
-var getNodeForCharacterOffset = __webpack_require__(212);
+var getNodeForCharacterOffset = __webpack_require__(205);
 var getTextContentAccessor = __webpack_require__(77);
 
 /**
@@ -21432,7 +21390,7 @@ var ReactDOMSelection = {
 module.exports = ReactDOMSelection;
 
 /***/ }),
-/* 212 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21511,7 +21469,7 @@ function getNodeForCharacterOffset(root, offset) {
 module.exports = getNodeForCharacterOffset;
 
 /***/ }),
-/* 213 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21528,7 +21486,7 @@ module.exports = getNodeForCharacterOffset;
  * 
  */
 
-var isTextNode = __webpack_require__(214);
+var isTextNode = __webpack_require__(207);
 
 /*eslint-disable no-bitwise */
 
@@ -21556,7 +21514,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 214 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21573,7 +21531,7 @@ module.exports = containsNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(215);
+var isNode = __webpack_require__(208);
 
 /**
  * @param {*} object The object to check.
@@ -21586,7 +21544,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 215 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21616,7 +21574,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 216 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21923,7 +21881,7 @@ Object.keys(ATTRS).forEach(function (key) {
 module.exports = SVGDOMPropertyConfig;
 
 /***/ }),
-/* 217 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21939,7 +21897,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactInputSelection = __webpack_require__(106);
@@ -22116,7 +22074,7 @@ var SelectEventPlugin = {
 module.exports = SelectEventPlugin;
 
 /***/ }),
-/* 218 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22136,21 +22094,21 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(2);
 
 var EventListener = __webpack_require__(105);
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(7);
-var SyntheticAnimationEvent = __webpack_require__(219);
-var SyntheticClipboardEvent = __webpack_require__(220);
+var SyntheticAnimationEvent = __webpack_require__(212);
+var SyntheticClipboardEvent = __webpack_require__(213);
 var SyntheticEvent = __webpack_require__(17);
-var SyntheticFocusEvent = __webpack_require__(221);
-var SyntheticKeyboardEvent = __webpack_require__(222);
-var SyntheticMouseEvent = __webpack_require__(40);
-var SyntheticDragEvent = __webpack_require__(224);
-var SyntheticTouchEvent = __webpack_require__(225);
-var SyntheticTransitionEvent = __webpack_require__(226);
-var SyntheticUIEvent = __webpack_require__(31);
-var SyntheticWheelEvent = __webpack_require__(227);
+var SyntheticFocusEvent = __webpack_require__(214);
+var SyntheticKeyboardEvent = __webpack_require__(215);
+var SyntheticMouseEvent = __webpack_require__(39);
+var SyntheticDragEvent = __webpack_require__(217);
+var SyntheticTouchEvent = __webpack_require__(218);
+var SyntheticTransitionEvent = __webpack_require__(219);
+var SyntheticUIEvent = __webpack_require__(32);
+var SyntheticWheelEvent = __webpack_require__(220);
 
-var emptyFunction = __webpack_require__(14);
+var emptyFunction = __webpack_require__(15);
 var getEventCharCode = __webpack_require__(66);
 var invariant = __webpack_require__(1);
 
@@ -22347,7 +22305,7 @@ var SimpleEventPlugin = {
 module.exports = SimpleEventPlugin;
 
 /***/ }),
-/* 219 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22391,7 +22349,7 @@ SyntheticEvent.augmentClass(SyntheticAnimationEvent, AnimationEventInterface);
 module.exports = SyntheticAnimationEvent;
 
 /***/ }),
-/* 220 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22434,7 +22392,7 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 module.exports = SyntheticClipboardEvent;
 
 /***/ }),
-/* 221 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22450,7 +22408,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 
 /**
  * @interface FocusEvent
@@ -22475,7 +22433,7 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 module.exports = SyntheticFocusEvent;
 
 /***/ }),
-/* 222 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22491,10 +22449,10 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 
 var getEventCharCode = __webpack_require__(66);
-var getEventKey = __webpack_require__(223);
+var getEventKey = __webpack_require__(216);
 var getEventModifierState = __webpack_require__(53);
 
 /**
@@ -22564,7 +22522,7 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 module.exports = SyntheticKeyboardEvent;
 
 /***/ }),
-/* 223 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22681,7 +22639,7 @@ function getEventKey(nativeEvent) {
 module.exports = getEventKey;
 
 /***/ }),
-/* 224 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22697,7 +22655,7 @@ module.exports = getEventKey;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(40);
+var SyntheticMouseEvent = __webpack_require__(39);
 
 /**
  * @interface DragEvent
@@ -22722,7 +22680,7 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 module.exports = SyntheticDragEvent;
 
 /***/ }),
-/* 225 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22738,7 +22696,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(31);
+var SyntheticUIEvent = __webpack_require__(32);
 
 var getEventModifierState = __webpack_require__(53);
 
@@ -22772,7 +22730,7 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 module.exports = SyntheticTouchEvent;
 
 /***/ }),
-/* 226 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22816,7 +22774,7 @@ SyntheticEvent.augmentClass(SyntheticTransitionEvent, TransitionEventInterface);
 module.exports = SyntheticTransitionEvent;
 
 /***/ }),
-/* 227 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22832,7 +22790,7 @@ module.exports = SyntheticTransitionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(40);
+var SyntheticMouseEvent = __webpack_require__(39);
 
 /**
  * @interface WheelEvent
@@ -22872,7 +22830,7 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 module.exports = SyntheticWheelEvent;
 
 /***/ }),
-/* 228 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22889,13 +22847,13 @@ module.exports = SyntheticWheelEvent;
 
 var _prodInvariant = __webpack_require__(2);
 
-var React = __webpack_require__(33);
-var ReactDOMContainerInfo = __webpack_require__(229);
+var React = __webpack_require__(34);
+var ReactDOMContainerInfo = __webpack_require__(222);
 var ReactDefaultBatchingStrategy = __webpack_require__(104);
-var ReactInstrumentation = __webpack_require__(13);
-var ReactMarkupChecksum = __webpack_require__(230);
-var ReactReconciler = __webpack_require__(30);
-var ReactServerBatchingStrategy = __webpack_require__(232);
+var ReactInstrumentation = __webpack_require__(14);
+var ReactMarkupChecksum = __webpack_require__(223);
+var ReactReconciler = __webpack_require__(31);
+var ReactServerBatchingStrategy = __webpack_require__(225);
 var ReactServerRenderingTransaction = __webpack_require__(102);
 var ReactUpdates = __webpack_require__(18);
 
@@ -22967,7 +22925,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 229 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23005,7 +22963,7 @@ function ReactDOMContainerInfo(topLevelWrapper, node) {
 module.exports = ReactDOMContainerInfo;
 
 /***/ }),
-/* 230 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23021,7 +22979,7 @@ module.exports = ReactDOMContainerInfo;
 
 
 
-var adler32 = __webpack_require__(231);
+var adler32 = __webpack_require__(224);
 
 var TAG_END = /\/?>/;
 var COMMENT_START = /^<\!\-\-/;
@@ -23060,7 +23018,7 @@ var ReactMarkupChecksum = {
 module.exports = ReactMarkupChecksum;
 
 /***/ }),
-/* 231 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23109,7 +23067,7 @@ function adler32(data) {
 module.exports = adler32;
 
 /***/ }),
-/* 232 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23136,7 +23094,7 @@ var ReactServerBatchingStrategy = {
 module.exports = ReactServerBatchingStrategy;
 
 /***/ }),
-/* 233 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23155,28 +23113,18 @@ module.exports = ReactServerBatchingStrategy;
 module.exports = '15.6.1';
 
 /***/ }),
-/* 234 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.App = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -23188,55 +23136,31 @@ var _redux = __webpack_require__(10);
 
 var _reactRouterDom = __webpack_require__(108);
 
-var _socket = __webpack_require__(235);
+var _socket = __webpack_require__(228);
 
 var _socket2 = _interopRequireDefault(_socket);
 
 var _Content = __webpack_require__(109);
 
-var _reducer = __webpack_require__(240);
+var _reducer = __webpack_require__(233);
 
-var _Header = __webpack_require__(242);
+var _Header = __webpack_require__(235);
 
-var _Pages = __webpack_require__(257);
+var _Pages = __webpack_require__(250);
 
-var _Footer = __webpack_require__(338);
+var _Footer = __webpack_require__(359);
 
-var _Flyer = __webpack_require__(340);
+var _Flyer = __webpack_require__(361);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //Application state store.
 var store = (0, _redux.createStore)(_reducer.reducer);
@@ -23256,7 +23180,24 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-      return React.createElement(_reactRedux.Provider, { store: store }, React.createElement(_reactRouterDom.Route, { path: '/' }, React.createElement('div', { className: 'app-root' }, React.createElement(_Header.Header, null), React.createElement(_Content.Content, { footerComponent: React.createElement(_Footer.Footer, null) }, React.createElement(_Pages.Pages, null)))));
+      return React.createElement(
+        _reactRedux.Provider,
+        { store: store },
+        React.createElement(
+          _reactRouterDom.Route,
+          { path: '/' },
+          React.createElement(
+            'div',
+            { className: 'app-root' },
+            React.createElement(_Header.Header, null),
+            React.createElement(
+              _Content.Content,
+              { footerComponent: React.createElement(_Footer.Footer, null) },
+              React.createElement(_Pages.Pages, null)
+            )
+          )
+        )
+      );
     }
   }]);
 
@@ -23267,13 +23208,13 @@ exports.default = App;
 exports.App = App;
 
 /***/ }),
-/* 235 */
+/* 228 */
 /***/ (function(module, exports) {
 
 module.exports = require("socket.io-client");
 
 /***/ }),
-/* 236 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23449,7 +23390,7 @@ exports.default = Content;
 exports.Content = Content;
 
 /***/ }),
-/* 237 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23555,7 +23496,7 @@ exports.default = provideSizeClass;
 exports.provideSizeClass = provideSizeClass;
 
 /***/ }),
-/* 238 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23746,7 +23687,7 @@ exports.default = provideWindowSize;
 exports.provideWindowSize = provideWindowSize;
 
 /***/ }),
-/* 239 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23841,7 +23782,7 @@ exports.default = StickyFooter;
 exports.StickyFooter = StickyFooter;
 
 /***/ }),
-/* 240 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23852,7 +23793,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.reducer = undefined;
 
-var _stateTree = __webpack_require__(241);
+var _stateTree = __webpack_require__(234);
 
 var _redux = __webpack_require__(10);
 
@@ -23874,7 +23815,7 @@ function reducer() {
 exports.reducer = reducer;
 
 /***/ }),
-/* 241 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23889,7 +23830,7 @@ var stateTree = {};
 exports.stateTree = stateTree;
 
 /***/ }),
-/* 242 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23900,34 +23841,24 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Header = undefined;
 
-var _Header = __webpack_require__(243);
+var _Header = __webpack_require__(236);
 
 exports.default = _Header.Header;
 exports.Header = _Header.Header;
 
 /***/ }),
-/* 243 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Header = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -23939,57 +23870,33 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
 var _AppBar = __webpack_require__(110);
 
-var _Tab = __webpack_require__(43);
+var _Tab = __webpack_require__(42);
 
 var _TabList = __webpack_require__(72);
 
 var _Menu = __webpack_require__(73);
 
-var _MenuItem = __webpack_require__(45);
+var _MenuItem = __webpack_require__(44);
 
-var _NavCreator2 = __webpack_require__(254);
+var _NavCreator2 = __webpack_require__(247);
 
 var _logo = __webpack_require__(111);
 
 var _logo2 = _interopRequireDefault(_logo);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Header = function (_React$Component) {
   _inherits(Header, _React$Component);
@@ -24019,13 +23926,23 @@ var Header = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(_AppBar.AppBar, { height: 82,
-        style: { paddingTop: '12px', boxSizing: 'border-box' },
-        className: 'z-depth-1',
-        backgroundColor: 'white' }, React.createElement('img', { style: { display: 'inline-block',
-          height: '40px',
-          marginBottom: '-8px' },
-        src: _logo2.default }), React.createElement('h4', { style: { display: 'inline-block' } }, '\xA0\xA0CSUA'), React.createElement(_NavCreator2._NavCreator, null));
+      return React.createElement(
+        _AppBar.AppBar,
+        { height: 82,
+          style: { paddingTop: '12px', boxSizing: 'border-box' },
+          className: 'z-depth-1',
+          backgroundColor: 'white' },
+        React.createElement('img', { style: { display: 'inline-block',
+            height: '40px',
+            marginBottom: '-8px' },
+          src: _logo2.default }),
+        React.createElement(
+          'h4',
+          { style: { display: 'inline-block' } },
+          '\xA0\xA0CSUA'
+        ),
+        React.createElement(_NavCreator2._NavCreator, null)
+      );
     }
   }]);
 
@@ -24038,7 +23955,7 @@ exports.default = Header;
 exports.Header = Header;
 
 /***/ }),
-/* 244 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24083,7 +24000,7 @@ exports.bindAllMethods = bindAllMethods;
 exports.deleteUsedProps = deleteUsedProps;
 
 /***/ }),
-/* 245 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24102,7 +24019,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactDom = __webpack_require__(34);
+var _reactDom = __webpack_require__(35);
 
 var ReactDOM = _interopRequireWildcard(_reactDom);
 
@@ -24285,7 +24202,7 @@ exports.default = AppBar;
 exports.AppBar = AppBar;
 
 /***/ }),
-/* 246 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24304,7 +24221,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactDom = __webpack_require__(34);
+var _reactDom = __webpack_require__(35);
 
 var ReactDOM = _interopRequireWildcard(_reactDom);
 
@@ -24312,9 +24229,9 @@ __webpack_require__(6);
 
 var _Guac = __webpack_require__(5);
 
-var _applyRipple = __webpack_require__(44);
+var _applyRipple = __webpack_require__(43);
 
-var _Button = __webpack_require__(26);
+var _Button = __webpack_require__(36);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -24464,7 +24381,7 @@ exports.default = Tab;
 exports.Tab = Tab;
 
 /***/ }),
-/* 247 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24483,13 +24400,13 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactDom = __webpack_require__(34);
+var _reactDom = __webpack_require__(35);
 
 var ReactDOM = _interopRequireWildcard(_reactDom);
 
 __webpack_require__(6);
 
-var _timingUtils = __webpack_require__(248);
+var _timingUtils = __webpack_require__(241);
 
 var _Hoc = __webpack_require__(69);
 
@@ -24713,7 +24630,7 @@ exports.default = applyRipple;
 exports.applyRipple = applyRipple;
 
 /***/ }),
-/* 248 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24736,7 +24653,7 @@ exports.getScalingFunc = getScalingFunc;
 exports.getAnimationTimeBySize = getAnimationTimeBySize;
 
 /***/ }),
-/* 249 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24759,9 +24676,9 @@ __webpack_require__(6);
 
 var _Guac = __webpack_require__(5);
 
-var _applyRipple = __webpack_require__(44);
+var _applyRipple = __webpack_require__(43);
 
-var _Icon = __webpack_require__(16);
+var _Icon = __webpack_require__(22);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -24927,7 +24844,7 @@ exports.IconButton = IconButton;
 exports.FloatingActionButton = FloatingActionButton;
 
 /***/ }),
-/* 250 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25017,7 +24934,7 @@ exports.default = Icon;
 exports.Icon = Icon;
 
 /***/ }),
-/* 251 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25046,7 +24963,7 @@ var _provideWindowSize = __webpack_require__(70);
 
 var _provideWindowSize2 = _interopRequireDefault(_provideWindowSize);
 
-var _Tab = __webpack_require__(43);
+var _Tab = __webpack_require__(42);
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
@@ -25193,7 +25110,7 @@ exports.default = TabList;
 exports.TabList = TabList;
 
 /***/ }),
-/* 252 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25212,7 +25129,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactDom = __webpack_require__(34);
+var _reactDom = __webpack_require__(35);
 
 var ReactDOM = _interopRequireWildcard(_reactDom);
 
@@ -25222,7 +25139,7 @@ var _Guac = __webpack_require__(5);
 
 var _Guac2 = _interopRequireDefault(_Guac);
 
-var _MenuItem = __webpack_require__(45);
+var _MenuItem = __webpack_require__(44);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -25417,7 +25334,7 @@ exports.default = Menu;
 exports.Menu = Menu;
 
 /***/ }),
-/* 253 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25442,7 +25359,7 @@ var _Guac = __webpack_require__(5);
 
 var _Guac2 = _interopRequireDefault(_Guac);
 
-var _Button = __webpack_require__(26);
+var _Button = __webpack_require__(36);
 
 var _Button2 = _interopRequireDefault(_Button);
 
@@ -25508,82 +25425,48 @@ exports.default = MenuItem;
 exports.MenuItem = MenuItem;
 
 /***/ }),
-/* 254 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._NavCreator = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
-var _Tab = __webpack_require__(43);
+var _Tab = __webpack_require__(42);
 
 var _TabList = __webpack_require__(72);
 
 var _Menu = __webpack_require__(73);
 
-var _MenuItem = __webpack_require__(45);
+var _MenuItem = __webpack_require__(44);
 
-var _mainNavs = __webpack_require__(255);
+var _mainNavs = __webpack_require__(248);
 
 var _mainNavs2 = _interopRequireDefault(_mainNavs);
 
 var _reactRouter = __webpack_require__(9);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
   Props:
@@ -25655,35 +25538,48 @@ var _NavCreator = function (_React$Component) {
 
           var _loop2 = function _loop2() {
             var subnav = nav.subnavs[i2];
-            menuItems.push(React.createElement(_MenuItem.MenuItem, { key: i2, onClick: function onClick() {
-                return _this2.pushHistory(subnav.href);
-              } }, subnav.name));
+            menuItems.push(React.createElement(
+              _MenuItem.MenuItem,
+              { key: i2, onClick: function onClick() {
+                  return _this2.pushHistory(subnav.href);
+                } },
+              subnav.name
+            ));
           };
 
           for (i2 in nav.subnavs) {
             _loop2();
           }
           //Generate menu for the subnavs
-          menu = React.createElement(_Menu.Menu, { dense: true, fastExpand: true,
-            active: _this2.state.isMenuActive[nav.name],
-            setActive: function setActive(active) {
-              return _this2.setMenuActive(nav.name, active);
-            },
-            expand: 'vertical',
-            style: { fontSize: '10px' } }, menuItems);
+          menu = React.createElement(
+            _Menu.Menu,
+            { dense: true, fastExpand: true,
+              active: _this2.state.isMenuActive[nav.name],
+              setActive: function setActive(active) {
+                return _this2.setMenuActive(nav.name, active);
+              },
+              expand: 'vertical',
+              style: { fontSize: '10px' } },
+            menuItems
+          );
         }
-        navComponents.push(React.createElement(_Tab.Tab, {
-          key: i,
-          tabKey: i,
-          onMouseEnter: function onMouseEnter() {
-            _this2.setMenuActive(nav.name, true);
-          },
-          onMouseLeave: function onMouseLeave() {
-            return _this2.setMenuActive(nav.name, false);
-          },
-          onClick: function onClick(event) {
-            _this2.pushHistory(nav.href);
-          } }, nav.name, menu));
+        navComponents.push(React.createElement(
+          _Tab.Tab,
+          {
+            key: i,
+            tabKey: i,
+            onMouseEnter: function onMouseEnter() {
+              _this2.setMenuActive(nav.name, true);
+            },
+            onMouseLeave: function onMouseLeave() {
+              return _this2.setMenuActive(nav.name, false);
+            },
+            onClick: function onClick(event) {
+              _this2.pushHistory(nav.href);
+            } },
+          nav.name,
+          menu
+        ));
       };
 
       for (var i in navs) {
@@ -25698,15 +25594,19 @@ var _NavCreator = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      return React.createElement(_TabList.TabList, { style: { margin: '10px',
-          marginBottom: '-10px',
-          boxSizing: 'border-box',
-          maxWidth: '70%',
-          float: 'right' },
-        activeTabKey: this.calcActiveKey(),
-        setActiveTabKey: function setActiveTabKey(key) {
-          _this3.setState({ activeTabKey: key });
-        } }, this.calcNavComponents(this.props));
+      return React.createElement(
+        _TabList.TabList,
+        { style: { margin: '10px',
+            marginBottom: '-10px',
+            boxSizing: 'border-box',
+            maxWidth: '70%',
+            float: 'right' },
+          activeTabKey: this.calcActiveKey(),
+          setActiveTabKey: function setActiveTabKey(key) {
+            _this3.setState({ activeTabKey: key });
+          } },
+        this.calcNavComponents(this.props)
+      );
     }
   }]);
 
@@ -25723,7 +25623,7 @@ exports.default = _NavCreator;
 exports._NavCreator = _NavCreator;
 
 /***/ }),
-/* 255 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25734,7 +25634,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.mainNavs = undefined;
 
-var _paths = __webpack_require__(256);
+var _paths = __webpack_require__(249);
 
 var _paths2 = _interopRequireDefault(_paths);
 
@@ -25771,7 +25671,7 @@ exports.default = mainNavs;
 exports.mainNavs = mainNavs;
 
 /***/ }),
-/* 256 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25802,7 +25702,7 @@ exports.default = paths;
 exports.paths = paths;
 
 /***/ }),
-/* 257 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25813,34 +25713,24 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Pages = undefined;
 
-var _Pages = __webpack_require__(258);
+var _Pages = __webpack_require__(251);
 
 exports.default = _Pages.Pages;
 exports.Pages = _Pages.Pages;
 
 /***/ }),
-/* 258 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Pages = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -25852,13 +25742,13 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
 var _reactRouterDom = __webpack_require__(108);
 
-var _About = __webpack_require__(259);
+var _About = __webpack_require__(252);
 
-var _Politburo = __webpack_require__(281);
+var _Politburo = __webpack_require__(274);
 
 var _Officers = __webpack_require__(288);
 
@@ -25874,37 +25764,17 @@ var _GeneralMeetings = __webpack_require__(330);
 
 var _Industry = __webpack_require__(334);
 
-var _Sponsors = __webpack_require__(346);
+var _Sponsors = __webpack_require__(340);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+var _Join = __webpack_require__(355);
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Pages = function (_React$Component) {
   _inherits(Pages, _React$Component);
@@ -25919,35 +25789,43 @@ var Pages = function (_React$Component) {
   }
 
   _createClass(Pages, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'page' }, React.createElement(_reactRouterDom.Route, { path: '*', render: function render() {
-          window.scrollTo(0, 0);return null;
-        } }), React.createElement(_reactRouterDom.Switch, null, React.createElement(_reactRouterDom.Route, { path: '/about/politburo', component: _Politburo.Politburo }), React.createElement(_reactRouterDom.Route, { path: '/about/officers', component: _Officers.Officers }), React.createElement(_reactRouterDom.Route, { path: '/about/constitution', component: _Constitution.Constitution }), React.createElement(_reactRouterDom.Route, { path: '/events/workshops', component: _Workshops.Workshops }), React.createElement(_reactRouterDom.Route, { path: '/events/recruiting', component: _Recruiting.Recruiting }), React.createElement(_reactRouterDom.Route, { path: '/events/gms', component: _GeneralMeetings.GeneralMeetings }), React.createElement(_reactRouterDom.Route, { path: '/events', component: _Events.Events }), React.createElement(_reactRouterDom.Route, { path: '/industry/sponsors', component: _Sponsors.Sponsors }), React.createElement(_reactRouterDom.Route, { path: '/industry', component: _Industry.Industry }), React.createElement(_reactRouterDom.Route, { path: '/', component: _About.About })));
+      return React.createElement(
+        'div',
+        { className: 'page' },
+        React.createElement(_reactRouterDom.Route, { path: '*', render: function render() {
+            window.scrollTo(0, 0);return null;
+          } }),
+        React.createElement(
+          _reactRouterDom.Switch,
+          null,
+          React.createElement(_reactRouterDom.Route, { path: '/about/politburo', component: _Politburo.Politburo }),
+          React.createElement(_reactRouterDom.Route, { path: '/about/officers', component: _Officers.Officers }),
+          React.createElement(_reactRouterDom.Route, { path: '/about/constitution', component: _Constitution.Constitution }),
+          React.createElement(_reactRouterDom.Route, { path: '/events/workshops', component: _Workshops.Workshops }),
+          React.createElement(_reactRouterDom.Route, { path: '/events/recruiting', component: _Recruiting.Recruiting }),
+          React.createElement(_reactRouterDom.Route, { path: '/events/gms', component: _GeneralMeetings.GeneralMeetings }),
+          React.createElement(_reactRouterDom.Route, { path: '/events', component: _Events.Events }),
+          React.createElement(_reactRouterDom.Route, { path: '/industry/sponsors', component: _Sponsors.Sponsors }),
+          React.createElement(_reactRouterDom.Route, { path: '/industry', component: _Industry.Industry }),
+          React.createElement(_reactRouterDom.Route, { path: '/join', component: _Join.Join }),
+          React.createElement(_reactRouterDom.Route, { path: '/', component: _About.About })
+        )
+      );
     }
   }]);
 
   return Pages;
 }(React.Component);
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {};
-}
-
-exports.Pages = Pages = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _Guac.Guac)(Pages)));
+exports.Pages = Pages = (0, _Guac.Guac)(Pages);
 
 exports.default = Pages;
 exports.Pages = Pages;
 
 /***/ }),
-/* 259 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25958,34 +25836,24 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.About = undefined;
 
-var _About = __webpack_require__(260);
+var _About = __webpack_require__(253);
 
 exports.default = _About.About;
 exports.About = _About.About;
 
 /***/ }),
-/* 260 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.About = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -25997,71 +25865,55 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _reactLazyLoad = __webpack_require__(35);
+var _reactRouterDom = __webpack_require__(108);
+
+var _Guac = __webpack_require__(12);
+
+var _reactLazyLoad = __webpack_require__(25);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _animatedScrollTo = __webpack_require__(261);
+var _animatedScrollTo = __webpack_require__(254);
 
 var _animatedScrollTo2 = _interopRequireDefault(_animatedScrollTo);
 
-var _lib = __webpack_require__(36);
+var _lib = __webpack_require__(27);
 
-var _Button = __webpack_require__(26);
+var _Button = __webpack_require__(36);
 
-var _Icon = __webpack_require__(16);
+var _Icon = __webpack_require__(22);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _EventCalendar = __webpack_require__(38);
+var _EventCalendar = __webpack_require__(37);
 
 var _EventCalendar2 = _interopRequireDefault(_EventCalendar);
 
-var _PaperBorder2 = __webpack_require__(277);
+var _PaperBorder2 = __webpack_require__(270);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-var _Officers_FA = __webpack_require__(279);
+var _Officers_FA = __webpack_require__(272);
 
 var _Officers_FA2 = _interopRequireDefault(_Officers_FA);
 
-var _Woz = __webpack_require__(280);
+var _Woz = __webpack_require__(273);
 
 var _Woz2 = _interopRequireDefault(_Woz);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+var _paths = __webpack_require__(249);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+var _paths2 = _interopRequireDefault(_paths);
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var About = function (_React$Component) {
   _inherits(About, _React$Component);
@@ -26078,36 +25930,241 @@ var About = function (_React$Component) {
   _createClass(About, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'about-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h1', { className: 'centered' }, 'CSUA'), React.createElement('h4', { className: 'centered' }, 'The home for all things CS.'), React.createElement('div', { className: 'centered subtitle' }, React.createElement(_Button.IconButton, { large: true, onClick: function onClick() {
-          return (0, _animatedScrollTo2.default)(window.innerHeight, { speed: 800 });
-        }, icon: 'keyboard_arrow_down' }))), React.createElement('div', { className: 'info-area' }, React.createElement('h4', { className: 'centered' }, 'The Computer Science Undergraduate Association'), React.createElement('br', null), React.createElement(_lib.Row, null, React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Hello World!'), React.createElement(_Icon.Icon, { className: 'centered' }, 'lightbulb_outline'), React.createElement('p', null, 'The CSUA is here to make every step of your undergraduate computer science experience smoother, easier, and more fun! Looking for an internship or a job? Want to learn more CS skills? Need help in a class? We have it all! Come to our events or visit us at 311 Soda Hall to check us out.')))), React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Who We Are'), React.createElement(_Icon.Icon, { className: 'centered' }, 'face'), React.createElement('p', null, 'We are a group of smart, enthusiastic, and fun-loving EECS and CS students who are passionate about computer science. We are researchers, TAs, GSIs, hackers, hardware gurus, open-sourcers, professionals, geeks, women, men, and in between. But most importantly, we\'re proud members of the CS community.')))), React.createElement(_lib.Col, { xs: 12 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardImageArea, null, React.createElement('img', { src: _Woz2.default, style: { maxHeight: '100%', maxWidth: '100%', alignSelf: 'center' } })), React.createElement(_Card.CardTextArea, null, React.createElement('small', null, 'CSUA members hacking into the night.')))), React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Need Help?'), React.createElement(_Icon.Icon, { className: 'centered' }, 'help_outline'), React.createElement('p', null, 'The CSUA offers tutoring services, major declaration panels, internship workshops, and recruiting events. You can find a list of available tutors and office hours here. For events, click here. You can also drop by the office any time, and an available tutor will help you.')))), React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_EventCalendar2.default, { small: true })), React.createElement(_lib.Col, { xs: 12, lg: 8 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardImageArea, null, React.createElement('img', { src: _Officers_FA2.default, style: { width: '100%' } })), React.createElement(_Card.CardTextArea, null, React.createElement('small', null, 'CSUA officers at Hearst Mining Circle.')))), React.createElement(_lib.Col, { xs: 12, lg: 4 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Resources'), React.createElement(_Icon.Icon, { className: 'centered' }, 'bookmark_border')))))));
+      return React.createElement(
+        'div',
+        { className: 'about-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h1',
+            { className: 'centered' },
+            'CSUA'
+          ),
+          React.createElement(
+            'h4',
+            { className: 'centered' },
+            'The home for all things CS.'
+          ),
+          React.createElement(
+            'div',
+            { className: 'centered subtitle' },
+            React.createElement(_Button.IconButton, { large: true, onClick: function onClick() {
+                return (0, _animatedScrollTo2.default)(window.innerHeight, { speed: 800 });
+              }, icon: 'keyboard_arrow_down' })
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(
+            'h4',
+            { className: 'centered' },
+            'The Computer Science Undergraduate Association'
+          ),
+          React.createElement('br', null),
+          React.createElement(
+            _lib.Row,
+            null,
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Hello World!'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'lightbulb_outline'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'The CSUA is here to make every step of your undergraduate computer science experience smoother, easier, and more fun! Looking for an\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.industry },
+                      'internship or a job'
+                    ),
+                    '? Want to learn more\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.workshops },
+                      'CS skills'
+                    ),
+                    '? Need help in a class? We have it all! Come to our events or visit us at 311 Soda Hall to check us out.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Who We Are'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'face'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'We are a group of smart, enthusiastic, and fun-loving EECS and CS students who are passionate about computer science. We are researchers, TAs, GSIs, hackers, hardware gurus, open-sourcers, professionals, geeks, women, men, and in between. But most importantly, we\'re proud members of the CS community.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardImageArea,
+                  null,
+                  React.createElement('img', { src: _Woz2.default, style: { maxHeight: '100%', maxWidth: '100%', alignSelf: 'center' } })
+                ),
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'small',
+                    null,
+                    'CSUA members hacking into the night.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Need Help?'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'help_outline'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'The CSUA offers tutoring services, major declaration panels, internship workshops, and recruiting events. You can find a list of available tutors and office hours\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.officers },
+                      'here'
+                    ),
+                    '. For events, click\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.events },
+                      'here'
+                    ),
+                    '. You can also drop by the office any time, and an available tutor will help you.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(_EventCalendar2.default, { small: true })
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, lg: 8 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardImageArea,
+                  null,
+                  React.createElement('img', { src: _Officers_FA2.default, style: { width: '100%' } })
+                ),
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'small',
+                    null,
+                    'CSUA officers at Hearst Mining Circle.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, lg: 4 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Resources'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'bookmark_border'
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
     }
   }]);
 
   return About;
 }(React.Component);
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {};
-}
-
-exports.About = About = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(About));
+exports.About = About = (0, _Guac.Guac)(About);
 
 exports.default = About;
 exports.About = About;
 
 /***/ }),
-/* 261 */
+/* 254 */
 /***/ (function(module, exports) {
 
 module.exports = require("animated-scroll-to");
 
 /***/ }),
-/* 262 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26223,7 +26280,7 @@ exports.default = Card;
 exports.Card = Card;
 
 /***/ }),
-/* 263 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26341,7 +26398,7 @@ exports.default = Row;
 exports.Row = Row;
 
 /***/ }),
-/* 264 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26425,7 +26482,7 @@ exports.default = CardImageArea;
 exports.CardImageArea = CardImageArea;
 
 /***/ }),
-/* 265 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26544,7 +26601,7 @@ exports.default = Col;
 exports.Col = Col;
 
 /***/ }),
-/* 266 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26628,7 +26685,7 @@ exports.default = CardTextArea;
 exports.CardTextArea = CardTextArea;
 
 /***/ }),
-/* 267 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26711,7 +26768,7 @@ exports.default = Divider;
 exports.Divider = Divider;
 
 /***/ }),
-/* 268 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26722,13 +26779,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Drawer = undefined;
 
-var _Drawer = __webpack_require__(269);
+var _Drawer = __webpack_require__(262);
 
 exports.default = _Drawer.Drawer;
 exports.Drawer = _Drawer.Drawer;
 
 /***/ }),
-/* 269 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26973,7 +27030,7 @@ exports.default = Drawer;
 exports.Drawer = Drawer;
 
 /***/ }),
-/* 270 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26992,7 +27049,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactDom = __webpack_require__(34);
+var _reactDom = __webpack_require__(35);
 
 var ReactDOM = _interopRequireWildcard(_reactDom);
 
@@ -27002,7 +27059,7 @@ var utils = _interopRequireWildcard(_utils);
 
 __webpack_require__(6);
 
-var _applyRipple = __webpack_require__(44);
+var _applyRipple = __webpack_require__(43);
 
 var _applyRipple2 = _interopRequireDefault(_applyRipple);
 
@@ -27095,7 +27152,7 @@ exports.default = Overlay;
 exports.Overlay = Overlay;
 
 /***/ }),
-/* 271 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27106,13 +27163,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Snackbar = undefined;
 
-var _Snackbar = __webpack_require__(272);
+var _Snackbar = __webpack_require__(265);
 
 exports.default = _Snackbar.Snackbar;
 exports.Snackbar = _Snackbar.Snackbar;
 
 /***/ }),
-/* 272 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27137,7 +27194,7 @@ var _Guac = __webpack_require__(5);
 
 var _Guac2 = _interopRequireDefault(_Guac);
 
-var _Button = __webpack_require__(26);
+var _Button = __webpack_require__(36);
 
 var _Button2 = _interopRequireDefault(_Button);
 
@@ -27282,7 +27339,7 @@ exports.default = Snackbar;
 exports.Snackbar = Snackbar;
 
 /***/ }),
-/* 273 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27293,13 +27350,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ToolBar = undefined;
 
-var _ToolBar = __webpack_require__(274);
+var _ToolBar = __webpack_require__(267);
 
 exports.default = _ToolBar.ToolBar;
 exports.ToolBar = _ToolBar.ToolBar;
 
 /***/ }),
-/* 274 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27356,7 +27413,7 @@ exports.default = ToolBar;
 exports.ToolBar = ToolBar;
 
 /***/ }),
-/* 275 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27367,7 +27424,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.provideWindowSize = exports.provideSizeClass = exports.applyRipple = undefined;
 
-var _applyRipple = __webpack_require__(44);
+var _applyRipple = __webpack_require__(43);
 
 var _provideSizeClass = __webpack_require__(68);
 
@@ -27381,7 +27438,7 @@ exports.provideSizeClass = _provideSizeClass.provideSizeClass;
 exports.provideWindowSize = _provideWindowSize.provideWindowSize;
 
 /***/ }),
-/* 276 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27404,13 +27461,13 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _Icon = __webpack_require__(16);
+var _Icon = __webpack_require__(22);
 
-var _Divider = __webpack_require__(37);
+var _Divider = __webpack_require__(45);
 
 var _events = __webpack_require__(46);
 
@@ -27530,7 +27587,7 @@ exports.default = EventCalendar;
 exports.EventCalendar = EventCalendar;
 
 /***/ }),
-/* 277 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27541,74 +27598,40 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(278);
+var _PaperBorder2 = __webpack_require__(271);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 278 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -27625,7 +27648,45 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'right-overhang z-depth-2' }, React.createElement('div', { className: 'right-paper-1 z-depth-2' }), React.createElement('div', { className: 'right-paper-2 z-depth-1' }), React.createElement('div', { className: 'right-paper-3 z-depth-1' }), React.createElement('div', { className: 'right-paper-4 z-depth-2' })), React.createElement('div', { className: 'left-overhang z-depth-3' }, React.createElement('div', { className: 'left-overhang-accent z-depth-1' }), React.createElement('div', { className: 'left-paper-1 z-depth-1' }), React.createElement('div', { className: 'left-paper-2 z-depth-1' }), React.createElement('div', { className: 'left-paper-3 z-depth-1' }), React.createElement('div', { className: 'left-paper-4 z-depth-1' })), React.createElement('div', { className: 'top-overhang z-depth-2' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }), React.createElement('div', { className: 'top-paper-4 z-depth-2' }), React.createElement('div', { className: 'top-paper-5 z-depth-2' }), React.createElement('div', { className: 'top-paper-6 z-depth-1' })))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement(
+              'div',
+              { className: 'right-overhang z-depth-2' },
+              React.createElement('div', { className: 'right-paper-1 z-depth-2' }),
+              React.createElement('div', { className: 'right-paper-2 z-depth-1' }),
+              React.createElement('div', { className: 'right-paper-3 z-depth-1' }),
+              React.createElement('div', { className: 'right-paper-4 z-depth-2' })
+            ),
+            React.createElement(
+              'div',
+              { className: 'left-overhang z-depth-3' },
+              React.createElement('div', { className: 'left-overhang-accent z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-1 z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-2 z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-3 z-depth-1' }),
+              React.createElement('div', { className: 'left-paper-4 z-depth-1' })
+            ),
+            React.createElement(
+              'div',
+              { className: 'top-overhang z-depth-2' },
+              React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-3 z-depth-1' }),
+              React.createElement('div', { className: 'top-paper-4 z-depth-2' }),
+              React.createElement('div', { className: 'top-paper-5 z-depth-2' }),
+              React.createElement('div', { className: 'top-paper-6 z-depth-1' })
+            )
+          )
+        )
+      );
     }
   }]);
 
@@ -27636,19 +27697,19 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 279 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "318d6d5f7f4be5f6103e4880d5966b05.jpg";
 
 /***/ }),
-/* 280 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "ef0f683bcec54ef7dace799ca488d83d.jpg";
 
 /***/ }),
-/* 281 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27659,128 +27720,54 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Politburo = undefined;
 
-var _Politburo = __webpack_require__(282);
+var _Politburo = __webpack_require__(275);
 
 exports.default = _Politburo.Politburo;
 exports.Politburo = _Politburo.Politburo;
 
 /***/ }),
-/* 282 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Politburo = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactRedux = __webpack_require__(11);
-
-var _redux = __webpack_require__(10);
-
-var _reactRouter = __webpack_require__(9);
-
-var _reactLazyLoad = __webpack_require__(35);
+var _reactLazyLoad = __webpack_require__(25);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _lib = __webpack_require__(36);
+var _Guac = __webpack_require__(12);
 
-var _Button = __webpack_require__(26);
+var _Card = __webpack_require__(13);
 
-var _Icon = __webpack_require__(16);
-
-var _Card = __webpack_require__(12);
-
-var _Divider = __webpack_require__(37);
-
-var _PolitburoCreator2 = __webpack_require__(283);
+var _PolitburoCreator2 = __webpack_require__(276);
 
 var _PaperBorder2 = __webpack_require__(285);
-
-var _Megan_Zhu = __webpack_require__(114);
-
-var _Megan_Zhu2 = _interopRequireDefault(_Megan_Zhu);
-
-var _Eric_Hou = __webpack_require__(115);
-
-var _Eric_Hou2 = _interopRequireDefault(_Eric_Hou);
-
-var _Jonathan_Tan = __webpack_require__(116);
-
-var _Jonathan_Tan2 = _interopRequireDefault(_Jonathan_Tan);
-
-var _Jason_Ji = __webpack_require__(117);
-
-var _Jason_Ji2 = _interopRequireDefault(_Jason_Ji);
-
-var _Ray_Pan = __webpack_require__(118);
-
-var _Ray_Pan2 = _interopRequireDefault(_Ray_Pan);
-
-var _Yitz_Deng = __webpack_require__(119);
-
-var _Yitz_Deng2 = _interopRequireDefault(_Yitz_Deng);
-
-var _Emily_Gosti = __webpack_require__(120);
-
-var _Emily_Gosti2 = _interopRequireDefault(_Emily_Gosti);
 
 var _pb = __webpack_require__(287);
 
 var _pb2 = _interopRequireDefault(_pb);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //These resolve to image strings that webpack outputs
 
@@ -27793,56 +27780,89 @@ var Politburo = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Politburo.__proto__ || Object.getPrototypeOf(Politburo)).call(this));
 
-    _this.render = _this.render.bind(_this);
+    _this.bindAllMethods();
     return _this;
   }
 
   _createClass(Politburo, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'pb-page' }, React.createElement(_PaperBorder2._PaperBorder, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Politburo'), React.createElement('p', { className: 'centered header' }, 'Po\xB7lit\xB7bu\xB7ro (n):'), React.createElement('p', { className: 'centered subheader' }, 'The central leadership of the CSUA, consisting of seven elected officers who are devoted to serving the undergraduate community. '), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_Card.Card, { className: 'card-content' }, React.createElement(_Card.CardImageArea, null, React.createElement(_reactLazyLoad2.default, { debounce: false, throttle: 50 }, React.createElement('img', { src: _pb2.default, style: { width: '100%' } }))), React.createElement(_Card.CardTextArea, null, React.createElement('p', null, 'Newly elected Politburo members in the Wozniak Lounge.'))), React.createElement(_PolitburoCreator2._PolitburoCreator, null)));
+      return React.createElement(
+        'div',
+        { className: 'pb-page' },
+        React.createElement(_PaperBorder2._PaperBorder, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Politburo'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered header' },
+            'Po\xB7lit\xB7bu\xB7ro (n):'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'The central leadership of the CSUA, consisting of seven elected officers who are devoted to serving the undergraduate community. '
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(
+            _Card.Card,
+            { className: 'card-content' },
+            React.createElement(
+              _Card.CardImageArea,
+              null,
+              React.createElement(
+                _reactLazyLoad2.default,
+                { debounce: false, throttle: 50 },
+                React.createElement('img', { src: _pb2.default, style: { width: '100%' } })
+              )
+            ),
+            React.createElement(
+              _Card.CardTextArea,
+              null,
+              React.createElement(
+                'p',
+                null,
+                'Newly elected Politburo members in the Wozniak Lounge.'
+              )
+            )
+          ),
+          React.createElement(_PolitburoCreator2._PolitburoCreator, null)
+        )
+      );
     }
   }]);
 
   return Politburo;
 }(React.Component);
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {};
-}
-
-exports.Politburo = Politburo = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Politburo));
+exports.Politburo = Politburo = (0, _Guac.Guac)(Politburo);
 
 exports.default = Politburo;
 exports.Politburo = Politburo;
 
 /***/ }),
-/* 283 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PolitburoCreator = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -27854,53 +27874,29 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
-var _lib = __webpack_require__(36);
+var _lib = __webpack_require__(27);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _reactLazyLoad = __webpack_require__(35);
+var _reactLazyLoad = __webpack_require__(25);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _pb = __webpack_require__(284);
+var _pb = __webpack_require__(277);
 
 var _pb2 = _interopRequireDefault(_pb);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
   Props:
@@ -27925,14 +27921,60 @@ var _PolitburoCreator = function (_React$Component) {
       var pbComponents = [];
       for (var i in pb) {
         var pbMember = pb[i];
-        pbComponents.push(React.createElement(_Card.Card, { key: i }, React.createElement(_Card.CardImageArea, { xs: 12, md: 6, lg: 5 }, React.createElement(_reactLazyLoad2.default, { debounce: false, throttle: 50 }, React.createElement('img', { src: pbMember.img }))), React.createElement(_Card.CardTextArea, { xs: 12, md: 6, lg: 7 }, React.createElement('p', { className: 'header' }, pbMember.role), React.createElement('p', { className: 'name subheader' }, pbMember.name), React.createElement('p', { className: 'email subheader' }, pbMember.email), React.createElement(_lib.Divider, { horizontal: true, margin: true }), React.createElement('p', null, pbMember.description), React.createElement('p', null, pbMember.pitch))));
+        pbComponents.push(React.createElement(
+          _Card.Card,
+          { key: i },
+          React.createElement(
+            _Card.CardImageArea,
+            { xs: 12, md: 6, lg: 5 },
+            React.createElement(
+              _reactLazyLoad2.default,
+              { debounce: false, throttle: 50 },
+              React.createElement('img', { src: pbMember.img })
+            )
+          ),
+          React.createElement(
+            _Card.CardTextArea,
+            { xs: 12, md: 6, lg: 7 },
+            React.createElement(
+              'p',
+              { className: 'header' },
+              pbMember.role
+            ),
+            React.createElement(
+              'p',
+              { className: 'name subheader' },
+              pbMember.name
+            ),
+            React.createElement(
+              'p',
+              { className: 'email subheader' },
+              pbMember.email
+            ),
+            React.createElement(_lib.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              null,
+              pbMember.description
+            ),
+            React.createElement(
+              'p',
+              null,
+              pbMember.pitch
+            )
+          )
+        ));
       }
       return pbComponents;
     }
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement('div', null, this.calcPolitburoComponents(this.props));
+      return React.createElement(
+        'div',
+        null,
+        this.calcPolitburoComponents(this.props)
+      );
     }
   }]);
 
@@ -27949,7 +27991,7 @@ exports.default = _PolitburoCreator;
 exports._PolitburoCreator = _PolitburoCreator;
 
 /***/ }),
-/* 284 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27960,31 +28002,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pb = undefined;
 
-var _Megan_Zhu = __webpack_require__(114);
+var _Megan_Zhu = __webpack_require__(278);
 
 var _Megan_Zhu2 = _interopRequireDefault(_Megan_Zhu);
 
-var _Eric_Hou = __webpack_require__(115);
+var _Eric_Hou = __webpack_require__(279);
 
 var _Eric_Hou2 = _interopRequireDefault(_Eric_Hou);
 
-var _Jonathan_Tan = __webpack_require__(116);
+var _Jonathan_Tan = __webpack_require__(280);
 
 var _Jonathan_Tan2 = _interopRequireDefault(_Jonathan_Tan);
 
-var _Jason_Ji = __webpack_require__(117);
+var _Jason_Ji = __webpack_require__(281);
 
 var _Jason_Ji2 = _interopRequireDefault(_Jason_Ji);
 
-var _Ray_Pan = __webpack_require__(118);
+var _Ray_Pan = __webpack_require__(282);
 
 var _Ray_Pan2 = _interopRequireDefault(_Ray_Pan);
 
-var _Yitz_Deng = __webpack_require__(119);
+var _Yitz_Deng = __webpack_require__(283);
 
 var _Yitz_Deng2 = _interopRequireDefault(_Yitz_Deng);
 
-var _Emily_Gosti = __webpack_require__(120);
+var _Emily_Gosti = __webpack_require__(284);
 
 var _Emily_Gosti2 = _interopRequireDefault(_Emily_Gosti);
 
@@ -28043,6 +28085,48 @@ exports.default = pb;
 exports.pb = pb;
 
 /***/ }),
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "5b57d19cb9a637b54e1033e35b68334b.jpg";
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "2c59b1973d6d2bcc9e77b1c8264252ac.jpg";
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "8181a9249a88a1972a686a6b5fa98713.jpg";
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "cabe579e8136689e987fb7d55f95954c.jpg";
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "65574b102efce42899caf181bdd1317a.jpg";
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "6cbbb4813a5c182207fc977fc4726aa0.jpg";
+
+/***/ }),
 /* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28058,9 +28142,7 @@ var _PaperBorder2 = __webpack_require__(286);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -28072,56 +28154,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -28138,7 +28188,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -28178,22 +28242,12 @@ exports.Officers = _Officers.Officers;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Officers = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -28207,39 +28261,15 @@ var _OfficerCreator2 = __webpack_require__(292);
 
 var _OfficerCreator3 = _interopRequireDefault(_OfficerCreator2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Officers = function (_React$Component) {
   _inherits(Officers, _React$Component);
@@ -28256,7 +28286,36 @@ var Officers = function (_React$Component) {
   _createClass(Officers, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'officers-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Officers'), React.createElement('p', { className: 'centered header' }, "Tutoring\u2003\xB7\u2003Advising\u2003\xB7\u2003Leading"), React.createElement('p', { className: 'centered subheader' }, 'Our officers are here to make your undergraduate computer science experience the best it can be. Need tutoring? Want help on a personal project? Looking for a job? Want to find your community? Come visit us in 311 Soda!'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_OfficerCreator3.default, null)));
+      return React.createElement(
+        'div',
+        { className: 'officers-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Officers'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered header' },
+            'Tutoring\u2003\xB7\u2003Advising\u2003\xB7\u2003Leading'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Our officers are here to make your undergraduate computer science experience the best it can be. Need tutoring? Want help on a personal project? Looking for a job? Want to find your community? Come visit us in 311 Soda!'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(_OfficerCreator3.default, null)
+        )
+      );
     }
   }]);
 
@@ -28284,9 +28343,7 @@ var _PaperBorder2 = __webpack_require__(291);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -28298,56 +28355,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -28364,7 +28389,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -28381,22 +28420,12 @@ exports._PaperBorder = _PaperBorder;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._OfficerCreator = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -28408,13 +28437,13 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
-var _lib = __webpack_require__(36);
+var _lib = __webpack_require__(27);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _reactLazyLoad = __webpack_require__(35);
+var _reactLazyLoad = __webpack_require__(25);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
@@ -28422,43 +28451,19 @@ var _officers = __webpack_require__(293);
 
 var _officers2 = _interopRequireDefault(_officers);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
   Props:
-    - officers <array>: see static/data/officers for structure.
+    - officers <array<object>>: see static/data/officers for structure.
 */
 var _OfficerCreator = function (_React$Component) {
   _inherits(_OfficerCreator, _React$Component);
@@ -28479,14 +28484,54 @@ var _OfficerCreator = function (_React$Component) {
       var officerComponents = [];
       for (var i in officers) {
         var officer = officers[i];
-        officerComponents.push(React.createElement(_lib.Col, { key: i, xs: 6, lg: 4 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardImageArea, { xs: 12 }, React.createElement(_reactLazyLoad2.default, { debounce: false, throttle: 50 }, React.createElement('img', { src: officer.img }))), React.createElement(_Card.CardTextArea, { xs: 12 }, React.createElement('p', { className: 'title' }, officer.name), React.createElement('p', { className: 'name subheader' }, officer.hours), React.createElement(_lib.Divider, { horizontal: true, margin: true }), React.createElement('p', null, officer.quote)))));
+        officerComponents.push(React.createElement(
+          _lib.Col,
+          { key: i, xs: 6, lg: 4 },
+          React.createElement(
+            _Card.Card,
+            null,
+            React.createElement(
+              _Card.CardImageArea,
+              null,
+              React.createElement(
+                _reactLazyLoad2.default,
+                { debounce: false, throttle: 50 },
+                React.createElement('img', { src: officer.img })
+              )
+            ),
+            React.createElement(
+              _Card.CardTextArea,
+              null,
+              React.createElement(
+                'p',
+                { className: 'title' },
+                officer.name
+              ),
+              React.createElement(
+                'p',
+                { className: 'name subheader' },
+                officer.hours
+              ),
+              React.createElement(_lib.Divider, { horizontal: true, margin: true }),
+              React.createElement(
+                'p',
+                null,
+                officer.quote
+              )
+            )
+          )
+        ));
       }
       return officerComponents;
     }
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(_lib.Row, null, this.calcOfficerComponents(this.props));
+      return React.createElement(
+        _lib.Row,
+        null,
+        this.calcOfficerComponents(this.props)
+      );
     }
   }]);
 
@@ -28760,22 +28805,12 @@ exports.Constitution = _Constitution.Constitution;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Constitution = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -28787,43 +28822,21 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _Guac = __webpack_require__(12);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _Divider = __webpack_require__(37);
+var _Divider = __webpack_require__(45);
 
 var _PaperBorder2 = __webpack_require__(316);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Constitution = function (_React$Component) {
   _inherits(Constitution, _React$Component);
@@ -28840,22 +28853,940 @@ var Constitution = function (_React$Component) {
   _createClass(Constitution, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'constitution-page' }, React.createElement(_PaperBorder2._PaperBorder, null), React.createElement('h3', { className: 'centered page-title' }, 'Constitution'), React.createElement('br', null), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article I.'), React.createElement('p', { className: 'centered subheader' }, 'Name'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered' }, 'This organization shall be hereinafter referred to as the Computer Science Undergraduate Association, also known as the CSUA.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article II.'), React.createElement('p', { className: 'centered subheader' }, 'Purpose'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered' }, 'The purposes of this organization are: to represent the undergraduate computer science student body in dealings with the University of California at Berkeley, its representatives, and any other appropriate organization; to provide a forum for the personal interaction of persons involved in the computer sciences; to promote knowledge of and interest in the computer sciences; and to raise funds to accomplish these goals.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article III.'), React.createElement('p', { className: 'centered subheader' }, 'Membership'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. Active Membership'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Any currently registered undergraduate student of the University of California at Berkeley is eligible for active membership in the CSUA.'), React.createElement('p', { className: 'centered subheader' }, 'Section B. Associate Membership'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Any student, staff, faculty member of the University of California at Berkeley or former active member may hold associate membership in the CSUA.'), React.createElement('p', { className: 'centered subheader' }, 'Section C. Criteria'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Only currently registered students, faculty and staff may be active members in a registered student organization. Only active members may vote or hold office.', React.createElement('br', null), React.createElement('br', null), 'We will not haze according to California State Law. We will not restrict membership based upon race, color, national origin, religion, sex, gender identity, pregnancy (including pregnancy, childbirth, and medical conditions related to pregnancy or childbirth), physical or mental disability, medical condition (cancer related or genetic characteristics), ancestry, marital status, age, sexual orientation, citizenship, or service in the uniformed services (including membership, application for membership, performance of service, application for service, or obligation for service in the uniformed services).'), React.createElement('p', { className: 'centered subheader' }, 'Section D. Effective Time of Membership'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'An applicant\'s membership is not effective until after the meeting at which the applicant joins.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article IV.'), React.createElement('p', { className: 'centered subheader' }, 'Officers'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. Types'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The organization shall have seven elected offices, named President, Vice President of Technology, Vice President of Industry Relations, Secretary/Treasurer, External E vents Coordinator, Internal Events Coordinator, and Outreach Chair.'), React.createElement('p', { className: 'centered subheader' }, 'Section B. Qualifications'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Only active members of the Computer Science Undergraduate Association as defined in Article III, Section A shall b e allowed to run for and hold any of the aforementioned offices in the Computer Science Undergraduate Association.'), React.createElement('p', { className: 'centered subheader' }, 'Section C. Term of Office'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Subsection 1.', React.createElement('br', null), 'After their election, the entering officers shall assume office after the last day of the semester, at which point the existing officers shall vacate their respective offices.'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Subsection 2.', React.createElement('br', null), 'If any officer is unable to perform the duties of his or her respective office during the semester break immediately following elections, then that officer shall appoint an interim replacement.'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Subsection 3.', React.createElement('br', null), 'Officers who resign from office, no longer meet the qualifications set above, or are deemed unfit to serve in their respective offices shall vacate office immediately upon notice of resignation, loss of qualification, or removal from office.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article V.'), React.createElement('p', { className: 'centered subheader' }, 'Duties'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. President'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The President shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, 'chair, or appoint the chair for, the meetings of the CSUA'), React.createElement('li', null, "be responsible for the execution of mandates reflecting organization policy as determined by the organization\u2019s active members and its officers in General and Politburo Executive Meetings"), React.createElement('li', null, "be primarily responsible for representing the CSUA in its duties as the undergraduate computer science students\u2019 representative body"), React.createElement('li', null, 'maintain contact and communication with the University, its faculty members responsible for teaching computer science, and any other relevant organization'), React.createElement('li', null, 'appoint chairs for the various committees, subject to confirmation by the Politburo'), React.createElement('li', null, 'organize and orchestrate the passing on of knowledge from one generation of Politburo to the next'), React.createElement('li', null, 'establish contact with other student organizations for the purpose of coordinating interclub events'), React.createElement('li', null, 'have any other duties and/or responsibilities set forth in this Constitution'))), React.createElement('p', { className: 'centered subheader' }, 'Section B. Vice President of Industry Relations'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The VP of Industrial Relations shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, "liaise with companies and attain sponsors for CSUA\u2019s external events"), React.createElement('li', null, 'generate industrial interest in the CSUA'), React.createElement('li', null, 'liaise with CSUA alumni'), React.createElement('li', null, 'coordinate speakers from alumni or industry; manage infosessions for CSUA'), React.createElement('li', null, 'manage the jobs board/list-serv; manage and administer the resume booklet'), React.createElement('li', null, 'assist the President in execution of duties'), React.createElement('li', null, 'handle requests by Internal Events Coordinator for a speaker for an internal event'), React.createElement('li', null, 'have any other duties and/or responsibilities set forth in this Constitution'))), React.createElement('p', { className: 'centered subheader' }, 'Section C. Vice President of Technology'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The VP of Industrial Relations shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, 'administer and maintain the technical resources of the CSUA, including but not limited to our list-servs'), React.createElement('li', null, 'be the chief administrator of computer equipment maintained by the CSUA'), React.createElement('li', null, 'be head of our root staff'), React.createElement('li', null, 'be our liaison with all campus IT and technical services'), React.createElement('li', null, 'solve or delegate the solving of technical issues should any arise'), React.createElement('li', null, 'have any other duties and/or responsibilities set forth in this Constitution'))), React.createElement('p', { className: 'centered subheader' }, 'Section D. Secretary/Treasurer'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The Secretary/Treasurer shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, 'take minutes at Politburo and General meetings'), React.createElement('li', null, 'manage our library of computer science books'), React.createElement('li', null, 'maintain all necessary financial and non-financial records of the organization'), React.createElement('li', null, "administer the CSUA\u2019s physical resources"), React.createElement('li', null, "maintain or delegate the maintenance of the CSUA\u2019s facility resources"), React.createElement('li', null, "maintain the CSUA\u2019s monetary resources"), React.createElement('li', null, 'maintain a publicly available record of all financial transactions, liabilities, and credits relating to the CSUA'), React.createElement('li', null, 'report on the financial status of the CSUA to its members and officers'), React.createElement('li', null, 'obtain financial agency power with the ASUC as soon as possible after election'), React.createElement('li', null, 'obtain primary signatory power with the ASUC as soon as possible after election have any other duties and/or responsibilities set forth in this Constitution'))), React.createElement('p', { className: 'centered subheader' }, 'Section E. External Events Coordinator'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The External Events Coordinator shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, 'plan and prepare all logistics for each external event'), React.createElement('li', null, 'be or appoint the day-of event coordinator to execute the event and handle any issues that might arise'), React.createElement('li', null, 'have any other duties and/or responsibilities set forth in this Constitution'))), React.createElement('small', { className: 'centered' }, 'Note: An external event is defined as an event sponsored by a company.'), React.createElement('p', { className: 'centered subheader' }, 'Section F. Internal Events Coordinator'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The Internal Events Coordinator shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, 'create fun internal events'), React.createElement('li', null, 'plan and prepare all logistics for each internal event'), React.createElement('li', null, 'be or appoint the day-of event coordinator to execute the event and handle any issues that might arise'), React.createElement('li', null, 'submit a request to VP Indrel to obtain a speaker for an internal event should a speaker be required'), React.createElement('li', null, 'have any other duties and/or responsibilities set forth in this Constitution '))), React.createElement('small', { className: 'centered' }, 'An internal event is defined as an event that does not have a company sponsor. This includes interclub events, intraclub events, alumni events, and recruitment events.'), React.createElement('p', { className: 'centered subheader' }, 'Section G. Outreach Chair'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The Outreach Chair shall:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, "maintain or delegate the maintenance of the CSUA\u2019s website"), React.createElement('li', null, "maintain the content of the CSUA\u2019s website"), React.createElement('li', null, 'publicize our services to the general student body'), React.createElement('li', null, 'be responsible for publicizing all internal and external events to the club membership and the general student body, respectively'), React.createElement('li', null, 'promote interaction between current students and alumni'), React.createElement('li', null, 'recruit new members'), React.createElement('li', null, 'design and distribute (or delegate) all publication materials for the CSUA'), React.createElement('li', null, 'have any other duties and/or responsibilities set forth in this Constitution.'))))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article V.'), React.createElement('p', { className: 'centered subheader' }, 'Committees'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. The Politburo'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The Politburo shall consist of all elected officers of the CSUA. It shall hold at least three open meetings a semester while school is in regular session. The Politburo shall determine temporary policies of the CSUA. Politburo decisions may be overturned by a two-thirds vote of the general membership at a general meeting.'), React.createElement('p', { className: 'centered subheader' }, 'Section B. Other Committees'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Other committees may be created or dissolved at the direction of either the Politburo, or by a majority vote of the general membership at a General Meeting. Directorships or other non-politburo positions shall be appointed by the president and confirmed by the majority of the politburo.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article VI.'), React.createElement('p', { className: 'centered subheader' }, 'Election of Officers'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. Time and Place of Elections'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Officers shall be selected each semester by a majority vote of the attending General Membership at a General Meeting held no less than two weeks before the last day of instruction, announced no less than one week in advance, and held at a time and place that is considered generally accessible as well in compliance with ASUC regulations concerning accessibility of ASUC sponsored activities.'), React.createElement('p', { className: 'centered subheader' }, 'Section B. Procedure'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'The chair shall appoint an election officer, who shall not vote or run for office. The election officer must be a member. Members shall be nominated until no more are willing and eligible. No person shall be nominated who is not willing to serve upon their election, and no person not present can be nominated for an office without his or her written consent being presented at the meeting. If only one candidate is in nomination voting may be done by acclamation. Otherwise voting shall be done by secret ballot of active members. A ballot that is blank or otherwise does not uniquely identify a nominated candidate shall not be counted.', React.createElement('br', null), 'If there is at any time a majority for a candidate, that candidate wins. If there is no majority and there are two candidates the election officer shall cast the deciding vote. If there is no majority and there are three candidates, the one with the fewest votes shall be eliminated. If there is a tie among those with the fewest votes the election officer shall select one to be eliminated.', React.createElement('br', null), 'If there are more than three candidates, three shall be selected to proceed to a runoff round as follows. Select as many candidates as possible for the runoff, starting from those with the highest vote totals, until it is impossible to proceed without selecting more than three or discriminating between candidates who received the same number of votes. If it is not possible to select any candidates in this way because there is a tie for first, the election officer shall cast a vote for one of the tied first-place candidates. If there are then fewer than three candidates selected for the runoff round, a new vote shall be held among those candidates not already chosen to select the remaining candidates.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article VII.'), React.createElement('p', { className: 'centered subheader' }, 'Removal and Replacement of Officers'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. Removal'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'An officer may be removed from office in one of the following ways:'), React.createElement('div', null, React.createElement('ul', { className: 'duty-list' }, React.createElement('li', null, 'In the event of extended unexplained absence of an officer, the office may be declared vacant by a majority of the remaining officers.'), React.createElement('li', null, 'Any officer no longer qualified to hold office shall be removed.'), React.createElement('li', null, 'A unanimous vote of the other officers in office may remove an officer from office.'), React.createElement('li', null, 'In the event of a vacancy of an office the President will be responsible for ensuring that the obligations of that office are fulfilled until a replacement has been made.'))), React.createElement('p', { className: 'centered subheader' }, 'Section B. Replacement'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'In case of removal or resignation from office of one of the elected officers except the President, the President shall appoint a successor. All such appointments to office must be confirmed by a majority vote of the Politburo at the next announced Politburo meeting. As stated in Article IV, in the event the office of President is vacated for whatever reason, the Vice President of Technology shall either assume the office of President without need for confirmation and appoint a successor to be approved by a majority vote of a quorum of the Politburo, or, with the approval of a majority vote of the Politburo at the next announced Politburo meeting, appoint an eligible member to assume the office of President.', React.createElement('br', null), 'If both the offices of President and Vice President of Technology are vacated in such a way to obstruct the aforementioned order of succession, then the remaining officers, in the order of Vice President of Industry Relations, Secretary/Treasurer, External Events Coordinator, Internal Events Coordinator, and Outreach Chair, may either assume the office of President or, with the approval of the general membership, appoint a new President who will then fill any remaining open offices.', React.createElement('br', null), 'If all offices are made vacant, then the Faculty Advisor shall call and chair a general meeting to elect new officers.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article VIII.'), React.createElement('p', { className: 'centered subheader' }, 'Meetings'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. Procedure'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'All meetings will run under Parliamentary procedure or some subset of the same. All questions, unless otherwise noted by this Constitution, shall require a majority vote. Only active members of the organization are eligible to vote. All meetings shall be held at reasonable places and times.', React.createElement('br', null), 'Members may vote and run by proxy.'), React.createElement('p', { className: 'centered subheader' }, 'Section B. General Meetings'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'General Meetings shall be held three times a semester while school is in regular session, and shall be publicly announced no less than a week in advance.'), React.createElement('p', { className: 'centered subheader' }, 'Section C. Politburo Meetings'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Politburo Meetings may be called by the President or by one-third of the Politburo. At least three meetings a semester while school is in regular session must be held open to the membership of the CSUA. Other meetings may be closed at the request of one-third of those members attending or in the event of disciplinary actions. In such a case, a listing of general topics discussed will be made available within one week after the meeting.'), React.createElement('p', { className: 'centered subheader' }, 'Section D. Committee Meetings'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Committee meetings will be run under the same rules as the General Meetings. Meetings will be open to attendance by all members.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article IX.'), React.createElement('p', { className: 'centered subheader' }, 'Bylaws and Policies'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered subheader' }, 'Section A. Bylaws'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Further guidelines pertaining to the operation of the CSUA not specifically set forth in the Constitution shall be contained in a set of publicly-available bylaws. Bylaws may be proposed by any active member of the CSUA, and must be approved by a majority vote of the Politburo'), React.createElement('p', { className: 'centered subheader' }, 'Section B. Policies'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Regulations pertaining to conduct of CSUA members in CSUA activities and in use of CSUA resources shall be contained in a set of publicly-available policies. Politburo members may formulate and implement interim policies in the execution of their duties, subject to later approval of a majority of the Politburo at the next Politburo meeting.'), React.createElement('p', { className: 'centered subheader' }, 'Section C. Amendments to Bylaws and Policies'), React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }), React.createElement('p', { className: 'centered' }, 'Amendments to bylaws and policies may be proposed by any active member, and must be approved by a majority vote of the Politburo. Such amendments may be overturned by a two-thirds vote of the general membership at a general meeting.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article X.'), React.createElement('p', { className: 'centered subheader' }, 'Amendment'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered' }, 'Any amendment to this constitution must be approved by a two-thirds majority of a general meeting convened with at least one week prior prominent public notice of the intent to amend the constitution. All amendments, unless otherwise noted therein, become effective immediately upon adoption.', React.createElement('br', null), 'As a special exception, the officers of the CSUA may, for the sole purpose of bringing the constitution into compliance with ASUC and OSL requirements, amend the constitution by changing emphasized text. All such changes must be publicly announced within one week.', React.createElement('br', null), 'All amendments, additions or deletions to this document must be filed with the LEAD Center in 432 Eshleman Hall.'))), React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered header' }, 'Article XI.'), React.createElement('p', { className: 'centered subheader' }, 'Dissolution'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'centered' }, 'Dissolution of the Computer Science Undergraduate Association may be approved by a two-thirds majority of general meeting convened during instruction with at least two weeks notice of the intent to dissolve the CSUA. In the event of dissolution, to the extent permitted by campus and ASUC regulations, all remaining assets shall be donated to a campus computing organization which allows free access to all University of California at Berkeley students.', React.createElement('br', null), 'If the organization is ASUC or GA Sponsored, all unspent ASUC funds shall return to the ASUC; all Graduate Assembly funds shall return to the Graduate Assembly. If the organization is defunct for five (5) or more years, any privately obtained funds (including any funds left in miscellaneous accounts) shall be donated to the ASUC. In the event that the designated nonprofit organization no longer exists or has ceased to be a nonprofit, then the unspent funds shall be donated to the ASUC.'))));
+      return React.createElement(
+        'div',
+        { className: 'constitution-page' },
+        React.createElement(_PaperBorder2._PaperBorder, null),
+        React.createElement(
+          'h3',
+          { className: 'centered page-title' },
+          'Constitution'
+        ),
+        React.createElement('br', null),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article I.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Name'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'This organization shall be hereinafter referred to as the Computer Science Undergraduate Association, also known as the CSUA.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article II.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Purpose'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The purposes of this organization are: to represent the undergraduate computer science student body in dealings with the University of California at Berkeley, its representatives, and any other appropriate organization; to provide a forum for the personal interaction of persons involved in the computer sciences; to promote knowledge of and interest in the computer sciences; and to raise funds to accomplish these goals.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article III.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Membership'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. Active Membership'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Any currently registered undergraduate student of the University of California at Berkeley is eligible for active membership in the CSUA.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Associate Membership'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Any student, staff, faculty member of the University of California at Berkeley or former active member may hold associate membership in the CSUA.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section C. Criteria'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Only currently registered students, faculty and staff may be active members in a registered student organization. Only active members may vote or hold office.',
+              React.createElement('br', null),
+              React.createElement('br', null),
+              'We will not haze according to California State Law. We will not restrict membership based upon race, color, national origin, religion, sex, gender identity, pregnancy (including pregnancy, childbirth, and medical conditions related to pregnancy or childbirth), physical or mental disability, medical condition (cancer related or genetic characteristics), ancestry, marital status, age, sexual orientation, citizenship, or service in the uniformed services (including membership, application for membership, performance of service, application for service, or obligation for service in the uniformed services).'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section D. Effective Time of Membership'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'An applicant\'s membership is not effective until after the meeting at which the applicant joins.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article IV.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Officers'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. Types'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The organization shall have seven elected offices, named President, Vice President of Technology, Vice President of Industry Relations, Secretary/Treasurer, External E vents Coordinator, Internal Events Coordinator, and Outreach Chair.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Qualifications'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Only active members of the Computer Science Undergraduate Association as defined in Article III, Section A shall b e allowed to run for and hold any of the aforementioned offices in the Computer Science Undergraduate Association.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section C. Term of Office'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Subsection 1.',
+              React.createElement('br', null),
+              'After their election, the entering officers shall assume office after the last day of the semester, at which point the existing officers shall vacate their respective offices.'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Subsection 2.',
+              React.createElement('br', null),
+              'If any officer is unable to perform the duties of his or her respective office during the semester break immediately following elections, then that officer shall appoint an interim replacement.'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Subsection 3.',
+              React.createElement('br', null),
+              'Officers who resign from office, no longer meet the qualifications set above, or are deemed unfit to serve in their respective offices shall vacate office immediately upon notice of resignation, loss of qualification, or removal from office.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article V.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Duties'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. President'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The President shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'chair, or appoint the chair for, the meetings of the CSUA'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be responsible for the execution of mandates reflecting organization policy as determined by the organization\u2019s active members and its officers in General and Politburo Executive Meetings'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be primarily responsible for representing the CSUA in its duties as the undergraduate computer science students\u2019 representative body'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain contact and communication with the University, its faculty members responsible for teaching computer science, and any other relevant organization'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'appoint chairs for the various committees, subject to confirmation by the Politburo'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'organize and orchestrate the passing on of knowledge from one generation of Politburo to the next'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'establish contact with other student organizations for the purpose of coordinating interclub events'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'have any other duties and/or responsibilities set forth in this Constitution'
+                )
+              )
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Vice President of Industry Relations'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The VP of Industrial Relations shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'liaise with companies and attain sponsors for CSUA\u2019s external events'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'generate industrial interest in the CSUA'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'liaise with CSUA alumni'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'coordinate speakers from alumni or industry; manage infosessions for CSUA'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'manage the jobs board/list-serv; manage and administer the resume booklet'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'assist the President in execution of duties'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'handle requests by Internal Events Coordinator for a speaker for an internal event'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'have any other duties and/or responsibilities set forth in this Constitution'
+                )
+              )
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section C. Vice President of Technology'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The VP of Industrial Relations shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'administer and maintain the technical resources of the CSUA, including but not limited to our list-servs'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be the chief administrator of computer equipment maintained by the CSUA'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be head of our root staff'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be our liaison with all campus IT and technical services'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'solve or delegate the solving of technical issues should any arise'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'have any other duties and/or responsibilities set forth in this Constitution'
+                )
+              )
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section D. Secretary/Treasurer'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The Secretary/Treasurer shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'take minutes at Politburo and General meetings'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'manage our library of computer science books'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain all necessary financial and non-financial records of the organization'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'administer the CSUA\u2019s physical resources'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain or delegate the maintenance of the CSUA\u2019s facility resources'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain the CSUA\u2019s monetary resources'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain a publicly available record of all financial transactions, liabilities, and credits relating to the CSUA'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'report on the financial status of the CSUA to its members and officers'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'obtain financial agency power with the ASUC as soon as possible after election'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'obtain primary signatory power with the ASUC as soon as possible after election have any other duties and/or responsibilities set forth in this Constitution'
+                )
+              )
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section E. External Events Coordinator'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The External Events Coordinator shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'plan and prepare all logistics for each external event'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be or appoint the day-of event coordinator to execute the event and handle any issues that might arise'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'have any other duties and/or responsibilities set forth in this Constitution'
+                )
+              )
+            ),
+            React.createElement(
+              'small',
+              { className: 'centered' },
+              'Note: An external event is defined as an event sponsored by a company.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section F. Internal Events Coordinator'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The Internal Events Coordinator shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'create fun internal events'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'plan and prepare all logistics for each internal event'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be or appoint the day-of event coordinator to execute the event and handle any issues that might arise'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'submit a request to VP Indrel to obtain a speaker for an internal event should a speaker be required'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'have any other duties and/or responsibilities set forth in this Constitution '
+                )
+              )
+            ),
+            React.createElement(
+              'small',
+              { className: 'centered' },
+              'An internal event is defined as an event that does not have a company sponsor. This includes interclub events, intraclub events, alumni events, and recruitment events.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section G. Outreach Chair'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The Outreach Chair shall:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain or delegate the maintenance of the CSUA\u2019s website'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'maintain the content of the CSUA\u2019s website'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'publicize our services to the general student body'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'be responsible for publicizing all internal and external events to the club membership and the general student body, respectively'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'promote interaction between current students and alumni'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'recruit new members'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'design and distribute (or delegate) all publication materials for the CSUA'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'have any other duties and/or responsibilities set forth in this Constitution.'
+                )
+              )
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article V.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Committees'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. The Politburo'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The Politburo shall consist of all elected officers of the CSUA. It shall hold at least three open meetings a semester while school is in regular session. The Politburo shall determine temporary policies of the CSUA. Politburo decisions may be overturned by a two-thirds vote of the general membership at a general meeting.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Other Committees'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Other committees may be created or dissolved at the direction of either the Politburo, or by a majority vote of the general membership at a General Meeting. Directorships or other non-politburo positions shall be appointed by the president and confirmed by the majority of the politburo.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article VI.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Election of Officers'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. Time and Place of Elections'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Officers shall be selected each semester by a majority vote of the attending General Membership at a General Meeting held no less than two weeks before the last day of instruction, announced no less than one week in advance, and held at a time and place that is considered generally accessible as well in compliance with ASUC regulations concerning accessibility of ASUC sponsored activities.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Procedure'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'The chair shall appoint an election officer, who shall not vote or run for office. The election officer must be a member. Members shall be nominated until no more are willing and eligible. No person shall be nominated who is not willing to serve upon their election, and no person not present can be nominated for an office without his or her written consent being presented at the meeting. If only one candidate is in nomination voting may be done by acclamation. Otherwise voting shall be done by secret ballot of active members. A ballot that is blank or otherwise does not uniquely identify a nominated candidate shall not be counted.',
+              React.createElement('br', null),
+              'If there is at any time a majority for a candidate, that candidate wins. If there is no majority and there are two candidates the election officer shall cast the deciding vote. If there is no majority and there are three candidates, the one with the fewest votes shall be eliminated. If there is a tie among those with the fewest votes the election officer shall select one to be eliminated.',
+              React.createElement('br', null),
+              'If there are more than three candidates, three shall be selected to proceed to a runoff round as follows. Select as many candidates as possible for the runoff, starting from those with the highest vote totals, until it is impossible to proceed without selecting more than three or discriminating between candidates who received the same number of votes. If it is not possible to select any candidates in this way because there is a tie for first, the election officer shall cast a vote for one of the tied first-place candidates. If there are then fewer than three candidates selected for the runoff round, a new vote shall be held among those candidates not already chosen to select the remaining candidates.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article VII.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Removal and Replacement of Officers'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. Removal'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'An officer may be removed from office in one of the following ways:'
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                'ul',
+                { className: 'duty-list' },
+                React.createElement(
+                  'li',
+                  null,
+                  'In the event of extended unexplained absence of an officer, the office may be declared vacant by a majority of the remaining officers.'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'Any officer no longer qualified to hold office shall be removed.'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'A unanimous vote of the other officers in office may remove an officer from office.'
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  'In the event of a vacancy of an office the President will be responsible for ensuring that the obligations of that office are fulfilled until a replacement has been made.'
+                )
+              )
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Replacement'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'In case of removal or resignation from office of one of the elected officers except the President, the President shall appoint a successor. All such appointments to office must be confirmed by a majority vote of the Politburo at the next announced Politburo meeting. As stated in Article IV, in the event the office of President is vacated for whatever reason, the Vice President of Technology shall either assume the office of President without need for confirmation and appoint a successor to be approved by a majority vote of a quorum of the Politburo, or, with the approval of a majority vote of the Politburo at the next announced Politburo meeting, appoint an eligible member to assume the office of President.',
+              React.createElement('br', null),
+              'If both the offices of President and Vice President of Technology are vacated in such a way to obstruct the aforementioned order of succession, then the remaining officers, in the order of Vice President of Industry Relations, Secretary/Treasurer, External Events Coordinator, Internal Events Coordinator, and Outreach Chair, may either assume the office of President or, with the approval of the general membership, appoint a new President who will then fill any remaining open offices.',
+              React.createElement('br', null),
+              'If all offices are made vacant, then the Faculty Advisor shall call and chair a general meeting to elect new officers.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article VIII.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Meetings'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. Procedure'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'All meetings will run under Parliamentary procedure or some subset of the same. All questions, unless otherwise noted by this Constitution, shall require a majority vote. Only active members of the organization are eligible to vote. All meetings shall be held at reasonable places and times.',
+              React.createElement('br', null),
+              'Members may vote and run by proxy.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. General Meetings'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'General Meetings shall be held three times a semester while school is in regular session, and shall be publicly announced no less than a week in advance.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section C. Politburo Meetings'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Politburo Meetings may be called by the President or by one-third of the Politburo. At least three meetings a semester while school is in regular session must be held open to the membership of the CSUA. Other meetings may be closed at the request of one-third of those members attending or in the event of disciplinary actions. In such a case, a listing of general topics discussed will be made available within one week after the meeting.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section D. Committee Meetings'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Committee meetings will be run under the same rules as the General Meetings. Meetings will be open to attendance by all members.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article IX.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Bylaws and Policies'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section A. Bylaws'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Further guidelines pertaining to the operation of the CSUA not specifically set forth in the Constitution shall be contained in a set of publicly-available bylaws. Bylaws may be proposed by any active member of the CSUA, and must be approved by a majority vote of the Politburo'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section B. Policies'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Regulations pertaining to conduct of CSUA members in CSUA activities and in use of CSUA resources shall be contained in a set of publicly-available policies. Politburo members may formulate and implement interim policies in the execution of their duties, subject to later approval of a majority of the Politburo at the next Politburo meeting.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Section C. Amendments to Bylaws and Policies'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true, inset: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Amendments to bylaws and policies may be proposed by any active member, and must be approved by a majority vote of the Politburo. Such amendments may be overturned by a two-thirds vote of the general membership at a general meeting.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article X.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Amendment'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Any amendment to this constitution must be approved by a two-thirds majority of a general meeting convened with at least one week prior prominent public notice of the intent to amend the constitution. All amendments, unless otherwise noted therein, become effective immediately upon adoption.',
+              React.createElement('br', null),
+              'As a special exception, the officers of the CSUA may, for the sole purpose of bringing the constitution into compliance with ASUC and OSL requirements, amend the constitution by changing emphasized text. All such changes must be publicly announced within one week.',
+              React.createElement('br', null),
+              'All amendments, additions or deletions to this document must be filed with the LEAD Center in 432 Eshleman Hall.'
+            )
+          )
+        ),
+        React.createElement(
+          _Card.Card,
+          null,
+          React.createElement(
+            _Card.CardTextArea,
+            null,
+            React.createElement(
+              'p',
+              { className: 'centered header' },
+              'Article XI.'
+            ),
+            React.createElement(
+              'p',
+              { className: 'centered subheader' },
+              'Dissolution'
+            ),
+            React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+            React.createElement(
+              'p',
+              { className: 'centered' },
+              'Dissolution of the Computer Science Undergraduate Association may be approved by a two-thirds majority of general meeting convened during instruction with at least two weeks notice of the intent to dissolve the CSUA. In the event of dissolution, to the extent permitted by campus and ASUC regulations, all remaining assets shall be donated to a campus computing organization which allows free access to all University of California at Berkeley students.',
+              React.createElement('br', null),
+              'If the organization is ASUC or GA Sponsored, all unspent ASUC funds shall return to the ASUC; all Graduate Assembly funds shall return to the Graduate Assembly. If the organization is defunct for five (5) or more years, any privately obtained funds (including any funds left in miscellaneous accounts) shall be donated to the ASUC. In the event that the designated nonprofit organization no longer exists or has ceased to be a nonprofit, then the unspent funds shall be donated to the ASUC.'
+            )
+          )
+        )
+      );
     }
   }]);
 
   return Constitution;
 }(React.Component);
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {};
-}
-
-exports.Constitution = Constitution = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _Guac.Guac)(Constitution)));
+exports.Constitution = Constitution = (0, _Guac.Guac)(Constitution);
 
 exports.default = Constitution;
 exports.Constitution = Constitution;
@@ -28876,9 +29807,7 @@ var _PaperBorder2 = __webpack_require__(317);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -28890,56 +29819,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -28956,7 +29853,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -28990,22 +29901,12 @@ exports.Events = _Events.Events;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Events = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -29017,49 +29918,25 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _Icon = __webpack_require__(16);
+var _Icon = __webpack_require__(22);
 
-var _EventCalendar = __webpack_require__(38);
+var _EventCalendar = __webpack_require__(37);
 
 var _PaperBorder2 = __webpack_require__(320);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Events = function (_React$Component) {
   _inherits(Events, _React$Component);
@@ -29076,7 +29953,36 @@ var Events = function (_React$Component) {
   _createClass(Events, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'events-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Events'), React.createElement('p', { className: 'centered header' }, "Workshops\u2003\xB7\u2003Career Fairs\u2003\xB7\u2003Hackathons"), React.createElement('p', { className: 'centered subheader' }, 'The CSUA hosts a large number of events on a weekly basis to expose different areas of CS, help you find your place in industry, and show off your skills. We also host fun events with other student organizations to help you release stress and enjoy your time at Cal!'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_EventCalendar.EventCalendar, { verbose: true })));
+      return React.createElement(
+        'div',
+        { className: 'events-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Events'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered header' },
+            'Workshops\u2003\xB7\u2003Career Fairs\u2003\xB7\u2003Hackathons'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'The CSUA hosts a large number of events on a weekly basis to expose different areas of CS, help you find your place in industry, and show off your skills. We also host fun events with other student organizations to help you release stress and enjoy your time at Cal!'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(_EventCalendar.EventCalendar, { verbose: true })
+        )
+      );
     }
   }]);
 
@@ -29102,9 +30008,7 @@ var _PaperBorder2 = __webpack_require__(321);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -29116,56 +30020,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -29182,7 +30054,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -29216,38 +30102,18 @@ exports.Workshops = _Workshops.Workshops;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Workshops = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactRedux = __webpack_require__(11);
-
-var _redux = __webpack_require__(10);
-
-var _reactRouter = __webpack_require__(9);
-
-var _Card = __webpack_require__(12);
-
-var _Icon = __webpack_require__(16);
-
-var _EventCalendar = __webpack_require__(38);
+var _EventCalendar = __webpack_require__(37);
 
 var _events = __webpack_require__(46);
 
@@ -29255,39 +30121,15 @@ var _PaperBorder2 = __webpack_require__(324);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Workshops = function (_React$Component) {
   _inherits(Workshops, _React$Component);
@@ -29304,7 +30146,36 @@ var Workshops = function (_React$Component) {
   _createClass(Workshops, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'workshops-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Workshops'), React.createElement('p', { className: 'centered header' }, "Machine Learning\u2003\xB7\u2003Blockchain\u2003\xB7\u2003Professional Development"), React.createElement('p', { className: 'centered subheader' }, 'Below you will find a list of workshops this semester to help introduce you to a wide variety of topics in CS.'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_EventCalendar.EventCalendar, { verbose: true, events: _events.workshops })));
+      return React.createElement(
+        'div',
+        { className: 'workshops-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Workshops'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered header' },
+            'Machine Learning\u2003\xB7\u2003Blockchain\u2003\xB7\u2003Professional Development'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Below you will find a list of workshops this semester to help introduce you to a wide variety of topics in CS.'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(_EventCalendar.EventCalendar, { verbose: true, events: _events.workshops })
+        )
+      );
     }
   }]);
 
@@ -29332,9 +30203,7 @@ var _PaperBorder2 = __webpack_require__(325);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -29346,56 +30215,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -29412,7 +30249,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -29446,38 +30297,20 @@ exports.Recruiting = _Recruiting.Recruiting;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Recruiting = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _reactRedux = __webpack_require__(11);
+var _Guac = __webpack_require__(12);
 
-var _redux = __webpack_require__(10);
-
-var _reactRouter = __webpack_require__(9);
-
-var _Card = __webpack_require__(12);
-
-var _Icon = __webpack_require__(16);
-
-var _EventCalendar = __webpack_require__(38);
+var _EventCalendar = __webpack_require__(37);
 
 var _events = __webpack_require__(46);
 
@@ -29485,39 +30318,15 @@ var _PaperBorder2 = __webpack_require__(328);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Recruiting = function (_React$Component) {
   _inherits(Recruiting, _React$Component);
@@ -29527,21 +30336,50 @@ var Recruiting = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Recruiting.__proto__ || Object.getPrototypeOf(Recruiting)).call(this));
 
-    _this.render = _this.render.bind(_this);
+    _this.bindAllMethods();
     return _this;
   }
 
   _createClass(Recruiting, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'recruiting-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Recruiting'), React.createElement('p', { className: 'centered header' }, "Jobs\u2003\xB7\u2003Internships\u2003\xB7\u2003Research"), React.createElement('p', { className: 'centered subheader' }, 'Below you will find a list of recruiting events this semester to help you find your place in the world.'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_EventCalendar.EventCalendar, { verbose: true, events: _events.recruiting })));
+      return React.createElement(
+        'div',
+        { className: 'recruiting-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Recruiting'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered header' },
+            'Jobs\u2003\xB7\u2003Internships\u2003\xB7\u2003Research'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Below you will find a list of recruiting events this semester to help you find your place in the world.'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(_EventCalendar.EventCalendar, { verbose: true, events: _events.recruiting })
+        )
+      );
     }
   }]);
 
   return Recruiting;
 }(React.Component);
 
-exports.Recruiting = Recruiting = Recruiting;
+exports.Recruiting = Recruiting = (0, _Guac.Guac)(Recruiting);
 
 exports.default = Recruiting;
 exports.Recruiting = Recruiting;
@@ -29562,9 +30400,7 @@ var _PaperBorder2 = __webpack_require__(329);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -29576,56 +30412,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -29642,7 +30446,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -29676,22 +30494,12 @@ exports.GeneralMeetings = _GeneralMeetings.GeneralMeetings;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.GeneralMeetings = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -29703,11 +30511,11 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _Icon = __webpack_require__(16);
+var _Icon = __webpack_require__(22);
 
-var _EventCalendar = __webpack_require__(38);
+var _EventCalendar = __webpack_require__(37);
 
 var _PaperBorder2 = __webpack_require__(332);
 
@@ -29715,39 +30523,15 @@ var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
 var _events = __webpack_require__(46);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var GeneralMeetings = function (_React$Component) {
   _inherits(GeneralMeetings, _React$Component);
@@ -29764,7 +30548,31 @@ var GeneralMeetings = function (_React$Component) {
   _createClass(GeneralMeetings, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'general-meetings-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'General Meetings'), React.createElement('p', { className: 'centered subheader' }, 'Each semester the CSUA holds three general meetings to introduce our organization, help you network, and help guide our efforts.'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_EventCalendar.EventCalendar, { verbose: true, events: _events.generalMeetings })));
+      return React.createElement(
+        'div',
+        { className: 'general-meetings-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'General Meetings'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Each semester the CSUA holds three general meetings to introduce our organization, help you network, and help guide our efforts.'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(_EventCalendar.EventCalendar, { verbose: true, events: _events.generalMeetings })
+        )
+      );
     }
   }]);
 
@@ -29790,9 +30598,7 @@ var _PaperBorder2 = __webpack_require__(333);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
@@ -29804,56 +30610,24 @@ exports._PaperBorder = _PaperBorder3.default;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -29870,7 +30644,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -29904,22 +30692,12 @@ exports.Industry = _Industry.Industry;
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Industry = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -29931,61 +30709,43 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _reactLazyLoad = __webpack_require__(35);
+var _reactRouterDom = __webpack_require__(108);
+
+var _reactLazyLoad = __webpack_require__(25);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-var _Icon = __webpack_require__(16);
+var _Icon = __webpack_require__(22);
 
-var _lib = __webpack_require__(36);
+var _lib = __webpack_require__(27);
 
-var _officers = __webpack_require__(344);
+var _officers = __webpack_require__(336);
 
 var _officers2 = _interopRequireDefault(_officers);
 
-var _industry_event = __webpack_require__(345);
+var _industry_event = __webpack_require__(337);
 
 var _industry_event2 = _interopRequireDefault(_industry_event);
 
-var _PaperBorder2 = __webpack_require__(336);
+var _paths = __webpack_require__(249);
+
+var _paths2 = _interopRequireDefault(_paths);
+
+var _PaperBorder2 = __webpack_require__(338);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Industry = function (_React$Component) {
   _inherits(Industry, _React$Component);
@@ -30002,7 +30762,150 @@ var Industry = function (_React$Component) {
   _createClass(Industry, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'industry-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Industry'), React.createElement('p', { className: 'centered subheader' }, 'The Berkeley CSUA works closely with companies, investors, entrepreneurs, and active members of the tech industry to bring mentorship and job opportunities to students.'), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }, React.createElement(_lib.Row, null, React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Cause'), React.createElement(_Icon.Icon, { className: 'centered' }, 'card_travel'), React.createElement('p', null, 'The CSUA is dedicated to improving the experience of computer science undergraduates at Berkeley. We host many types of events to bring the best of industry together with the best in computer science talent. Our sponsors fund some of the best resource on Berkeley\'s campus, from a web server, to a high-performance computing cluster, to career and technical development workshops that help teach students important skills for industry.')))), React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardImageArea, null, React.createElement(_reactLazyLoad2.default, null, React.createElement('img', { src: _industry_event2.default }))), React.createElement(_Card.CardTextArea, null, React.createElement('small', null, 'An industry panel presents their experiences.')))), React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Students'), React.createElement(_Icon.Icon, { className: 'centered' }, 'school'), React.createElement('p', null, 'If you\'re a student looking for a job or an internship, please look at our upcoming recruiting events here. If you want to get exposed to skills that employers are looking for, please refer to our workshops here. To be featured in our resume book, stop by any one of our professional development workshops and have your resume approved by a qualified CSUA officer. Finally, opt-in to receive job offers from our mailing list by speaking to an officer at one of our events or visiting our office at 311 Soda Hall.')))), React.createElement(_lib.Col, { xs: 12, md: 6 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardTextArea, null, React.createElement('p', { className: 'centered title' }, 'Sponsors'), React.createElement(_Icon.Icon, { className: 'centered' }, 'domain'), React.createElement('p', null, 'If you would like to contribute to the CSUA, please email the Politburo at politburo@csua.berkeley.edu. We have many different sponsorship options, from hosting workshops to monetary sponsorships and recruiting events. If you are an industry sponsor and are interested in what the CSUA can offer your organization, please email our Industry Relations department at indrel@csua.berkeley.edu. Our current and former sponsors are listed here.')))), React.createElement(_lib.Col, { xs: 12 }, React.createElement(_Card.Card, null, React.createElement(_Card.CardImageArea, null, React.createElement(_reactLazyLoad2.default, null, React.createElement('img', { src: _officers2.default }))), React.createElement(_Card.CardTextArea, null, React.createElement('small', null, 'Officers in front of Hearst Mining Circle.')))))));
+      return React.createElement(
+        'div',
+        { className: 'industry-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Industry'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'The Berkeley CSUA works closely with companies, investors, entrepreneurs, and active members of the tech industry to bring mentorship and job opportunities to students.'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(
+            _lib.Row,
+            null,
+            React.createElement(
+              _lib.Col,
+              { xs: 12 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Cause'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'card_travel'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'The CSUA is dedicated to improving the experience of computer science undergraduates at Berkeley. We host many types of events to bring the best of industry together with the best in computer science talent. Our sponsors fund some of the best resource on Berkeley\'s campus, from a web server, to a high-performance computing cluster, to career and technical development workshops that help teach students important skills for industry.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardImageArea,
+                  null,
+                  React.createElement(
+                    _reactLazyLoad2.default,
+                    null,
+                    React.createElement('img', { src: _officers2.default })
+                  )
+                ),
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Students'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'school'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'If you\'re a student looking for a job or an internship, please look at our upcoming recruiting events\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.recruiting },
+                      'here'
+                    ),
+                    '. If you want to get exposed to skills that employers are looking for, please refer to our workshops\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.workshops },
+                      'here'
+                    ),
+                    '. To be featured in our resume book, stop by any one of our professional development workshops and have your resume approved by a qualified CSUA officer. Finally, opt-in to receive job offers from our mailing list by speaking to an officer at one of our events or visiting our office at 311 Soda Hall.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardImageArea,
+                  null,
+                  React.createElement(
+                    _reactLazyLoad2.default,
+                    null,
+                    React.createElement('img', { src: _industry_event2.default })
+                  )
+                ),
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Sponsors'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'domain'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'If you would like to contribute to the CSUA, please email the Politburo at politburo@csua.berkeley.edu. We have many different sponsorship options, from hosting workshops to monetary sponsorships and recruiting events. If you are an industry sponsor and are interested in what the CSUA can offer your organization, please email our Industry Relations department at indrel@csua.berkeley.edu. Our current and former sponsors are listed\xA0',
+                    React.createElement(
+                      _reactRouterDom.Link,
+                      { to: _paths2.default.sponsors },
+                      'here.'
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
     }
   }]);
 
@@ -30016,82 +30919,60 @@ exports.Industry = Industry;
 /* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports._PaperBorder = undefined;
-
-var _PaperBorder2 = __webpack_require__(337);
-
-var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
-exports.default = _PaperBorder3.default;
-exports._PaperBorder = _PaperBorder3.default;
+module.exports = __webpack_require__.p + "fae37097902e6767dac04445d7c0e34e.jpg";
 
 /***/ }),
 /* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__.p + "6725513974e5f311c50408132d2a7b6a.jpg";
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _PaperBorder2 = __webpack_require__(339);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _PaperBorder3.default;
+exports._PaperBorder = _PaperBorder3.default;
+
+/***/ }),
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._PaperBorder = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _PaperBorder = function (_React$Component) {
   _inherits(_PaperBorder, _React$Component);
@@ -30108,7 +30989,21 @@ var _PaperBorder = function (_React$Component) {
   _createClass(_PaperBorder, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
   }]);
 
@@ -30119,7 +31014,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 338 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30128,36 +31023,464 @@ exports._PaperBorder = _PaperBorder;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = undefined;
+exports.Sponsors = undefined;
 
-var _Footer = __webpack_require__(339);
+var _Sponsors = __webpack_require__(341);
 
-exports.default = _Footer.Footer;
-exports.Footer = _Footer.Footer;
+exports.default = _Sponsors.Sponsors;
+exports.Sponsors = _Sponsors.Sponsors;
 
 /***/ }),
-/* 339 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Sponsors = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _Guac = __webpack_require__(12);
+
+var _PaperBorder2 = __webpack_require__(342);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
+var _SponsorCreator2 = __webpack_require__(344);
+
+var _SponsorCreator3 = _interopRequireDefault(_SponsorCreator2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Sponsors = function (_React$Component) {
+  _inherits(Sponsors, _React$Component);
+
+  function Sponsors() {
+    _classCallCheck(this, Sponsors);
+
+    var _this = _possibleConstructorReturn(this, (Sponsors.__proto__ || Object.getPrototypeOf(Sponsors)).call(this));
+
+    _this.render = _this.render.bind(_this);
+    return _this;
+  }
+
+  _createClass(Sponsors, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'sponsors-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Sponsors'
+          ),
+          React.createElement('p', { className: 'centered header' }),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Thanks to all of our sponsors for making our hackathons, workshops, socials, and professional/technical services available for all UC Berkeley undergraduates.'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(_SponsorCreator3.default, null)
+        )
+      );
+    }
+  }]);
+
+  return Sponsors;
+}(React.Component);
+
+exports.Sponsors = Sponsors = (0, _Guac.Guac)(Sponsors);
+
+exports.default = Sponsors;
+exports.Sponsors = Sponsors;
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = undefined;
+exports._PaperBorder = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+var _PaperBorder2 = __webpack_require__(343);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _PaperBorder3.default;
+exports._PaperBorder = _PaperBorder3.default;
+
+/***/ }),
+/* 343 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._PaperBorder = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _PaperBorder = function (_React$Component) {
+  _inherits(_PaperBorder, _React$Component);
+
+  function _PaperBorder() {
+    _classCallCheck(this, _PaperBorder);
+
+    var _this = _possibleConstructorReturn(this, (_PaperBorder.__proto__ || Object.getPrototypeOf(_PaperBorder)).call(this));
+
+    _this.render = _this.render.bind(_this);
+    return _this;
+  }
+
+  _createClass(_PaperBorder, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
     }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+  }]);
+
+  return _PaperBorder;
+}(React.Component);
+
+exports.default = _PaperBorder;
+exports._PaperBorder = _PaperBorder;
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._SponsorCreator = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _Guac = __webpack_require__(12);
+
+var _lib = __webpack_require__(27);
+
+var _Card = __webpack_require__(13);
+
+var _reactLazyLoad = __webpack_require__(25);
+
+var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
+
+var _sponsors = __webpack_require__(345);
+
+var _sponsors2 = _interopRequireDefault(_sponsors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/*
+  Props:
+  - sponsors <array<object>>: see static/data/sponsors for structure.
+*/
+var _SponsorCreator = function (_React$Component) {
+  _inherits(_SponsorCreator, _React$Component);
+
+  function _SponsorCreator() {
+    _classCallCheck(this, _SponsorCreator);
+
+    var _this = _possibleConstructorReturn(this, (_SponsorCreator.__proto__ || Object.getPrototypeOf(_SponsorCreator)).call(this));
+
+    _this.bindAllMethods();
+    return _this;
+  }
+
+  _createClass(_SponsorCreator, [{
+    key: 'calcSponsorComponents',
+    value: function calcSponsorComponents(props) {
+      var sponsors = props.sponsors;
+      var sponsorComponents = [];
+      for (var i in sponsors) {
+        var sponsor = sponsors[i];
+        sponsorComponents.push(React.createElement(
+          _lib.Col,
+          { key: i, xs: 6, md: 4, lg: 3 },
+          React.createElement(
+            _Card.Card,
+            null,
+            React.createElement(
+              _Card.CardImageArea,
+              null,
+              React.createElement(
+                _reactLazyLoad2.default,
+                { debounce: false, throttle: 50 },
+                React.createElement('img', { src: sponsor.img })
+              )
+            ),
+            React.createElement(
+              _Card.CardTextArea,
+              null,
+              React.createElement(
+                'a',
+                { className: 'title', href: sponsor.href },
+                sponsor.name
+              ),
+              React.createElement(
+                'p',
+                { className: 'name subheader' },
+                sponsor.type
+              )
+            )
+          )
+        ));
+      }
+      return sponsorComponents;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        _lib.Row,
+        null,
+        this.calcSponsorComponents(this.props)
+      );
+    }
+  }]);
+
+  return _SponsorCreator;
+}(React.Component);
+
+_SponsorCreator.defaultProps = {
+  sponsors: _sponsors2.default
+};
+
+exports._SponsorCreator = _SponsorCreator = (0, _Guac.Guac)(_SponsorCreator);
+
+exports.default = _SponsorCreator;
+exports._SponsorCreator = _SponsorCreator;
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pastSponsors = exports.sponsors = undefined;
+
+var _Anker = __webpack_require__(346);
+
+var _Anker2 = _interopRequireDefault(_Anker);
+
+var _Cisco_Meraki = __webpack_require__(347);
+
+var _Cisco_Meraki2 = _interopRequireDefault(_Cisco_Meraki);
+
+var _Facebook = __webpack_require__(348);
+
+var _Facebook2 = _interopRequireDefault(_Facebook);
+
+var _Microsoft = __webpack_require__(349);
+
+var _Microsoft2 = _interopRequireDefault(_Microsoft);
+
+var _OpenTable = __webpack_require__(350);
+
+var _OpenTable2 = _interopRequireDefault(_OpenTable);
+
+var _Pinterest = __webpack_require__(351);
+
+var _Pinterest2 = _interopRequireDefault(_Pinterest);
+
+var _Riot_Games = __webpack_require__(352);
+
+var _Riot_Games2 = _interopRequireDefault(_Riot_Games);
+
+var _Salesforce = __webpack_require__(353);
+
+var _Salesforce2 = _interopRequireDefault(_Salesforce);
+
+var _Yelp = __webpack_require__(354);
+
+var _Yelp2 = _interopRequireDefault(_Yelp);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Sponsor = function Sponsor(name, href, type, img) {
+  _classCallCheck(this, Sponsor);
+
+  this.name = name;
+  this.href = href;
+  this.type = type;
+  this.img = img;
+};
+
+var sponsors = [new Sponsor('Anker', 'https://www.anker.com/', 'Equipment Sponsor', _Anker2.default), new Sponsor('Facebook', 'https://www.facebook.com/', 'Info Session, Puzzle Hunt', _Facebook2.default), new Sponsor('Meraki', 'https://meraki.cisco.com/', 'Hackathons, Tech Talks, Coding for Grubs', _Cisco_Meraki2.default), new Sponsor('Microsoft', 'https://www.microsoft.com/', 'Tech Talk', _Microsoft2.default), new Sponsor('OpenTable', 'https://www.opentable.com/start/home', 'Tech Talk', _OpenTable2.default), new Sponsor('Pinterest', 'https://www.pinterest.com/', 'Tech Talk', _Pinterest2.default), new Sponsor('Riot Games', 'https://www.riotgames.com/', 'Tech Talk', _Riot_Games2.default), new Sponsor('Salesforce', 'https://www.salesforce.com/', 'Tech Talk', _Salesforce2.default), new Sponsor('Yelp', 'https://www.yelp.com/berkeley', 'Tech Talk', _Yelp2.default)];
+
+var pastSponsors = [];
+
+exports.default = sponsors;
+exports.sponsors = sponsors;
+exports.pastSponsors = pastSponsors;
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "e3f8a3a3edfc9a25a024209bf741b400.jpg";
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "7c73a6eebf57f9a5cc1d36d090af143d.jpg";
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "02dda7e5831c85d14c61c24fe91ecf0b.png";
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "b9ac3f44a9d3cef2eae712e80bd33f81.png";
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "b660666d5a35f3ebe843c9721a53df9b.png";
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "91ee56045ce799af16b3c25b3c0d484b.png";
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "c3ebb5e9ca4e176824f284948a427b9a.jpg";
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "8f01652870ad4c18993d608797112bc2.jpg";
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "88ed34e68247ea1e2a3a284931e69515.png";
+
+/***/ }),
+/* 355 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Join = undefined;
+
+var _Join = __webpack_require__(356);
+
+exports.default = _Join.Join;
+exports.Join = _Join.Join;
+
+/***/ }),
+/* 356 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Join = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -30169,39 +31492,339 @@ var _redux = __webpack_require__(10);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Guac = __webpack_require__(22);
+var _reactLazyLoad = __webpack_require__(25);
+
+var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
+
+var _Card = __webpack_require__(13);
+
+var _Icon = __webpack_require__(22);
+
+var _lib = __webpack_require__(27);
+
+var _PaperBorder2 = __webpack_require__(357);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Join = function (_React$Component) {
+  _inherits(Join, _React$Component);
+
+  function Join() {
+    _classCallCheck(this, Join);
+
+    var _this = _possibleConstructorReturn(this, (Join.__proto__ || Object.getPrototypeOf(Join)).call(this));
+
+    _this.render = _this.render.bind(_this);
+    return _this;
+  }
+
+  _createClass(Join, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'join-page' },
+        React.createElement(_PaperBorder3.default, null),
+        React.createElement(
+          'div',
+          { className: 'title-area' },
+          React.createElement(
+            'h3',
+            { className: 'centered page-title' },
+            'Join'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Become part of the largest on-campus undergraduate CS community in the world!'
+          ),
+          React.createElement('br', null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement(
+            _lib.Row,
+            null,
+            React.createElement(
+              _lib.Col,
+              { xs: 12 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Member Perks'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'stars'
+                  ),
+                  React.createElement(_lib.Divider, { horizontal: true, margin: true }),
+                  React.createElement(
+                    'p',
+                    { className: 'centered subheader' },
+                    'Industry'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'The CSUA hosts many networking and recruiting events throughout the year with large companies such as Facebook, Amazon, Microsoft, Salesforce, and more. Get priority access to their job postings and speak directly with recruiters and engineers at our events.'
+                  ),
+                  React.createElement(_lib.Divider, { horizontal: true, margin: true }),
+                  React.createElement(
+                    'p',
+                    { className: 'centered subheader' },
+                    'Professional/Academic Development'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'We host a large number of workshops to help you develop skills that recruiters are looking for and present those skills in unique and professional resumes, websites, and personal branding. We also tutor many different classes and are dedicated in helping you succeed in your undergraduate career here at Berkeley.'
+                  ),
+                  React.createElement(_lib.Divider, { margin: true }),
+                  React.createElement(
+                    'p',
+                    { className: 'centered subheader' },
+                    'Networking'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'Meet fellow researchers, professionals, hackers, and CS enthusiasts. Here, you can find a co-founder for your new startup, join a hackathon team, or gather project partners for a class. Our diverse student body will help you connect with the people you want to meet.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Sign Up'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'assignment'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'To join the CSUA, come by any one of our events or drop by our office at 311 Soda Hall and ask for an officer. Once you have an account, you can opt-in to our exclusive job postings, receive email notifications for events, use our computers and server, and reserve time on our high-performance computing cluster.'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'If you have questions about what CSUA membership can offer you, please contact our Outreach chair at outreach@csua.berkeley.edu. If you are having issues with your CSUA account, please contact our VP of Technology at vp@csua.berkeley.edu.'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              _lib.Col,
+              { xs: 12, md: 6 },
+              React.createElement(
+                _Card.Card,
+                null,
+                React.createElement(
+                  _Card.CardTextArea,
+                  null,
+                  React.createElement(
+                    'p',
+                    { className: 'centered title' },
+                    'Become an Officer'
+                  ),
+                  React.createElement(
+                    _Icon.Icon,
+                    { className: 'centered' },
+                    'perm_identity'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'Interested in becoming more involved? Officers are active members of the CSUA who want to contribute more to the CS undergraduate community. Officers help out with critical services, such as maintaining our server and computing cluster, tutoring, running events, leading workshops, liaising with industry, and more. They are also entrusted with privileges such as CSUA office access, officer-only events, and priority access to internal services.'
+                  ),
+                  React.createElement(
+                    'p',
+                    null,
+                    'Come find us in 311 Soda Hall to learn more, or email the Politburo at pb@csua.berkeley.edu.'
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Join;
+}(React.Component);
+
+exports.default = Join;
+exports.Join = Join;
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._PaperBorder = undefined;
+
+var _PaperBorder2 = __webpack_require__(358);
+
+var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _PaperBorder3.default;
+exports._PaperBorder = _PaperBorder3.default;
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports._PaperBorder = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _PaperBorder = function (_React$Component) {
+  _inherits(_PaperBorder, _React$Component);
+
+  function _PaperBorder() {
+    _classCallCheck(this, _PaperBorder);
+
+    var _this = _possibleConstructorReturn(this, (_PaperBorder.__proto__ || Object.getPrototypeOf(_PaperBorder)).call(this));
+
+    _this.render = _this.render.bind(_this);
+    return _this;
+  }
+
+  _createClass(_PaperBorder, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'paper-border' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement(
+            'div',
+            { className: 'main-paper z-depth-1' },
+            React.createElement('div', { className: 'top-paper-1 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-2 z-depth-1' }),
+            React.createElement('div', { className: 'top-paper-3 z-depth-1' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return _PaperBorder;
+}(React.Component);
+
+exports.default = _PaperBorder;
+exports._PaperBorder = _PaperBorder;
+
+/***/ }),
+/* 359 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Footer = undefined;
+
+var _Footer = __webpack_require__(360);
+
+exports.default = _Footer.Footer;
+exports.Footer = _Footer.Footer;
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Footer = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _reactRedux = __webpack_require__(11);
+
+var _redux = __webpack_require__(10);
+
+var _reactRouter = __webpack_require__(9);
+
+var _Guac = __webpack_require__(12);
 
 var _StickyFooter = __webpack_require__(71);
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Footer = function (_React$Component) {
   _inherits(Footer, _React$Component);
@@ -30224,28 +31847,24 @@ var Footer = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(_StickyFooter.StickyFooter, { className: this.className() }, 'Copyright \xA9 2017 CSUA. All rights reserved. Designed by Eric Hou.');
+      return React.createElement(
+        _StickyFooter.StickyFooter,
+        { className: this.className() },
+        'Copyright \xA9 2017 CSUA. All rights reserved. Designed by Eric Hou.'
+      );
     }
   }]);
 
   return Footer;
 }(React.Component);
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {};
-}
-
-exports.Footer = Footer = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _Guac.Guac)(Footer)));
+exports.Footer = Footer = (0, _Guac.Guac)(Footer);
 
 exports.default = Footer;
 exports.Footer = Footer;
 
 /***/ }),
-/* 340 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30256,40 +31875,28 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Flyer = undefined;
 
-var _Flyer = __webpack_require__(341);
+var _Flyer = __webpack_require__(362);
 
 var _Flyer2 = _interopRequireDefault(_Flyer);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _Flyer2.default;
 exports.Flyer = _Flyer2.default;
 
 /***/ }),
-/* 341 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Flyer = undefined;
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -30299,43 +31906,19 @@ var _logo = __webpack_require__(111);
 
 var _logo2 = _interopRequireDefault(_logo);
 
-var _Divider = __webpack_require__(37);
+var _Divider = __webpack_require__(45);
 
-var _Card = __webpack_require__(12);
+var _Card = __webpack_require__(13);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Flyer = function (_React$Component) {
   _inherits(Flyer, _React$Component);
@@ -30352,7 +31935,50 @@ var Flyer = function (_React$Component) {
   _createClass(Flyer, [{
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'flyer' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'top-overhang-1 z-depth-1' }), React.createElement('div', { className: 'top-overhang-2 z-depth-1' }), React.createElement('div', { className: 'top-overhang-3 z-depth-2' }), React.createElement('div', { className: 'bottom-overhang-1 z-depth-5' }), React.createElement('div', { className: 'bottom-overhang-2 z-depth-5' })), React.createElement('div', { className: 'info-area' }, React.createElement('img', { className: 'flyer-logo', src: _logo2.default }), React.createElement('h4', { className: 'centered' }, 'CSUA'), React.createElement('p', { className: 'centered header' }, 'EE/CS Undergraduate Mixer'), React.createElement('p', { className: 'centered subheader' }, 'Thursday, 8/24, 11AM - 1PM'), React.createElement('p', { className: 'centered subheader' }, 'Wozniak Lounge, Soda Hall'), React.createElement(_Divider.Divider, { horizontal: true, margin: true }), React.createElement('p', { className: 'justified title' }, 'Come stop by the Wozniak Lounge during lunch next Thursday to meet professors, advisors, researchers, and peers! Lunch and refreshments will be served.')));
+      return React.createElement(
+        'div',
+        { className: 'flyer' },
+        React.createElement(
+          'div',
+          { className: 'paper-canvas' },
+          React.createElement('div', { className: 'top-overhang-1 z-depth-1' }),
+          React.createElement('div', { className: 'top-overhang-2 z-depth-1' }),
+          React.createElement('div', { className: 'top-overhang-3 z-depth-2' }),
+          React.createElement('div', { className: 'bottom-overhang-1 z-depth-5' }),
+          React.createElement('div', { className: 'bottom-overhang-2 z-depth-5' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'info-area' },
+          React.createElement('img', { className: 'flyer-logo', src: _logo2.default }),
+          React.createElement(
+            'h4',
+            { className: 'centered' },
+            'CSUA'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered header' },
+            'EE/CS Undergraduate Mixer'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Thursday, 8/24, 11AM - 1PM'
+          ),
+          React.createElement(
+            'p',
+            { className: 'centered subheader' },
+            'Wozniak Lounge, Soda Hall'
+          ),
+          React.createElement(_Divider.Divider, { horizontal: true, margin: true }),
+          React.createElement(
+            'p',
+            { className: 'justified title' },
+            'Come stop by the Wozniak Lounge during lunch next Thursday to meet professors, advisors, researchers, and peers! Lunch and refreshments will be served.'
+          )
+        )
+      );
     }
   }]);
 
@@ -30363,244 +31989,16 @@ exports.default = Flyer;
 exports.Flyer = Flyer;
 
 /***/ }),
-/* 342 */
+/* 363 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 343 */
+/* 364 */
 /***/ (function(module, exports) {
 
 module.exports = require("socket.io");
-
-/***/ }),
-/* 344 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "fae37097902e6767dac04445d7c0e34e.jpg";
-
-/***/ }),
-/* 345 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "6725513974e5f311c50408132d2a7b6a.jpg";
-
-/***/ }),
-/* 346 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Sponsors = undefined;
-
-var _Sponsors = __webpack_require__(347);
-
-exports.default = _Sponsors.Sponsors;
-exports.Sponsors = _Sponsors.Sponsors;
-
-/***/ }),
-/* 347 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Sponsors = undefined;
-
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-var _PaperBorder2 = __webpack_require__(348);
-
-var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Sponsors = function (_React$Component) {
-  _inherits(Sponsors, _React$Component);
-
-  function Sponsors() {
-    _classCallCheck(this, Sponsors);
-
-    var _this = _possibleConstructorReturn(this, (Sponsors.__proto__ || Object.getPrototypeOf(Sponsors)).call(this));
-
-    _this.render = _this.render.bind(_this);
-    return _this;
-  }
-
-  _createClass(Sponsors, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement('div', { className: 'sponsors-page' }, React.createElement(_PaperBorder3.default, null), React.createElement('div', { className: 'title-area' }, React.createElement('h3', { className: 'centered page-title' }, 'Sponsors'), React.createElement('p', { className: 'centered header' }), React.createElement('p', { className: 'centered subheader' }), React.createElement('br', null)), React.createElement('div', { className: 'info-area' }));
-    }
-  }]);
-
-  return Sponsors;
-}(React.Component);
-
-exports.Sponsors = Sponsors = Sponsors;
-
-exports.default = Sponsors;
-exports.Sponsors = Sponsors;
-
-/***/ }),
-/* 348 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports._PaperBorder = undefined;
-
-var _PaperBorder2 = __webpack_require__(349);
-
-var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
-exports.default = _PaperBorder3.default;
-exports._PaperBorder = _PaperBorder3.default;
-
-/***/ }),
-/* 349 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports._PaperBorder = undefined;
-
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }newObj.default = obj;return newObj;
-  }
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var _PaperBorder = function (_React$Component) {
-  _inherits(_PaperBorder, _React$Component);
-
-  function _PaperBorder() {
-    _classCallCheck(this, _PaperBorder);
-
-    var _this = _possibleConstructorReturn(this, (_PaperBorder.__proto__ || Object.getPrototypeOf(_PaperBorder)).call(this));
-
-    _this.render = _this.render.bind(_this);
-    return _this;
-  }
-
-  _createClass(_PaperBorder, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement('div', { className: 'paper-border' }, React.createElement('div', { className: 'paper-canvas' }, React.createElement('div', { className: 'main-paper z-depth-1' }, React.createElement('div', { className: 'top-paper-1 z-depth-1' }), React.createElement('div', { className: 'top-paper-2 z-depth-1' }), React.createElement('div', { className: 'top-paper-3 z-depth-1' }))));
-    }
-  }]);
-
-  return _PaperBorder;
-}(React.Component);
-
-exports.default = _PaperBorder;
-exports._PaperBorder = _PaperBorder;
 
 /***/ })
 /******/ ]);
