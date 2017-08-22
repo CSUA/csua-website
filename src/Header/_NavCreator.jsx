@@ -134,8 +134,8 @@ class _NavCreator extends React.Component {
   }
 
   render() {
-    return (
-      this.props.l ? (
+    if (this.props.l) {
+      return (
         <TabList style={{margin: '10px',
                           marginBottom: '-10px',
                           boxSizing: 'border-box',
@@ -145,7 +145,10 @@ class _NavCreator extends React.Component {
                   setActiveTabKey={(key) => {this.setState({activeTabKey: key})}}>
           {this.calcNavComponents(this.props)}
         </TabList>
-      ) : (
+      );
+    }
+    else if (this.props.m || this.props.s) {
+      return (
         <IconButton icon={'menu'}
           onClick={() => this.setButtonMenuActive(!this.state.buttonMenuActive)}
           style={{float: 'right'}}>
@@ -157,8 +160,11 @@ class _NavCreator extends React.Component {
             {this.calcSmallNavComponents(this.props)}
           </Menu>
         </IconButton>
-      )
-    );
+      );
+    }
+    else {
+      return null;
+    }
   }
 }
 _NavCreator.defaultProps = {

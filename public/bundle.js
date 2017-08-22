@@ -38605,11 +38605,14 @@ function provideSizeClass(WrappedComponent) {
       key: 'getSizeClass',
       value: function getSizeClass(size) {
         // size = (size.width < size.height) ? size : {width: size.height, height: size.width};
+        if (!size.width || !size.height) {
+          return 'noClassSize';
+        }
         if (size.width >= 980) {
           return 'l';
         } else if (size.width >= 480) {
           return 'm';
-        } else {
+        } else if (size.width < 480) {
           return 's';
         }
       }
@@ -40783,35 +40786,41 @@ var _NavCreator = function (_React$Component) {
     value: function render() {
       var _this5 = this;
 
-      return this.props.l ? React.createElement(
-        _TabList.TabList,
-        { style: { margin: '10px',
-            marginBottom: '-10px',
-            boxSizing: 'border-box',
-            maxWidth: '70%',
-            float: 'right' },
-          activeTabKey: this.calcActiveKey(),
-          setActiveTabKey: function setActiveTabKey(key) {
-            _this5.setState({ activeTabKey: key });
-          } },
-        this.calcNavComponents(this.props)
-      ) : React.createElement(
-        _Button.IconButton,
-        { icon: 'menu',
-          onClick: function onClick() {
-            return _this5.setButtonMenuActive(!_this5.state.buttonMenuActive);
-          },
-          style: { float: 'right' } },
-        React.createElement(
-          _Menu.Menu,
-          {
-            position: 'top right',
-            anchor: 'top right',
-            active: this.state.buttonMenuActive,
-            setActive: this.setButtonMenuActive },
-          this.calcSmallNavComponents(this.props)
-        )
-      );
+      if (this.props.l) {
+        return React.createElement(
+          _TabList.TabList,
+          { style: { margin: '10px',
+              marginBottom: '-10px',
+              boxSizing: 'border-box',
+              maxWidth: '70%',
+              float: 'right' },
+            activeTabKey: this.calcActiveKey(),
+            setActiveTabKey: function setActiveTabKey(key) {
+              _this5.setState({ activeTabKey: key });
+            } },
+          this.calcNavComponents(this.props)
+        );
+      } else if (this.props.m || this.props.s) {
+        return React.createElement(
+          _Button.IconButton,
+          { icon: 'menu',
+            onClick: function onClick() {
+              return _this5.setButtonMenuActive(!_this5.state.buttonMenuActive);
+            },
+            style: { float: 'right' } },
+          React.createElement(
+            _Menu.Menu,
+            {
+              position: 'top right',
+              anchor: 'top right',
+              active: this.state.buttonMenuActive,
+              setActive: this.setButtonMenuActive },
+            this.calcSmallNavComponents(this.props)
+          )
+        );
+      } else {
+        return null;
+      }
     }
   }]);
 
