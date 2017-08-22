@@ -40287,9 +40287,11 @@ function refreshMenus(event) {
     for (var _iterator = globalMenus[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var menu = _step.value;
 
-      setTimeout(function () {
-        return menu.checkShouldClose(event);
-      }, 0);
+      setTimeout(function (menu) {
+        return function () {
+          return menu.checkShouldClose(event);
+        };
+      }(menu), 0);
     }
   } catch (err) {
     _didIteratorError = true;
@@ -40388,8 +40390,6 @@ var Menu = function (_React$Component) {
       var parentBoundingBox = this.DOMNode.parentNode.getBoundingClientRect();
       var boundingBox = this.DOMNode.getBoundingClientRect();
       if (this.checkOutsideBoundingBox(boundingBox, event.clientX, event.clientY) && this.checkOutsideBoundingBox(parentBoundingBox, event.clientX, event.clientY)) {
-        console.log('close');
-        console.log(this.props.setActive);
         this.props.setActive && this.props.setActive(false);
         return true;
       } else {
@@ -40610,7 +40610,7 @@ var _NavCreator = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (_NavCreator.__proto__ || Object.getPrototypeOf(_NavCreator)).call(this, props));
 
     _this.bindAllMethods();
-    var isMenuActive = {};
+    var isMenuActive = { Main: false };
     for (var i in props.navs) {
       isMenuActive[props.navs[i].name] = false;
     }
@@ -40650,7 +40650,7 @@ var _NavCreator = function (_React$Component) {
     }
   }, {
     key: 'calcSubNavMenu',
-    value: function calcSubNavMenu(nav) {
+    value: function calcSubNavMenu(nav, anchor, position) {
       var _this2 = this;
 
       var menuItems = [];
@@ -40680,13 +40680,14 @@ var _NavCreator = function (_React$Component) {
             return _this2.setMenuActive(nav.name, active);
           },
           expand: 'vertical',
-          anchor: 'top right',
-          position: 'top left',
-          style: { fontSize: '10px' } },
+          anchor: anchor || undefined,
+          position: position || undefined,
+          style: { fontSize: '10px', zIndex: '100000' } },
         menuItems
       );
       return menu;
     }
+
     /*
       Only allows 2-deep navs
     */
@@ -40738,28 +40739,37 @@ var _NavCreator = function (_React$Component) {
 
       var navs = props.navs;
       var navComponents = [];
+      navComponents.push(React.createElement(
+        _MenuItem.MenuItem,
+        { key: -1,
+          onMouseEnter: function onMouseEnter() {
+            _this4.setMenuActive('Main', true);
+          },
+          onMouseLeave: function onMouseLeave() {
+            return _this4.setMenuActive('Main', false);
+          } },
+        'Main',
+        this.calcSubNavMenu({ subnavs: navs, name: 'Main' }, 'top right', 'top left')
+      ));
 
       var _loop3 = function _loop3() {
         var nav = navs[i];
         var menu = null;
         if (nav.subnavs) {
-          menu = _this4.calcSubNavMenu(nav);
+          menu = _this4.calcSubNavMenu(nav, 'top right', 'top left');
+          navComponents.push(React.createElement(
+            _MenuItem.MenuItem,
+            { key: i,
+              onMouseEnter: function onMouseEnter() {
+                _this4.setMenuActive(nav.name, true);
+              },
+              onMouseLeave: function onMouseLeave() {
+                return _this4.setMenuActive(nav.name, false);
+              } },
+            nav.name,
+            menu
+          ));
         }
-        navComponents.push(React.createElement(
-          _MenuItem.MenuItem,
-          { key: i,
-            onClick: function onClick(event) {
-              _this4.pushHistory(nav.href);
-            },
-            onMouseEnter: function onMouseEnter() {
-              _this4.setMenuActive(nav.name, true);
-            },
-            onMouseLeave: function onMouseLeave() {
-              return _this4.setMenuActive(nav.name, false);
-            } },
-          nav.name,
-          menu
-        ));
       };
 
       for (var i in navs) {
@@ -45679,7 +45689,7 @@ module.exports = __webpack_require__.p + "static/images/officers/Jason_Yeung-02b
 /* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-1873837b35189ad1a7a571f068500377.png";
+module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-8f0d5a19bb98cf7aab7268b2f8b8069c.png";
 
 /***/ }),
 /* 444 */
@@ -48385,25 +48395,25 @@ module.exports = __webpack_require__.p + "static/images/industry/sponsors/Cisco_
 /* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-88793ce5503dbf06ab775313c57cbaff.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-02dda7e5831c85d14c61c24fe91ecf0b.png";
 
 /***/ }),
 /* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-6f6f110446e7e4b34d0c97e1900256c7.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-b9ac3f44a9d3cef2eae712e80bd33f81.png";
 
 /***/ }),
 /* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-331f00f0a10b5b7575ce06f7b405c973.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-b660666d5a35f3ebe843c9721a53df9b.png";
 
 /***/ }),
 /* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-ad5402ed789c5f6c2c0acadfa9142860.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-91ee56045ce799af16b3c25b3c0d484b.png";
 
 /***/ }),
 /* 494 */
@@ -48421,7 +48431,7 @@ module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesf
 /* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-90af7a4a0fecdb934b5d6d0932eb2b69.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-88ed34e68247ea1e2a3a284931e69515.png";
 
 /***/ }),
 /* 497 */

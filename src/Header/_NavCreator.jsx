@@ -18,7 +18,7 @@ class _NavCreator extends React.Component {
   constructor(props) {
     super(props);
     this.bindAllMethods();
-    let isMenuActive = {};
+    let isMenuActive = {Main: false};
     for (var i in props.navs) {
       isMenuActive[props.navs[i].name] = false;
     }
@@ -52,7 +52,7 @@ class _NavCreator extends React.Component {
   }
 
 
-  calcSubNavMenu(nav) {
+  calcSubNavMenu(nav, anchor, position) {
     let menuItems = [];
 
     //Generate menu items for the subnavs
@@ -67,13 +67,14 @@ class _NavCreator extends React.Component {
       active={this.state.isMenuActive[nav.name]}
       setActive={(active) => this.setMenuActive(nav.name, active)}
       expand={'vertical'}
-      anchor={'top right'}
-      position={'top left'}
-      style={{fontSize: '10px'}}>
+      anchor={anchor || undefined}
+      position={position || undefined}
+      style={{fontSize: '10px', zIndex: '100000'}}>
         {menuItems}
       </Menu>;
     return menu;
   }
+
 /*
   Only allows 2-deep navs
 */
@@ -103,23 +104,30 @@ class _NavCreator extends React.Component {
 
   calcSmallNavComponents(props) {
     let navs = props.navs;
-    let navComponents = [];
-
+    let navComponents = [
+    ];
+    navComponents.push(
+      <MenuItem key={-1}
+        onMouseEnter={() => {this.setMenuActive('Main', true)}}
+        onMouseLeave={() => this.setMenuActive('Main', false)}>
+        {'Main'}
+        {this.calcSubNavMenu({subnavs: navs, name: 'Main'}, 'top right', 'top left')}
+      </MenuItem>
+    )
     for (var i in navs) {
       let nav = navs[i];
       let menu = null;
       if (nav.subnavs) {
-        menu = this.calcSubNavMenu(nav);
+        menu = this.calcSubNavMenu(nav, 'top right', 'top left');
+        navComponents.push(
+          <MenuItem key={i}
+            onMouseEnter={() => {this.setMenuActive(nav.name, true)}}
+            onMouseLeave={() => this.setMenuActive(nav.name, false)}>
+            {nav.name}
+            {menu}
+          </MenuItem>
+        )
       }
-      navComponents.push(
-        <MenuItem key={i}
-          onClick={(event) => {this.pushHistory(nav.href)}}
-          onMouseEnter={() => {this.setMenuActive(nav.name, true)}}
-          onMouseLeave={() => this.setMenuActive(nav.name, false)}>
-          {nav.name}
-          {menu}
-        </MenuItem>
-      )
     }
 
     return navComponents;
