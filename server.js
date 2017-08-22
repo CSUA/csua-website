@@ -38,7 +38,7 @@ function sendBase(req, res, next) {
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-//
+
 // app.get('/bundle.js', function (req, res, next) {
 //   req.url = req.url + '.gz';
 //   res.set('Content-Encoding', 'gzip');
@@ -70,9 +70,9 @@ io.on('connection', (socket) => {
   });
 });
 
-app.listen(3002,
-  () => console.log('Node/express server started on port 3002')
+app.listen(8080,
+  () => console.log('Node/express server started on port 8080')
 );
-server.listen(3003,
-  () => console.log('Socket.io server started on port 3003')
+server.listen(8081,
+  () => console.log('Socket.io server started on port 8081')
 );

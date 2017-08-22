@@ -73,12 +73,7 @@ module.exports = [
       filename: '[name].css',
       allChunks: true
     })
-    // ,
-    // new CopyWebpackPlugin([
-    //   { from: 'src/static/', to: 'static'},
-    //   { from: 'src/index.html', to: 'index.html'}
-    // ])
-    // ,
+    ,
     // new webpack.DefinePlugin({
     //   'process.env': {
     //     NODE_ENV: JSON.stringify('production')
@@ -134,15 +129,8 @@ module.exports = [
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [{
-            loader: 'file-loader?hash=sha512&digest=hex&name=[path][name]-[hash].[ext]',
-            options: {
-              emitFile: false
-            }
-          },
-          {
-            loader: 'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-          }
+        loaders: ['file-loader?hash=sha512&digest=hex&name=[path][name]-[hash].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }
     ]
