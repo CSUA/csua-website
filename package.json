@@ -13,7 +13,7 @@
   "dependencies": {
     "animated-scroll-to": "^1.1.5",
     "express": "^4.15.4",
-    "guac-hoc": "0.0.25",
+    "guac-hoc": "^0.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-flexbox-grid": "^1.1.4",
@@ -24,22 +24,22 @@
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
     "save-dev": "^2.0.0",
-    "yui-md": "^0.1.7"
+    "yui-md": "^0.1.9"
   },
   "devDependencies": {
     "babel": "^6.23.0",
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-helpers": "^6.24.1",
-    "babel-loader": "^7.1.1",
+    "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
-    "babel-runtime": "^6.25.0",
+    "babel-runtime": "^6.26.0",
     "compression-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.4",
+    "css-loader": "^0.28.5",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "fs": "0.0.1-security",
@@ -56,7 +56,7 @@
     "style-loader": "^0.18.2",
     "svg-react-loader": "^0.4.4",
     "uglify-es-webpack-plugin": "^0.10.0",
-    "webpack": "^3.5.1",
+    "webpack": "^3.5.5",
     "zlib": "^1.0.5"
   }
 }

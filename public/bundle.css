@@ -604,8 +604,7 @@ img {
   .card-content .card-image-area, .card-content.card .card-image-area {
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
-    display: block; }
+    overflow: hidden; }
     .card-content .card-image-area :not(img), .card-content.card .card-image-area :not(img) {
       flex: 1 0 auto;
       display: flex;
@@ -2588,8 +2587,7 @@ img {
   .card-content .card-image-area, .card-content.card .card-image-area {
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
-    display: block; }
+    overflow: hidden; }
     .card-content .card-image-area :not(img), .card-content.card .card-image-area :not(img) {
       flex: 1 0 auto;
       display: flex;
