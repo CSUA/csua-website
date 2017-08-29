@@ -484,6 +484,18 @@ body {
 .justified, .duty-list {
   text-align: justify; }
 
+a:link {
+  color: #ebb400; }
+
+a:visited {
+  color: #eb9d00; }
+
+a:hover {
+  color: #ffd32c; }
+
+a:active {
+  color: #ebb400; }
+
 body {
   margin: 0px;
   min-width: 300px;
@@ -2465,6 +2477,18 @@ body {
 
 .justified {
   text-align: justify; }
+
+a:link {
+  color: #ebb400; }
+
+a:visited {
+  color: #eb9d00; }
+
+a:hover {
+  color: #ffd32c; }
+
+a:active {
+  color: #ebb400; }
 
 body {
   margin: 0px;

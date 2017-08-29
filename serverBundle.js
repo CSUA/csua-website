@@ -4203,9 +4203,9 @@ var facebookEvent = new Event('Facebook Recruiting Event', 'Wozniak Lounge, Soda
 
 var gm1Event = new Event('CSUA General Meeting #1', 'Wozniak Lounge, Soda Hall', 'Friday - 9/1', '8PM - 10PM', 'Learn about the resources the CSUA has to offer, how to utilize them, and how to contribute to the university and undergraduate community. Refreshments provided.');
 
-var events = [new Event('EE/CS Undergraduate Mixer', 'Wozniak Lounge, Soda Hall', 'Thursday - 8/24', '11AM - 1PM', 'Come network with current students, researchers, professors, and advisors. Lunch and refreshments provided.'), new Event('EE/CS Welcome Night', 'Wozniak Lounge, Soda Hall', 'Friday - 8/25', '8PM - 10PM', 'CSUA wants to welcome all new students with a board game night! Come and meet us and socialize with peers.'), facebookEvent, gm1Event];
+var events = [facebookEvent, gm1Event];
 
-var workshops = [new Event('Machine Learning', 'TBD', 'TBD', 'TBD', 'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'), new Event('Git', 'TBD', 'TBD', 'TBD', 'Learn the basics of using Git as a version control system for better programming workflows.'), new Event('UNIX/BASH', 'TBD', 'TBD', 'TBD', 'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'), new Event('LaTeX', 'TBD', 'TBD', 'TBD', 'Make your proofs, papers, and homework look stunning using the power of LaTeX.'), new Event('Web Development', 'TBD', 'TBD', 'TBD', 'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'), new Event('Finding an Internship', 'TBD', 'TBD', 'TBD', 'Learn how to break into industry and land your first job or internship.'), new Event('Resume Workshop', 'TBD', 'TBD', 'TBD', 'Crafting a resume is an art. Come listen to a recruiter from Princeton teach you how to boost your resume.'), new Event('Blockchain', 'TBD', 'TBD', 'TBD', 'Bitcoin. Ethereum. ')];
+var workshops = [new Event('LaTeX', 'TBD', 'TBD', 'TBD', 'Make your proofs, papers, and homework look stunning using the power of LaTeX.'), new Event('Machine Learning', 'TBD', 'TBD', 'TBD', 'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'), new Event('Git', 'TBD', 'TBD', 'TBD', 'Learn the basics of using Git as a version control system for better programming workflows.'), new Event('UNIX/BASH', 'TBD', 'TBD', 'TBD', 'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'), new Event('Web Development', 'TBD', 'TBD', 'TBD', 'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'), new Event('Finding an Internship', 'TBD', 'TBD', 'TBD', 'Learn how to break into industry and land your first job or internship.'), new Event('Resume Workshop', 'TBD', 'TBD', 'TBD', 'Crafting a resume is an art. Come listen to a recruiter from Princeton teach you how to boost your resume.'), new Event('Blockchain', 'TBD', 'TBD', 'TBD', 'Bitcoin. Ethereum. ')];
 
 var recruiting = [facebookEvent];
 
@@ -9913,6 +9913,10 @@ var _zlib = __webpack_require__(121);
 
 var _zlib2 = _interopRequireDefault(_zlib);
 
+var _https = __webpack_require__(364);
+
+var _https2 = _interopRequireDefault(_https);
+
 var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
@@ -9926,6 +9930,10 @@ var _reactRouter = __webpack_require__(9);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var cert = _fs2.default.readFileSync('/webserver/csua-website/certs/cert.pem', 'utf8');
+var privateKey = _fs2.default.readFileSync('/webserver/csua-website/certs/privkey.pem', 'utf8');
+var credentials = { key: privateKey, cert: certificate };
 
 global.window = {
   addEventListener: function addEventListener() {},
@@ -9954,30 +9962,30 @@ function sendBase(req, res, next) {
 }
 
 var app = (0, _express2.default)();
-var server = __webpack_require__(361).Server(app);
-var io = __webpack_require__(362)(server);
+var server = _https2.default.createServer(credentials, app);
+var io = __webpack_require__(363)(server);
 
-// app.get('/bundle.js', function (req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   res.set('Content-Type', 'application/javascript');
-//   next();
-// });
-//
-// app.get('/bundle.css', function (req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   res.set('Content-Type', 'text/css');
-//   next();
-// });
+app.use((0, _serveFavicon2.default)(_path2.default.join(__dirname, 'public/static/images/logos/favicon.ico')));
+
+app.get('/bundle.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'application/javascript');
+  next();
+});
+
+app.get('/bundle.css', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/css');
+  next();
+});
 
 app.get('/', sendBase);
 
 app.use(_express2.default.static('public'));
 
 app.get('*', sendBase);
-
-app.use((0, _serveFavicon2.default)(_path2.default.join(__dirname, 'public/static/images/logos/favicon.ico')));
 
 io.on('connection', function (socket) {
   console.log('New connection.');
@@ -23090,9 +23098,9 @@ var _Header = __webpack_require__(236);
 
 var _Pages = __webpack_require__(249);
 
-var _Footer = __webpack_require__(357);
+var _Footer = __webpack_require__(358);
 
-var _Flyer = __webpack_require__(359);
+var _Flyer = __webpack_require__(360);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25718,25 +25726,25 @@ var _reactRouterDom = __webpack_require__(41);
 
 var _About = __webpack_require__(251);
 
-var _Politburo = __webpack_require__(272);
+var _Politburo = __webpack_require__(273);
 
-var _Officers = __webpack_require__(286);
+var _Officers = __webpack_require__(287);
 
-var _Constitution = __webpack_require__(312);
+var _Constitution = __webpack_require__(313);
 
-var _Events = __webpack_require__(316);
+var _Events = __webpack_require__(317);
 
-var _Workshops = __webpack_require__(320);
+var _Workshops = __webpack_require__(321);
 
-var _Recruiting = __webpack_require__(324);
+var _Recruiting = __webpack_require__(325);
 
-var _GeneralMeetings = __webpack_require__(328);
+var _GeneralMeetings = __webpack_require__(329);
 
-var _Industry = __webpack_require__(332);
+var _Industry = __webpack_require__(333);
 
-var _Sponsors = __webpack_require__(338);
+var _Sponsors = __webpack_require__(339);
 
-var _Join = __webpack_require__(353);
+var _Join = __webpack_require__(354);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -25875,6 +25883,10 @@ var _paths = __webpack_require__(74);
 
 var _paths2 = _interopRequireDefault(_paths);
 
+var _resources = __webpack_require__(272);
+
+var _resources2 = _interopRequireDefault(_resources);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -25898,6 +25910,79 @@ var About = function (_React$Component) {
   }
 
   _createClass(About, [{
+    key: 'createResources',
+    value: function createResources(resourceGroups) {
+      var resourceComponents = [];
+      var key = 0;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = resourceGroups[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var resourceGroup = _step.value;
+
+          resourceComponents.push(React.createElement(
+            'p',
+            { className: 'title-small', key: key },
+            resourceGroup.name
+          ));
+          key += 1;
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = resourceGroup.resources[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var resource = _step2.value;
+
+              resourceComponents.push(React.createElement(
+                'p',
+                { className: 'subheader-small', key: key },
+                React.createElement(
+                  'a',
+                  { href: resource.href },
+                  resource.name,
+                  '\xA0'
+                ),
+                '- ',
+                resource.location
+              ));
+              key += 1;
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return resourceComponents;
+    }
+  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -26109,7 +26194,8 @@ var About = function (_React$Component) {
                     _Icon.Icon,
                     { className: 'centered' },
                     'bookmark_border'
-                  )
+                  ),
+                  this.createResources(_resources2.default)
                 )
               )
             )
@@ -27663,15 +27749,48 @@ module.exports = __webpack_require__.p + "static/images/Woz-ef0f683bcec54ef7dace
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Resource = function Resource(name, location, href) {
+  _classCallCheck(this, Resource);
+
+  this.name = name;
+  this.location = location;
+  this.href = href;
+};
+
+var ResourceGroup = function ResourceGroup(name, resources) {
+  _classCallCheck(this, ResourceGroup);
+
+  this.name = name;
+  this.resources = resources;
+};
+
+var resourceGroups = [new ResourceGroup('L&S CS Advisors', [new Resource('Lily Zhang', '379 Soda', 'https://lilyzhang.youcanbook.me/'), new Resource('Charlene Hughes', '203 Cory', 'https://cdhughes.youcanbook.me/'), new Resource('Emerald Templeton', '377 Soda', 'https://emeraldtempleton.youcanbook.me')]), new ResourceGroup('EECS Advisors', [new Resource('Lydia Raya', '205 Cory', 'https://lydiaraya.youcanbook.me/'), new Resource('Nicole McIntyre', '205 Cory', 'https://nicolemcintyre.youcanbook.me/')])];
+
+exports.default = resourceGroups;
+exports.resourceGroups = resourceGroups;
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.Politburo = undefined;
 
-var _Politburo = __webpack_require__(273);
+var _Politburo = __webpack_require__(274);
 
 exports.default = _Politburo.Politburo;
 exports.Politburo = _Politburo.Politburo;
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27696,11 +27815,11 @@ var _Guac = __webpack_require__(2);
 
 var _Card = __webpack_require__(12);
 
-var _PolitburoCreator2 = __webpack_require__(274);
+var _PolitburoCreator2 = __webpack_require__(275);
 
-var _PaperBorder2 = __webpack_require__(283);
+var _PaperBorder2 = __webpack_require__(284);
 
-var _pb = __webpack_require__(285);
+var _pb = __webpack_require__(286);
 
 var _pb2 = _interopRequireDefault(_pb);
 
@@ -27796,7 +27915,7 @@ exports.default = Politburo;
 exports.Politburo = Politburo;
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27829,7 +27948,7 @@ var _reactLazyLoad = __webpack_require__(24);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _pb = __webpack_require__(275);
+var _pb = __webpack_require__(276);
 
 var _pb2 = _interopRequireDefault(_pb);
 
@@ -27936,7 +28055,7 @@ exports.default = _PolitburoCreator;
 exports._PolitburoCreator = _PolitburoCreator;
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27947,31 +28066,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pb = undefined;
 
-var _Megan_Zhu = __webpack_require__(276);
+var _Megan_Zhu = __webpack_require__(277);
 
 var _Megan_Zhu2 = _interopRequireDefault(_Megan_Zhu);
 
-var _Eric_Hou = __webpack_require__(277);
+var _Eric_Hou = __webpack_require__(278);
 
 var _Eric_Hou2 = _interopRequireDefault(_Eric_Hou);
 
-var _Jonathan_Tan = __webpack_require__(278);
+var _Jonathan_Tan = __webpack_require__(279);
 
 var _Jonathan_Tan2 = _interopRequireDefault(_Jonathan_Tan);
 
-var _Jason_Ji = __webpack_require__(279);
+var _Jason_Ji = __webpack_require__(280);
 
 var _Jason_Ji2 = _interopRequireDefault(_Jason_Ji);
 
-var _Ray_Pan = __webpack_require__(280);
+var _Ray_Pan = __webpack_require__(281);
 
 var _Ray_Pan2 = _interopRequireDefault(_Ray_Pan);
 
-var _Yitz_Deng = __webpack_require__(281);
+var _Yitz_Deng = __webpack_require__(282);
 
 var _Yitz_Deng2 = _interopRequireDefault(_Yitz_Deng);
 
-var _Emily_Gosti = __webpack_require__(282);
+var _Emily_Gosti = __webpack_require__(283);
 
 var _Emily_Gosti2 = _interopRequireDefault(_Emily_Gosti);
 
@@ -28030,49 +28149,49 @@ exports.default = pb;
 exports.pb = pb;
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Megan_Zhu-f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Eric_Hou-5b57d19cb9a637b54e1033e35b68334b.jpg";
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Jonathan_Tan-2c59b1973d6d2bcc9e77b1c8264252ac.jpg";
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Jason_Ji-8181a9249a88a1972a686a6b5fa98713.jpg";
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Ray_Pan-cabe579e8136689e987fb7d55f95954c.jpg";
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Yitz_Deng-65574b102efce42899caf181bdd1317a.jpg";
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Emily_Gosti-6cbbb4813a5c182207fc977fc4726aa0.jpg";
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28083,7 +28202,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(284);
+var _PaperBorder2 = __webpack_require__(285);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -28093,7 +28212,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28158,13 +28277,13 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/pb-2171636b159775c18767f2456c978450.jpg";
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28175,13 +28294,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Officers = undefined;
 
-var _Officers = __webpack_require__(287);
+var _Officers = __webpack_require__(288);
 
 exports.default = _Officers.Officers;
 exports.Officers = _Officers.Officers;
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28198,11 +28317,11 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _PaperBorder2 = __webpack_require__(288);
+var _PaperBorder2 = __webpack_require__(289);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-var _OfficerCreator2 = __webpack_require__(290);
+var _OfficerCreator2 = __webpack_require__(291);
 
 var _OfficerCreator3 = _interopRequireDefault(_OfficerCreator2);
 
@@ -28273,7 +28392,7 @@ exports.default = Officers;
 exports.Officers = Officers;
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28284,7 +28403,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(289);
+var _PaperBorder2 = __webpack_require__(290);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -28294,7 +28413,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28359,7 +28478,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28392,7 +28511,7 @@ var _reactLazyLoad = __webpack_require__(24);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _officers = __webpack_require__(291);
+var _officers = __webpack_require__(292);
 
 var _officers2 = _interopRequireDefault(_officers);
 
@@ -28493,7 +28612,7 @@ exports.default = _OfficerCreator;
 exports._OfficerCreator = _OfficerCreator;
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28504,83 +28623,83 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.officers = undefined;
 
-var _Benjamin_Li = __webpack_require__(292);
+var _Benjamin_Li = __webpack_require__(293);
 
 var _Benjamin_Li2 = _interopRequireDefault(_Benjamin_Li);
 
-var _Caleb_Wyllie = __webpack_require__(293);
+var _Caleb_Wyllie = __webpack_require__(294);
 
 var _Caleb_Wyllie2 = _interopRequireDefault(_Caleb_Wyllie);
 
-var _Charlie_Tian = __webpack_require__(294);
+var _Charlie_Tian = __webpack_require__(295);
 
 var _Charlie_Tian2 = _interopRequireDefault(_Charlie_Tian);
 
-var _Emily_Gosti = __webpack_require__(295);
+var _Emily_Gosti = __webpack_require__(296);
 
 var _Emily_Gosti2 = _interopRequireDefault(_Emily_Gosti);
 
-var _Eric_Hou = __webpack_require__(296);
+var _Eric_Hou = __webpack_require__(297);
 
 var _Eric_Hou2 = _interopRequireDefault(_Eric_Hou);
 
-var _Jason_Ji = __webpack_require__(297);
+var _Jason_Ji = __webpack_require__(298);
 
 var _Jason_Ji2 = _interopRequireDefault(_Jason_Ji);
 
-var _Jason_Yeung = __webpack_require__(298);
+var _Jason_Yeung = __webpack_require__(299);
 
 var _Jason_Yeung2 = _interopRequireDefault(_Jason_Yeung);
 
-var _Jessica_Kuo = __webpack_require__(299);
+var _Jessica_Kuo = __webpack_require__(300);
 
 var _Jessica_Kuo2 = _interopRequireDefault(_Jessica_Kuo);
 
-var _Jimmy_Kim = __webpack_require__(300);
+var _Jimmy_Kim = __webpack_require__(301);
 
 var _Jimmy_Kim2 = _interopRequireDefault(_Jimmy_Kim);
 
-var _Jonathan_Tan = __webpack_require__(301);
+var _Jonathan_Tan = __webpack_require__(302);
 
 var _Jonathan_Tan2 = _interopRequireDefault(_Jonathan_Tan);
 
-var _Juntai_Zheng = __webpack_require__(302);
+var _Juntai_Zheng = __webpack_require__(303);
 
 var _Juntai_Zheng2 = _interopRequireDefault(_Juntai_Zheng);
 
-var _Loren_McIntyre = __webpack_require__(303);
+var _Loren_McIntyre = __webpack_require__(304);
 
 var _Loren_McIntyre2 = _interopRequireDefault(_Loren_McIntyre);
 
-var _Megan_Zhu = __webpack_require__(304);
+var _Megan_Zhu = __webpack_require__(305);
 
 var _Megan_Zhu2 = _interopRequireDefault(_Megan_Zhu);
 
-var _Michelle_Hsueh = __webpack_require__(305);
+var _Michelle_Hsueh = __webpack_require__(306);
 
 var _Michelle_Hsueh2 = _interopRequireDefault(_Michelle_Hsueh);
 
-var _Neil_Lingarkar = __webpack_require__(306);
+var _Neil_Lingarkar = __webpack_require__(307);
 
 var _Neil_Lingarkar2 = _interopRequireDefault(_Neil_Lingarkar);
 
-var _Parth_Singal = __webpack_require__(307);
+var _Parth_Singal = __webpack_require__(308);
 
 var _Parth_Singal2 = _interopRequireDefault(_Parth_Singal);
 
-var _Ray_Pan = __webpack_require__(308);
+var _Ray_Pan = __webpack_require__(309);
 
 var _Ray_Pan2 = _interopRequireDefault(_Ray_Pan);
 
-var _Robert_Quitt = __webpack_require__(309);
+var _Robert_Quitt = __webpack_require__(310);
 
 var _Robert_Quitt2 = _interopRequireDefault(_Robert_Quitt);
 
-var _Yannan_Tuo = __webpack_require__(310);
+var _Yannan_Tuo = __webpack_require__(311);
 
 var _Yannan_Tuo2 = _interopRequireDefault(_Yannan_Tuo);
 
-var _Yitz_Deng = __webpack_require__(311);
+var _Yitz_Deng = __webpack_require__(312);
 
 var _Yitz_Deng2 = _interopRequireDefault(_Yitz_Deng);
 
@@ -28607,127 +28726,127 @@ exports.default = officers;
 exports.officers = officers;
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Benjamin_Li-06d6de484378975e5391be83b6e91012.jpg";
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Caleb_Wyllie-2acb4350f612bec660f62da8719e1272.jpg";
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Charlie_Tian-972841b964fb672830ef52af4e3d4de3.jpg";
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Emily_Gosti-6cbbb4813a5c182207fc977fc4726aa0.jpg";
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Eric_Hou-5b57d19cb9a637b54e1033e35b68334b.jpg";
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Jason_Ji-3f17c966b42d41fd82b2e18c087350ab.jpg";
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Jason_Yeung-02b78af9b5f0cddda018c0d8a4bc5271.jpg";
 
 /***/ }),
-/* 299 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-8f0d5a19bb98cf7aab7268b2f8b8069c.png";
-
-/***/ }),
 /* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jimmy_Kim-723bc80d97caf1a25db41afe8a98914d.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-406cc645fd6ea8614b9cadaad77406cf.png";
 
 /***/ }),
 /* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jonathan_Tan-2c59b1973d6d2bcc9e77b1c8264252ac.JPG";
+module.exports = __webpack_require__.p + "static/images/officers/Jimmy_Kim-723bc80d97caf1a25db41afe8a98914d.jpg";
 
 /***/ }),
 /* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Juntai_Zheng-29d6b94aadde3d2a8e176d110838cb3e.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Jonathan_Tan-2c59b1973d6d2bcc9e77b1c8264252ac.JPG";
 
 /***/ }),
 /* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Loren_McIntyre-3da5378bdde69b4f633f9cce85f39c8a.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Juntai_Zheng-29d6b94aadde3d2a8e176d110838cb3e.jpg";
 
 /***/ }),
 /* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Megan_Zhu-f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Loren_McIntyre-3da5378bdde69b4f633f9cce85f39c8a.jpg";
 
 /***/ }),
 /* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Michelle_Hsueh-14902208a5433cf1f4cf12576a08a1ac.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Megan_Zhu-f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
 
 /***/ }),
 /* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Neil_Lingarkar-4edfd2afc413799df92d94a8705af140.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Michelle_Hsueh-14902208a5433cf1f4cf12576a08a1ac.jpg";
 
 /***/ }),
 /* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Parth_Singal-07312f01e7b24322c9e00fa1625d7831.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Neil_Lingarkar-4edfd2afc413799df92d94a8705af140.jpg";
 
 /***/ }),
 /* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Ray_Pan-cabe579e8136689e987fb7d55f95954c.JPG";
+module.exports = __webpack_require__.p + "static/images/officers/Parth_Singal-07312f01e7b24322c9e00fa1625d7831.jpg";
 
 /***/ }),
 /* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Robert_Quitt-4c99202bc7b56fa08039174acdbb151f.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Ray_Pan-cabe579e8136689e987fb7d55f95954c.JPG";
 
 /***/ }),
 /* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Yannan_Tuo-326951e3cbfd55248a274aedc32e42db.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Robert_Quitt-4c99202bc7b56fa08039174acdbb151f.jpg";
 
 /***/ }),
 /* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Yitz_Deng-65574b102efce42899caf181bdd1317a.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Yannan_Tuo-326951e3cbfd55248a274aedc32e42db.jpg";
 
 /***/ }),
 /* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/images/officers/Yitz_Deng-65574b102efce42899caf181bdd1317a.jpg";
+
+/***/ }),
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28738,13 +28857,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Constitution = undefined;
 
-var _Constitution = __webpack_require__(313);
+var _Constitution = __webpack_require__(314);
 
 exports.default = _Constitution.Constitution;
 exports.Constitution = _Constitution.Constitution;
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28773,7 +28892,7 @@ var _Card = __webpack_require__(12);
 
 var _Divider = __webpack_require__(45);
 
-var _PaperBorder2 = __webpack_require__(314);
+var _PaperBorder2 = __webpack_require__(315);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -29737,7 +29856,7 @@ exports.default = Constitution;
 exports.Constitution = Constitution;
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29748,7 +29867,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(315);
+var _PaperBorder2 = __webpack_require__(316);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -29758,7 +29877,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29823,7 +29942,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29834,13 +29953,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Events = undefined;
 
-var _Events = __webpack_require__(317);
+var _Events = __webpack_require__(318);
 
 exports.default = _Events.Events;
 exports.Events = _Events.Events;
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29869,7 +29988,7 @@ var _Icon = __webpack_require__(21);
 
 var _EventCalendar = __webpack_require__(36);
 
-var _PaperBorder2 = __webpack_require__(318);
+var _PaperBorder2 = __webpack_require__(319);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -29938,7 +30057,7 @@ exports.default = Events;
 exports.Events = Events;
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29949,7 +30068,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(319);
+var _PaperBorder2 = __webpack_require__(320);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -29959,7 +30078,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30024,7 +30143,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30035,13 +30154,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Workshops = undefined;
 
-var _Workshops = __webpack_require__(321);
+var _Workshops = __webpack_require__(322);
 
 exports.default = _Workshops.Workshops;
 exports.Workshops = _Workshops.Workshops;
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30062,7 +30181,7 @@ var _EventCalendar = __webpack_require__(36);
 
 var _events = __webpack_require__(46);
 
-var _PaperBorder2 = __webpack_require__(322);
+var _PaperBorder2 = __webpack_require__(323);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30133,7 +30252,7 @@ exports.default = Workshops;
 exports.Workshops = Workshops;
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30144,7 +30263,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(323);
+var _PaperBorder2 = __webpack_require__(324);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30154,7 +30273,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30219,7 +30338,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30230,13 +30349,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Recruiting = undefined;
 
-var _Recruiting = __webpack_require__(325);
+var _Recruiting = __webpack_require__(326);
 
 exports.default = _Recruiting.Recruiting;
 exports.Recruiting = _Recruiting.Recruiting;
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30259,7 +30378,7 @@ var _EventCalendar = __webpack_require__(36);
 
 var _events = __webpack_require__(46);
 
-var _PaperBorder2 = __webpack_require__(326);
+var _PaperBorder2 = __webpack_require__(327);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30330,7 +30449,7 @@ exports.default = Recruiting;
 exports.Recruiting = Recruiting;
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30341,7 +30460,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(327);
+var _PaperBorder2 = __webpack_require__(328);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30351,7 +30470,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30416,7 +30535,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30427,13 +30546,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GeneralMeetings = undefined;
 
-var _GeneralMeetings = __webpack_require__(329);
+var _GeneralMeetings = __webpack_require__(330);
 
 exports.default = _GeneralMeetings.GeneralMeetings;
 exports.GeneralMeetings = _GeneralMeetings.GeneralMeetings;
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30462,7 +30581,7 @@ var _Icon = __webpack_require__(21);
 
 var _EventCalendar = __webpack_require__(36);
 
-var _PaperBorder2 = __webpack_require__(330);
+var _PaperBorder2 = __webpack_require__(331);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30528,7 +30647,7 @@ exports.default = GeneralMeetings;
 exports.GeneralMeetings = GeneralMeetings;
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30539,7 +30658,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(331);
+var _PaperBorder2 = __webpack_require__(332);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30549,7 +30668,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30614,7 +30733,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30625,13 +30744,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Industry = undefined;
 
-var _Industry = __webpack_require__(333);
+var _Industry = __webpack_require__(334);
 
 exports.default = _Industry.Industry;
 exports.Industry = _Industry.Industry;
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30666,11 +30785,11 @@ var _Icon = __webpack_require__(21);
 
 var _lib = __webpack_require__(27);
 
-var _officers = __webpack_require__(334);
+var _officers = __webpack_require__(335);
 
 var _officers2 = _interopRequireDefault(_officers);
 
-var _industry_event = __webpack_require__(335);
+var _industry_event = __webpack_require__(336);
 
 var _industry_event2 = _interopRequireDefault(_industry_event);
 
@@ -30678,7 +30797,7 @@ var _paths = __webpack_require__(74);
 
 var _paths2 = _interopRequireDefault(_paths);
 
-var _PaperBorder2 = __webpack_require__(336);
+var _PaperBorder2 = __webpack_require__(337);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30861,19 +30980,19 @@ exports.default = Industry;
 exports.Industry = Industry;
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/officers-fae37097902e6767dac04445d7c0e34e.jpg";
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/industry_event-6725513974e5f311c50408132d2a7b6a.jpg";
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30884,7 +31003,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(337);
+var _PaperBorder2 = __webpack_require__(338);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -30894,7 +31013,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30959,7 +31078,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30970,13 +31089,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Sponsors = undefined;
 
-var _Sponsors = __webpack_require__(339);
+var _Sponsors = __webpack_require__(340);
 
 exports.default = _Sponsors.Sponsors;
 exports.Sponsors = _Sponsors.Sponsors;
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30995,11 +31114,11 @@ var React = _interopRequireWildcard(_react);
 
 var _Guac = __webpack_require__(2);
 
-var _PaperBorder2 = __webpack_require__(340);
+var _PaperBorder2 = __webpack_require__(341);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-var _SponsorCreator2 = __webpack_require__(342);
+var _SponsorCreator2 = __webpack_require__(343);
 
 var _SponsorCreator3 = _interopRequireDefault(_SponsorCreator2);
 
@@ -31066,7 +31185,7 @@ exports.default = Sponsors;
 exports.Sponsors = Sponsors;
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31077,7 +31196,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(341);
+var _PaperBorder2 = __webpack_require__(342);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -31087,7 +31206,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31152,7 +31271,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31179,7 +31298,7 @@ var _reactLazyLoad = __webpack_require__(24);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _sponsors = __webpack_require__(343);
+var _sponsors = __webpack_require__(344);
 
 var _sponsors2 = _interopRequireDefault(_sponsors);
 
@@ -31274,7 +31393,7 @@ exports.default = _SponsorCreator;
 exports._SponsorCreator = _SponsorCreator;
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31285,39 +31404,39 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pastSponsors = exports.sponsors = undefined;
 
-var _Anker = __webpack_require__(344);
+var _Anker = __webpack_require__(345);
 
 var _Anker2 = _interopRequireDefault(_Anker);
 
-var _Cisco_Meraki = __webpack_require__(345);
+var _Cisco_Meraki = __webpack_require__(346);
 
 var _Cisco_Meraki2 = _interopRequireDefault(_Cisco_Meraki);
 
-var _Facebook = __webpack_require__(346);
+var _Facebook = __webpack_require__(347);
 
 var _Facebook2 = _interopRequireDefault(_Facebook);
 
-var _Microsoft = __webpack_require__(347);
+var _Microsoft = __webpack_require__(348);
 
 var _Microsoft2 = _interopRequireDefault(_Microsoft);
 
-var _OpenTable = __webpack_require__(348);
+var _OpenTable = __webpack_require__(349);
 
 var _OpenTable2 = _interopRequireDefault(_OpenTable);
 
-var _Pinterest = __webpack_require__(349);
+var _Pinterest = __webpack_require__(350);
 
 var _Pinterest2 = _interopRequireDefault(_Pinterest);
 
-var _Riot_Games = __webpack_require__(350);
+var _Riot_Games = __webpack_require__(351);
 
 var _Riot_Games2 = _interopRequireDefault(_Riot_Games);
 
-var _Salesforce = __webpack_require__(351);
+var _Salesforce = __webpack_require__(352);
 
 var _Salesforce2 = _interopRequireDefault(_Salesforce);
 
-var _Yelp = __webpack_require__(352);
+var _Yelp = __webpack_require__(353);
 
 var _Yelp2 = _interopRequireDefault(_Yelp);
 
@@ -31343,61 +31462,61 @@ exports.sponsors = sponsors;
 exports.pastSponsors = pastSponsors;
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/sponsors/Anker-e3f8a3a3edfc9a25a024209bf741b400.jpg";
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/sponsors/Cisco_Meraki-7c73a6eebf57f9a5cc1d36d090af143d.jpg";
 
 /***/ }),
-/* 346 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-02dda7e5831c85d14c61c24fe91ecf0b.png";
-
-/***/ }),
 /* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-b9ac3f44a9d3cef2eae712e80bd33f81.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-ae79230f5356f484558d50d264cbe45f.png";
 
 /***/ }),
 /* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-b660666d5a35f3ebe843c9721a53df9b.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-86bf9b7b07f723c5e28e852757ea2a86.png";
 
 /***/ }),
 /* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-91ee56045ce799af16b3c25b3c0d484b.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-0e1dab443d0e79da7fde096707c73078.png";
 
 /***/ }),
 /* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Riot_Games-c3ebb5e9ca4e176824f284948a427b9a.jpg";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-f1dbc91d98e422db2fade449f321f600.png";
 
 /***/ }),
 /* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesforce-8f01652870ad4c18993d608797112bc2.jpg";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Riot_Games-c3ebb5e9ca4e176824f284948a427b9a.jpg";
 
 /***/ }),
 /* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-88ed34e68247ea1e2a3a284931e69515.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesforce-8f01652870ad4c18993d608797112bc2.jpg";
 
 /***/ }),
 /* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-b800a0214998c44365be4d22941e75d5.png";
+
+/***/ }),
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31408,13 +31527,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Join = undefined;
 
-var _Join = __webpack_require__(354);
+var _Join = __webpack_require__(355);
 
 exports.default = _Join.Join;
 exports.Join = _Join.Join;
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31447,7 +31566,7 @@ var _Icon = __webpack_require__(21);
 
 var _lib = __webpack_require__(27);
 
-var _PaperBorder2 = __webpack_require__(355);
+var _PaperBorder2 = __webpack_require__(356);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -31633,7 +31752,7 @@ exports.default = Join;
 exports.Join = Join;
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31644,7 +31763,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(356);
+var _PaperBorder2 = __webpack_require__(357);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -31654,7 +31773,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31719,7 +31838,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31730,13 +31849,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Footer = undefined;
 
-var _Footer = __webpack_require__(358);
+var _Footer = __webpack_require__(359);
 
 exports.default = _Footer.Footer;
 exports.Footer = _Footer.Footer;
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31795,7 +31914,13 @@ var Footer = function (_React$Component) {
       return React.createElement(
         _StickyFooter.StickyFooter,
         { className: this.className() },
-        'Copyright \xA9 2017 CSUA. All rights reserved. Designed by Eric Hou.'
+        'Copyright \xA9 2017 CSUA. All rights reserved. Designed by\xA0',
+        React.createElement(
+          'a',
+          { href: 'https://ultraeric.github.io/' },
+          'Eric Hou'
+        ),
+        '.'
       );
     }
   }]);
@@ -31809,7 +31934,7 @@ exports.default = Footer;
 exports.Footer = Footer;
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31820,7 +31945,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Flyer = undefined;
 
-var _Flyer = __webpack_require__(360);
+var _Flyer = __webpack_require__(361);
 
 var _Flyer2 = _interopRequireDefault(_Flyer);
 
@@ -31830,7 +31955,7 @@ exports.default = _Flyer2.default;
 exports.Flyer = _Flyer2.default;
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31934,16 +32059,17 @@ exports.default = Flyer;
 exports.Flyer = Flyer;
 
 /***/ }),
-/* 361 */
-/***/ (function(module, exports) {
-
-module.exports = require("http");
-
-/***/ }),
-/* 362 */
+/* 362 */,
+/* 363 */
 /***/ (function(module, exports) {
 
 module.exports = require("socket.io");
+
+/***/ }),
+/* 364 */
+/***/ (function(module, exports) {
+
+module.exports = require("https");
 
 /***/ })
 /******/ ]);

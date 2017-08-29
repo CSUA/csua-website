@@ -4,9 +4,9 @@ const _ = require('lodash');
 const os = require('os');
 const fs = require('fs');
 const UglifyEsPlugin = require('uglify-es-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -62,8 +62,28 @@ module.exports = [
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[path][name]-[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          {
+            loader: 'file-loader',
+            query: {
+              name:'[path][name]-[hash].[ext]'
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            query: {
+              progressive: true,
+              optipng: {
+                optimizationLevel: 7
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              }
+            }
+          }
         ]
       }
     ]
@@ -72,23 +92,26 @@ module.exports = [
     new ExtractTextPlugin({
       filename: '[name].css',
       allChunks: true
-    })
-    ,
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     NODE_ENV: JSON.stringify('production')
-    //   }
-    // }),
-    // new UglifyEsPlugin(),
-    // new webpack.optimize.DedupePlugin(),
-    // new webpack.optimize.AggressiveMergingPlugin(),
-    // new CompressionPlugin({
-    //   asset: "[path].gz[query]",
-    //   algorithm: "gzip",
-    //   test: /\.js$|\.css$|\.html$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8
-    // })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new UglifyEsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    new CopyWebpackPlugin([
+      {from: path.resolve(__dirname, 'static/images/logos/favicon.ico'),
+        to: path.resolve(__dirname, 'public/static/images/logos/favicon.ico')}
+    ])
   ]
 },
 {
@@ -129,8 +152,29 @@ module.exports = [
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: ['file-loader?hash=sha512&digest=hex&name=[path][name]-[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        loaders: [{
+            loader: 'file-loader',
+            options: {
+              name:'[path][name]-[hash].[ext]',
+              emitFile: false
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            query: {
+              progressive: true,
+              optipng: {
+                optimizationLevel: 7
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              }
+            }
+          }
         ]
       }
     ]

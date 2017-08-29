@@ -19,11 +19,32 @@ import _PaperBorder from './_PaperBorder';
 import officersImg from 'static/images/Officers_FA16.jpg';
 import wozImg from 'static/images/Woz.jpg';
 import paths from 'static/structure/paths';
+import resourceGroups from 'static/data/resources';
 
 class About extends React.Component {
   constructor() {
     super();
     this.render = this.render.bind(this);
+  }
+
+  createResources(resourceGroups) {
+    let resourceComponents = [];
+    let key = 0;
+    for (var resourceGroup of resourceGroups) {
+      resourceComponents.push(
+        <p className={'title-small'} key={key}>{resourceGroup.name}</p>
+      );
+      key += 1;
+      for (var resource of resourceGroup.resources) {
+        resourceComponents.push(
+          <p className={'subheader-small'} key={key}>
+            <a href={resource.href}>{resource.name}&nbsp;</a>
+             - {resource.location}</p>
+        );
+        key += 1;
+      }
+    }
+    return resourceComponents;
   }
 
   render() {
@@ -117,6 +138,7 @@ class About extends React.Component {
                   <CardTextArea>
                     <p className={'centered title'}>Resources</p>
                     <Icon className={'centered'}>bookmark_border</Icon>
+                    {this.createResources(resourceGroups)}
                   </CardTextArea>
                 </Card>
               </Col>

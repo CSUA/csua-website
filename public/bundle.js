@@ -6956,9 +6956,9 @@ var facebookEvent = new Event('Facebook Recruiting Event', 'Wozniak Lounge, Soda
 
 var gm1Event = new Event('CSUA General Meeting #1', 'Wozniak Lounge, Soda Hall', 'Friday - 9/1', '8PM - 10PM', 'Learn about the resources the CSUA has to offer, how to utilize them, and how to contribute to the university and undergraduate community. Refreshments provided.');
 
-var events = [new Event('EE/CS Undergraduate Mixer', 'Wozniak Lounge, Soda Hall', 'Thursday - 8/24', '11AM - 1PM', 'Come network with current students, researchers, professors, and advisors. Lunch and refreshments provided.'), new Event('EE/CS Welcome Night', 'Wozniak Lounge, Soda Hall', 'Friday - 8/25', '8PM - 10PM', 'CSUA wants to welcome all new students with a board game night! Come and meet us and socialize with peers.'), facebookEvent, gm1Event];
+var events = [facebookEvent, gm1Event];
 
-var workshops = [new Event('Machine Learning', 'TBD', 'TBD', 'TBD', 'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'), new Event('Git', 'TBD', 'TBD', 'TBD', 'Learn the basics of using Git as a version control system for better programming workflows.'), new Event('UNIX/BASH', 'TBD', 'TBD', 'TBD', 'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'), new Event('LaTeX', 'TBD', 'TBD', 'TBD', 'Make your proofs, papers, and homework look stunning using the power of LaTeX.'), new Event('Web Development', 'TBD', 'TBD', 'TBD', 'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'), new Event('Finding an Internship', 'TBD', 'TBD', 'TBD', 'Learn how to break into industry and land your first job or internship.'), new Event('Resume Workshop', 'TBD', 'TBD', 'TBD', 'Crafting a resume is an art. Come listen to a recruiter from Princeton teach you how to boost your resume.'), new Event('Blockchain', 'TBD', 'TBD', 'TBD', 'Bitcoin. Ethereum. ')];
+var workshops = [new Event('LaTeX', 'TBD', 'TBD', 'TBD', 'Make your proofs, papers, and homework look stunning using the power of LaTeX.'), new Event('Machine Learning', 'TBD', 'TBD', 'TBD', 'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'), new Event('Git', 'TBD', 'TBD', 'TBD', 'Learn the basics of using Git as a version control system for better programming workflows.'), new Event('UNIX/BASH', 'TBD', 'TBD', 'TBD', 'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'), new Event('Web Development', 'TBD', 'TBD', 'TBD', 'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'), new Event('Finding an Internship', 'TBD', 'TBD', 'TBD', 'Learn how to break into industry and land your first job or internship.'), new Event('Resume Workshop', 'TBD', 'TBD', 'TBD', 'Crafting a resume is an art. Come listen to a recruiter from Princeton teach you how to boost your resume.'), new Event('Blockchain', 'TBD', 'TBD', 'TBD', 'Bitcoin. Ethereum. ')];
 
 var recruiting = [facebookEvent];
 
@@ -16868,7 +16868,7 @@ var _App = __webpack_require__(311);
 
 var _App2 = _interopRequireDefault(_App);
 
-__webpack_require__(505);
+__webpack_require__(506);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33238,9 +33238,9 @@ var _Header = __webpack_require__(370);
 
 var _Pages = __webpack_require__(383);
 
-var _Footer = __webpack_require__(501);
+var _Footer = __webpack_require__(502);
 
-var _Flyer = __webpack_require__(503);
+var _Flyer = __webpack_require__(504);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40931,25 +40931,25 @@ var _reactRouterDom = __webpack_require__(44);
 
 var _About = __webpack_require__(385);
 
-var _Politburo = __webpack_require__(416);
+var _Politburo = __webpack_require__(417);
 
-var _Officers = __webpack_require__(430);
+var _Officers = __webpack_require__(431);
 
-var _Constitution = __webpack_require__(456);
+var _Constitution = __webpack_require__(457);
 
-var _Events = __webpack_require__(460);
+var _Events = __webpack_require__(461);
 
-var _Workshops = __webpack_require__(464);
+var _Workshops = __webpack_require__(465);
 
-var _Recruiting = __webpack_require__(468);
+var _Recruiting = __webpack_require__(469);
 
-var _GeneralMeetings = __webpack_require__(472);
+var _GeneralMeetings = __webpack_require__(473);
 
-var _Industry = __webpack_require__(476);
+var _Industry = __webpack_require__(477);
 
-var _Sponsors = __webpack_require__(482);
+var _Sponsors = __webpack_require__(483);
 
-var _Join = __webpack_require__(497);
+var _Join = __webpack_require__(498);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -41088,6 +41088,10 @@ var _paths = __webpack_require__(104);
 
 var _paths2 = _interopRequireDefault(_paths);
 
+var _resources = __webpack_require__(416);
+
+var _resources2 = _interopRequireDefault(_resources);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -41111,6 +41115,79 @@ var About = function (_React$Component) {
   }
 
   _createClass(About, [{
+    key: 'createResources',
+    value: function createResources(resourceGroups) {
+      var resourceComponents = [];
+      var key = 0;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = resourceGroups[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var resourceGroup = _step.value;
+
+          resourceComponents.push(React.createElement(
+            'p',
+            { className: 'title-small', key: key },
+            resourceGroup.name
+          ));
+          key += 1;
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = resourceGroup.resources[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var resource = _step2.value;
+
+              resourceComponents.push(React.createElement(
+                'p',
+                { className: 'subheader-small', key: key },
+                React.createElement(
+                  'a',
+                  { href: resource.href },
+                  resource.name,
+                  '\xA0'
+                ),
+                '- ',
+                resource.location
+              ));
+              key += 1;
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return resourceComponents;
+    }
+  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -41322,7 +41399,8 @@ var About = function (_React$Component) {
                     _Icon.Icon,
                     { className: 'centered' },
                     'bookmark_border'
-                  )
+                  ),
+                  this.createResources(_resources2.default)
                 )
               )
             )
@@ -44709,15 +44787,48 @@ module.exports = __webpack_require__.p + "static/images/Woz-ef0f683bcec54ef7dace
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Resource = function Resource(name, location, href) {
+  _classCallCheck(this, Resource);
+
+  this.name = name;
+  this.location = location;
+  this.href = href;
+};
+
+var ResourceGroup = function ResourceGroup(name, resources) {
+  _classCallCheck(this, ResourceGroup);
+
+  this.name = name;
+  this.resources = resources;
+};
+
+var resourceGroups = [new ResourceGroup('L&S CS Advisors', [new Resource('Lily Zhang', '379 Soda', 'https://lilyzhang.youcanbook.me/'), new Resource('Charlene Hughes', '203 Cory', 'https://cdhughes.youcanbook.me/'), new Resource('Emerald Templeton', '377 Soda', 'https://emeraldtempleton.youcanbook.me')]), new ResourceGroup('EECS Advisors', [new Resource('Lydia Raya', '205 Cory', 'https://lydiaraya.youcanbook.me/'), new Resource('Nicole McIntyre', '205 Cory', 'https://nicolemcintyre.youcanbook.me/')])];
+
+exports.default = resourceGroups;
+exports.resourceGroups = resourceGroups;
+
+/***/ }),
+/* 417 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.Politburo = undefined;
 
-var _Politburo = __webpack_require__(417);
+var _Politburo = __webpack_require__(418);
 
 exports.default = _Politburo.Politburo;
 exports.Politburo = _Politburo.Politburo;
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44742,11 +44853,11 @@ var _Guac = __webpack_require__(3);
 
 var _Card = __webpack_require__(15);
 
-var _PolitburoCreator2 = __webpack_require__(418);
+var _PolitburoCreator2 = __webpack_require__(419);
 
-var _PaperBorder2 = __webpack_require__(427);
+var _PaperBorder2 = __webpack_require__(428);
 
-var _pb = __webpack_require__(429);
+var _pb = __webpack_require__(430);
 
 var _pb2 = _interopRequireDefault(_pb);
 
@@ -44842,7 +44953,7 @@ exports.default = Politburo;
 exports.Politburo = Politburo;
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44875,7 +44986,7 @@ var _reactLazyLoad = __webpack_require__(31);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _pb = __webpack_require__(419);
+var _pb = __webpack_require__(420);
 
 var _pb2 = _interopRequireDefault(_pb);
 
@@ -44982,7 +45093,7 @@ exports.default = _PolitburoCreator;
 exports._PolitburoCreator = _PolitburoCreator;
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44993,31 +45104,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pb = undefined;
 
-var _Megan_Zhu = __webpack_require__(420);
+var _Megan_Zhu = __webpack_require__(421);
 
 var _Megan_Zhu2 = _interopRequireDefault(_Megan_Zhu);
 
-var _Eric_Hou = __webpack_require__(421);
+var _Eric_Hou = __webpack_require__(422);
 
 var _Eric_Hou2 = _interopRequireDefault(_Eric_Hou);
 
-var _Jonathan_Tan = __webpack_require__(422);
+var _Jonathan_Tan = __webpack_require__(423);
 
 var _Jonathan_Tan2 = _interopRequireDefault(_Jonathan_Tan);
 
-var _Jason_Ji = __webpack_require__(423);
+var _Jason_Ji = __webpack_require__(424);
 
 var _Jason_Ji2 = _interopRequireDefault(_Jason_Ji);
 
-var _Ray_Pan = __webpack_require__(424);
+var _Ray_Pan = __webpack_require__(425);
 
 var _Ray_Pan2 = _interopRequireDefault(_Ray_Pan);
 
-var _Yitz_Deng = __webpack_require__(425);
+var _Yitz_Deng = __webpack_require__(426);
 
 var _Yitz_Deng2 = _interopRequireDefault(_Yitz_Deng);
 
-var _Emily_Gosti = __webpack_require__(426);
+var _Emily_Gosti = __webpack_require__(427);
 
 var _Emily_Gosti2 = _interopRequireDefault(_Emily_Gosti);
 
@@ -45076,49 +45187,49 @@ exports.default = pb;
 exports.pb = pb;
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Megan_Zhu-f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Eric_Hou-5b57d19cb9a637b54e1033e35b68334b.jpg";
 
 /***/ }),
-/* 422 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Jonathan_Tan-2c59b1973d6d2bcc9e77b1c8264252ac.jpg";
 
 /***/ }),
-/* 423 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Jason_Ji-8181a9249a88a1972a686a6b5fa98713.jpg";
 
 /***/ }),
-/* 424 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Ray_Pan-cabe579e8136689e987fb7d55f95954c.jpg";
 
 /***/ }),
-/* 425 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Yitz_Deng-65574b102efce42899caf181bdd1317a.jpg";
 
 /***/ }),
-/* 426 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/Emily_Gosti-6cbbb4813a5c182207fc977fc4726aa0.jpg";
 
 /***/ }),
-/* 427 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45129,7 +45240,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(428);
+var _PaperBorder2 = __webpack_require__(429);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -45139,7 +45250,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 428 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45204,13 +45315,13 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 429 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/pb/pb-2171636b159775c18767f2456c978450.jpg";
 
 /***/ }),
-/* 430 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45221,13 +45332,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Officers = undefined;
 
-var _Officers = __webpack_require__(431);
+var _Officers = __webpack_require__(432);
 
 exports.default = _Officers.Officers;
 exports.Officers = _Officers.Officers;
 
 /***/ }),
-/* 431 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45244,11 +45355,11 @@ var _react = __webpack_require__(1);
 
 var React = _interopRequireWildcard(_react);
 
-var _PaperBorder2 = __webpack_require__(432);
+var _PaperBorder2 = __webpack_require__(433);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-var _OfficerCreator2 = __webpack_require__(434);
+var _OfficerCreator2 = __webpack_require__(435);
 
 var _OfficerCreator3 = _interopRequireDefault(_OfficerCreator2);
 
@@ -45319,7 +45430,7 @@ exports.default = Officers;
 exports.Officers = Officers;
 
 /***/ }),
-/* 432 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45330,7 +45441,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(433);
+var _PaperBorder2 = __webpack_require__(434);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -45340,7 +45451,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 433 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45405,7 +45516,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 434 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45438,7 +45549,7 @@ var _reactLazyLoad = __webpack_require__(31);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _officers = __webpack_require__(435);
+var _officers = __webpack_require__(436);
 
 var _officers2 = _interopRequireDefault(_officers);
 
@@ -45539,7 +45650,7 @@ exports.default = _OfficerCreator;
 exports._OfficerCreator = _OfficerCreator;
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45550,83 +45661,83 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.officers = undefined;
 
-var _Benjamin_Li = __webpack_require__(436);
+var _Benjamin_Li = __webpack_require__(437);
 
 var _Benjamin_Li2 = _interopRequireDefault(_Benjamin_Li);
 
-var _Caleb_Wyllie = __webpack_require__(437);
+var _Caleb_Wyllie = __webpack_require__(438);
 
 var _Caleb_Wyllie2 = _interopRequireDefault(_Caleb_Wyllie);
 
-var _Charlie_Tian = __webpack_require__(438);
+var _Charlie_Tian = __webpack_require__(439);
 
 var _Charlie_Tian2 = _interopRequireDefault(_Charlie_Tian);
 
-var _Emily_Gosti = __webpack_require__(439);
+var _Emily_Gosti = __webpack_require__(440);
 
 var _Emily_Gosti2 = _interopRequireDefault(_Emily_Gosti);
 
-var _Eric_Hou = __webpack_require__(440);
+var _Eric_Hou = __webpack_require__(441);
 
 var _Eric_Hou2 = _interopRequireDefault(_Eric_Hou);
 
-var _Jason_Ji = __webpack_require__(441);
+var _Jason_Ji = __webpack_require__(442);
 
 var _Jason_Ji2 = _interopRequireDefault(_Jason_Ji);
 
-var _Jason_Yeung = __webpack_require__(442);
+var _Jason_Yeung = __webpack_require__(443);
 
 var _Jason_Yeung2 = _interopRequireDefault(_Jason_Yeung);
 
-var _Jessica_Kuo = __webpack_require__(443);
+var _Jessica_Kuo = __webpack_require__(444);
 
 var _Jessica_Kuo2 = _interopRequireDefault(_Jessica_Kuo);
 
-var _Jimmy_Kim = __webpack_require__(444);
+var _Jimmy_Kim = __webpack_require__(445);
 
 var _Jimmy_Kim2 = _interopRequireDefault(_Jimmy_Kim);
 
-var _Jonathan_Tan = __webpack_require__(445);
+var _Jonathan_Tan = __webpack_require__(446);
 
 var _Jonathan_Tan2 = _interopRequireDefault(_Jonathan_Tan);
 
-var _Juntai_Zheng = __webpack_require__(446);
+var _Juntai_Zheng = __webpack_require__(447);
 
 var _Juntai_Zheng2 = _interopRequireDefault(_Juntai_Zheng);
 
-var _Loren_McIntyre = __webpack_require__(447);
+var _Loren_McIntyre = __webpack_require__(448);
 
 var _Loren_McIntyre2 = _interopRequireDefault(_Loren_McIntyre);
 
-var _Megan_Zhu = __webpack_require__(448);
+var _Megan_Zhu = __webpack_require__(449);
 
 var _Megan_Zhu2 = _interopRequireDefault(_Megan_Zhu);
 
-var _Michelle_Hsueh = __webpack_require__(449);
+var _Michelle_Hsueh = __webpack_require__(450);
 
 var _Michelle_Hsueh2 = _interopRequireDefault(_Michelle_Hsueh);
 
-var _Neil_Lingarkar = __webpack_require__(450);
+var _Neil_Lingarkar = __webpack_require__(451);
 
 var _Neil_Lingarkar2 = _interopRequireDefault(_Neil_Lingarkar);
 
-var _Parth_Singal = __webpack_require__(451);
+var _Parth_Singal = __webpack_require__(452);
 
 var _Parth_Singal2 = _interopRequireDefault(_Parth_Singal);
 
-var _Ray_Pan = __webpack_require__(452);
+var _Ray_Pan = __webpack_require__(453);
 
 var _Ray_Pan2 = _interopRequireDefault(_Ray_Pan);
 
-var _Robert_Quitt = __webpack_require__(453);
+var _Robert_Quitt = __webpack_require__(454);
 
 var _Robert_Quitt2 = _interopRequireDefault(_Robert_Quitt);
 
-var _Yannan_Tuo = __webpack_require__(454);
+var _Yannan_Tuo = __webpack_require__(455);
 
 var _Yannan_Tuo2 = _interopRequireDefault(_Yannan_Tuo);
 
-var _Yitz_Deng = __webpack_require__(455);
+var _Yitz_Deng = __webpack_require__(456);
 
 var _Yitz_Deng2 = _interopRequireDefault(_Yitz_Deng);
 
@@ -45653,127 +45764,127 @@ exports.default = officers;
 exports.officers = officers;
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Benjamin_Li-06d6de484378975e5391be83b6e91012.jpg";
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Caleb_Wyllie-2acb4350f612bec660f62da8719e1272.jpg";
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Charlie_Tian-972841b964fb672830ef52af4e3d4de3.jpg";
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Emily_Gosti-6cbbb4813a5c182207fc977fc4726aa0.jpg";
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Eric_Hou-5b57d19cb9a637b54e1033e35b68334b.jpg";
 
 /***/ }),
-/* 441 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Jason_Ji-3f17c966b42d41fd82b2e18c087350ab.jpg";
 
 /***/ }),
-/* 442 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/officers/Jason_Yeung-02b78af9b5f0cddda018c0d8a4bc5271.jpg";
 
 /***/ }),
-/* 443 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-8f0d5a19bb98cf7aab7268b2f8b8069c.png";
-
-/***/ }),
 /* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jimmy_Kim-723bc80d97caf1a25db41afe8a98914d.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-406cc645fd6ea8614b9cadaad77406cf.png";
 
 /***/ }),
 /* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jonathan_Tan-2c59b1973d6d2bcc9e77b1c8264252ac.JPG";
+module.exports = __webpack_require__.p + "static/images/officers/Jimmy_Kim-723bc80d97caf1a25db41afe8a98914d.jpg";
 
 /***/ }),
 /* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Juntai_Zheng-29d6b94aadde3d2a8e176d110838cb3e.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Jonathan_Tan-2c59b1973d6d2bcc9e77b1c8264252ac.JPG";
 
 /***/ }),
 /* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Loren_McIntyre-3da5378bdde69b4f633f9cce85f39c8a.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Juntai_Zheng-29d6b94aadde3d2a8e176d110838cb3e.jpg";
 
 /***/ }),
 /* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Megan_Zhu-f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Loren_McIntyre-3da5378bdde69b4f633f9cce85f39c8a.jpg";
 
 /***/ }),
 /* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Michelle_Hsueh-14902208a5433cf1f4cf12576a08a1ac.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Megan_Zhu-f4dcb58171ba013a8bbb41edd7b6ea38.jpg";
 
 /***/ }),
 /* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Neil_Lingarkar-4edfd2afc413799df92d94a8705af140.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Michelle_Hsueh-14902208a5433cf1f4cf12576a08a1ac.jpg";
 
 /***/ }),
 /* 451 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Parth_Singal-07312f01e7b24322c9e00fa1625d7831.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Neil_Lingarkar-4edfd2afc413799df92d94a8705af140.jpg";
 
 /***/ }),
 /* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Ray_Pan-cabe579e8136689e987fb7d55f95954c.JPG";
+module.exports = __webpack_require__.p + "static/images/officers/Parth_Singal-07312f01e7b24322c9e00fa1625d7831.jpg";
 
 /***/ }),
 /* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Robert_Quitt-4c99202bc7b56fa08039174acdbb151f.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Ray_Pan-cabe579e8136689e987fb7d55f95954c.JPG";
 
 /***/ }),
 /* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Yannan_Tuo-326951e3cbfd55248a274aedc32e42db.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Robert_Quitt-4c99202bc7b56fa08039174acdbb151f.jpg";
 
 /***/ }),
 /* 455 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Yitz_Deng-65574b102efce42899caf181bdd1317a.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Yannan_Tuo-326951e3cbfd55248a274aedc32e42db.jpg";
 
 /***/ }),
 /* 456 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/images/officers/Yitz_Deng-65574b102efce42899caf181bdd1317a.jpg";
+
+/***/ }),
+/* 457 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45784,13 +45895,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Constitution = undefined;
 
-var _Constitution = __webpack_require__(457);
+var _Constitution = __webpack_require__(458);
 
 exports.default = _Constitution.Constitution;
 exports.Constitution = _Constitution.Constitution;
 
 /***/ }),
-/* 457 */
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45819,7 +45930,7 @@ var _Card = __webpack_require__(15);
 
 var _Divider = __webpack_require__(61);
 
-var _PaperBorder2 = __webpack_require__(458);
+var _PaperBorder2 = __webpack_require__(459);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -46783,7 +46894,7 @@ exports.default = Constitution;
 exports.Constitution = Constitution;
 
 /***/ }),
-/* 458 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46794,7 +46905,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(459);
+var _PaperBorder2 = __webpack_require__(460);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -46804,7 +46915,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 459 */
+/* 460 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46869,7 +46980,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 460 */
+/* 461 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46880,13 +46991,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Events = undefined;
 
-var _Events = __webpack_require__(461);
+var _Events = __webpack_require__(462);
 
 exports.default = _Events.Events;
 exports.Events = _Events.Events;
 
 /***/ }),
-/* 461 */
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46915,7 +47026,7 @@ var _Icon = __webpack_require__(26);
 
 var _EventCalendar = __webpack_require__(46);
 
-var _PaperBorder2 = __webpack_require__(462);
+var _PaperBorder2 = __webpack_require__(463);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -46984,7 +47095,7 @@ exports.default = Events;
 exports.Events = Events;
 
 /***/ }),
-/* 462 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46995,7 +47106,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(463);
+var _PaperBorder2 = __webpack_require__(464);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47005,7 +47116,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 463 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47070,7 +47181,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 464 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47081,13 +47192,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Workshops = undefined;
 
-var _Workshops = __webpack_require__(465);
+var _Workshops = __webpack_require__(466);
 
 exports.default = _Workshops.Workshops;
 exports.Workshops = _Workshops.Workshops;
 
 /***/ }),
-/* 465 */
+/* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47108,7 +47219,7 @@ var _EventCalendar = __webpack_require__(46);
 
 var _events = __webpack_require__(62);
 
-var _PaperBorder2 = __webpack_require__(466);
+var _PaperBorder2 = __webpack_require__(467);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47179,7 +47290,7 @@ exports.default = Workshops;
 exports.Workshops = Workshops;
 
 /***/ }),
-/* 466 */
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47190,7 +47301,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(467);
+var _PaperBorder2 = __webpack_require__(468);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47200,7 +47311,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 467 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47265,7 +47376,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 468 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47276,13 +47387,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Recruiting = undefined;
 
-var _Recruiting = __webpack_require__(469);
+var _Recruiting = __webpack_require__(470);
 
 exports.default = _Recruiting.Recruiting;
 exports.Recruiting = _Recruiting.Recruiting;
 
 /***/ }),
-/* 469 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47305,7 +47416,7 @@ var _EventCalendar = __webpack_require__(46);
 
 var _events = __webpack_require__(62);
 
-var _PaperBorder2 = __webpack_require__(470);
+var _PaperBorder2 = __webpack_require__(471);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47376,7 +47487,7 @@ exports.default = Recruiting;
 exports.Recruiting = Recruiting;
 
 /***/ }),
-/* 470 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47387,7 +47498,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(471);
+var _PaperBorder2 = __webpack_require__(472);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47397,7 +47508,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 471 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47462,7 +47573,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 472 */
+/* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47473,13 +47584,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GeneralMeetings = undefined;
 
-var _GeneralMeetings = __webpack_require__(473);
+var _GeneralMeetings = __webpack_require__(474);
 
 exports.default = _GeneralMeetings.GeneralMeetings;
 exports.GeneralMeetings = _GeneralMeetings.GeneralMeetings;
 
 /***/ }),
-/* 473 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47508,7 +47619,7 @@ var _Icon = __webpack_require__(26);
 
 var _EventCalendar = __webpack_require__(46);
 
-var _PaperBorder2 = __webpack_require__(474);
+var _PaperBorder2 = __webpack_require__(475);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47574,7 +47685,7 @@ exports.default = GeneralMeetings;
 exports.GeneralMeetings = GeneralMeetings;
 
 /***/ }),
-/* 474 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47585,7 +47696,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(475);
+var _PaperBorder2 = __webpack_require__(476);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47595,7 +47706,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 475 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47660,7 +47771,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 476 */
+/* 477 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47671,13 +47782,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Industry = undefined;
 
-var _Industry = __webpack_require__(477);
+var _Industry = __webpack_require__(478);
 
 exports.default = _Industry.Industry;
 exports.Industry = _Industry.Industry;
 
 /***/ }),
-/* 477 */
+/* 478 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47712,11 +47823,11 @@ var _Icon = __webpack_require__(26);
 
 var _lib = __webpack_require__(39);
 
-var _officers = __webpack_require__(478);
+var _officers = __webpack_require__(479);
 
 var _officers2 = _interopRequireDefault(_officers);
 
-var _industry_event = __webpack_require__(479);
+var _industry_event = __webpack_require__(480);
 
 var _industry_event2 = _interopRequireDefault(_industry_event);
 
@@ -47724,7 +47835,7 @@ var _paths = __webpack_require__(104);
 
 var _paths2 = _interopRequireDefault(_paths);
 
-var _PaperBorder2 = __webpack_require__(480);
+var _PaperBorder2 = __webpack_require__(481);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47907,19 +48018,19 @@ exports.default = Industry;
 exports.Industry = Industry;
 
 /***/ }),
-/* 478 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/officers-fae37097902e6767dac04445d7c0e34e.jpg";
 
 /***/ }),
-/* 479 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/industry_event-6725513974e5f311c50408132d2a7b6a.jpg";
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47930,7 +48041,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(481);
+var _PaperBorder2 = __webpack_require__(482);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -47940,7 +48051,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 481 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48005,7 +48116,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 482 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48016,13 +48127,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Sponsors = undefined;
 
-var _Sponsors = __webpack_require__(483);
+var _Sponsors = __webpack_require__(484);
 
 exports.default = _Sponsors.Sponsors;
 exports.Sponsors = _Sponsors.Sponsors;
 
 /***/ }),
-/* 483 */
+/* 484 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48041,11 +48152,11 @@ var React = _interopRequireWildcard(_react);
 
 var _Guac = __webpack_require__(3);
 
-var _PaperBorder2 = __webpack_require__(484);
+var _PaperBorder2 = __webpack_require__(485);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
-var _SponsorCreator2 = __webpack_require__(486);
+var _SponsorCreator2 = __webpack_require__(487);
 
 var _SponsorCreator3 = _interopRequireDefault(_SponsorCreator2);
 
@@ -48112,7 +48223,7 @@ exports.default = Sponsors;
 exports.Sponsors = Sponsors;
 
 /***/ }),
-/* 484 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48123,7 +48234,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(485);
+var _PaperBorder2 = __webpack_require__(486);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -48133,7 +48244,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 485 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48198,7 +48309,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 486 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48225,7 +48336,7 @@ var _reactLazyLoad = __webpack_require__(31);
 
 var _reactLazyLoad2 = _interopRequireDefault(_reactLazyLoad);
 
-var _sponsors = __webpack_require__(487);
+var _sponsors = __webpack_require__(488);
 
 var _sponsors2 = _interopRequireDefault(_sponsors);
 
@@ -48320,7 +48431,7 @@ exports.default = _SponsorCreator;
 exports._SponsorCreator = _SponsorCreator;
 
 /***/ }),
-/* 487 */
+/* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48331,39 +48442,39 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pastSponsors = exports.sponsors = undefined;
 
-var _Anker = __webpack_require__(488);
+var _Anker = __webpack_require__(489);
 
 var _Anker2 = _interopRequireDefault(_Anker);
 
-var _Cisco_Meraki = __webpack_require__(489);
+var _Cisco_Meraki = __webpack_require__(490);
 
 var _Cisco_Meraki2 = _interopRequireDefault(_Cisco_Meraki);
 
-var _Facebook = __webpack_require__(490);
+var _Facebook = __webpack_require__(491);
 
 var _Facebook2 = _interopRequireDefault(_Facebook);
 
-var _Microsoft = __webpack_require__(491);
+var _Microsoft = __webpack_require__(492);
 
 var _Microsoft2 = _interopRequireDefault(_Microsoft);
 
-var _OpenTable = __webpack_require__(492);
+var _OpenTable = __webpack_require__(493);
 
 var _OpenTable2 = _interopRequireDefault(_OpenTable);
 
-var _Pinterest = __webpack_require__(493);
+var _Pinterest = __webpack_require__(494);
 
 var _Pinterest2 = _interopRequireDefault(_Pinterest);
 
-var _Riot_Games = __webpack_require__(494);
+var _Riot_Games = __webpack_require__(495);
 
 var _Riot_Games2 = _interopRequireDefault(_Riot_Games);
 
-var _Salesforce = __webpack_require__(495);
+var _Salesforce = __webpack_require__(496);
 
 var _Salesforce2 = _interopRequireDefault(_Salesforce);
 
-var _Yelp = __webpack_require__(496);
+var _Yelp = __webpack_require__(497);
 
 var _Yelp2 = _interopRequireDefault(_Yelp);
 
@@ -48389,61 +48500,61 @@ exports.sponsors = sponsors;
 exports.pastSponsors = pastSponsors;
 
 /***/ }),
-/* 488 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/sponsors/Anker-e3f8a3a3edfc9a25a024209bf741b400.jpg";
 
 /***/ }),
-/* 489 */
+/* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/images/industry/sponsors/Cisco_Meraki-7c73a6eebf57f9a5cc1d36d090af143d.jpg";
 
 /***/ }),
-/* 490 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-02dda7e5831c85d14c61c24fe91ecf0b.png";
-
-/***/ }),
 /* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-b9ac3f44a9d3cef2eae712e80bd33f81.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-ae79230f5356f484558d50d264cbe45f.png";
 
 /***/ }),
 /* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-b660666d5a35f3ebe843c9721a53df9b.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-86bf9b7b07f723c5e28e852757ea2a86.png";
 
 /***/ }),
 /* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-91ee56045ce799af16b3c25b3c0d484b.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-0e1dab443d0e79da7fde096707c73078.png";
 
 /***/ }),
 /* 494 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Riot_Games-c3ebb5e9ca4e176824f284948a427b9a.jpg";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-f1dbc91d98e422db2fade449f321f600.png";
 
 /***/ }),
 /* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesforce-8f01652870ad4c18993d608797112bc2.jpg";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Riot_Games-c3ebb5e9ca4e176824f284948a427b9a.jpg";
 
 /***/ }),
 /* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-88ed34e68247ea1e2a3a284931e69515.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesforce-8f01652870ad4c18993d608797112bc2.jpg";
 
 /***/ }),
 /* 497 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-b800a0214998c44365be4d22941e75d5.png";
+
+/***/ }),
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48454,13 +48565,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Join = undefined;
 
-var _Join = __webpack_require__(498);
+var _Join = __webpack_require__(499);
 
 exports.default = _Join.Join;
 exports.Join = _Join.Join;
 
 /***/ }),
-/* 498 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48493,7 +48604,7 @@ var _Icon = __webpack_require__(26);
 
 var _lib = __webpack_require__(39);
 
-var _PaperBorder2 = __webpack_require__(499);
+var _PaperBorder2 = __webpack_require__(500);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -48679,7 +48790,7 @@ exports.default = Join;
 exports.Join = Join;
 
 /***/ }),
-/* 499 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48690,7 +48801,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._PaperBorder = undefined;
 
-var _PaperBorder2 = __webpack_require__(500);
+var _PaperBorder2 = __webpack_require__(501);
 
 var _PaperBorder3 = _interopRequireDefault(_PaperBorder2);
 
@@ -48700,7 +48811,7 @@ exports.default = _PaperBorder3.default;
 exports._PaperBorder = _PaperBorder3.default;
 
 /***/ }),
-/* 500 */
+/* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48765,7 +48876,7 @@ exports.default = _PaperBorder;
 exports._PaperBorder = _PaperBorder;
 
 /***/ }),
-/* 501 */
+/* 502 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48776,13 +48887,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Footer = undefined;
 
-var _Footer = __webpack_require__(502);
+var _Footer = __webpack_require__(503);
 
 exports.default = _Footer.Footer;
 exports.Footer = _Footer.Footer;
 
 /***/ }),
-/* 502 */
+/* 503 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48841,7 +48952,13 @@ var Footer = function (_React$Component) {
       return React.createElement(
         _StickyFooter.StickyFooter,
         { className: this.className() },
-        'Copyright \xA9 2017 CSUA. All rights reserved. Designed by Eric Hou.'
+        'Copyright \xA9 2017 CSUA. All rights reserved. Designed by\xA0',
+        React.createElement(
+          'a',
+          { href: 'https://ultraeric.github.io/' },
+          'Eric Hou'
+        ),
+        '.'
       );
     }
   }]);
@@ -48855,7 +48972,7 @@ exports.default = Footer;
 exports.Footer = Footer;
 
 /***/ }),
-/* 503 */
+/* 504 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48866,7 +48983,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Flyer = undefined;
 
-var _Flyer = __webpack_require__(504);
+var _Flyer = __webpack_require__(505);
 
 var _Flyer2 = _interopRequireDefault(_Flyer);
 
@@ -48876,7 +48993,7 @@ exports.default = _Flyer2.default;
 exports.Flyer = _Flyer2.default;
 
 /***/ }),
-/* 504 */
+/* 505 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48980,7 +49097,7 @@ exports.default = Flyer;
 exports.Flyer = Flyer;
 
 /***/ }),
-/* 505 */
+/* 506 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

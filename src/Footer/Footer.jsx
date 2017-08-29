@@ -19,7 +19,8 @@ class Footer extends React.Component {
   render() {
     return (
       <StickyFooter className={this.className()}>
-        Copyright © 2017 CSUA. All rights reserved. Designed by Eric Hou.
+        Copyright © 2017 CSUA. All rights reserved.
+        Designed by&nbsp;<a href={'https://ultraeric.github.io/'}>Eric Hou</a>.
       </StickyFooter>
     );
   }

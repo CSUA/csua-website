@@ -25,25 +25,18 @@ let gm1Event =   new Event(
   )
 
 let events = [
-  new Event(
-    'EE/CS Undergraduate Mixer',
-    'Wozniak Lounge, Soda Hall',
-    'Thursday - 8/24',
-    '11AM - 1PM',
-    'Come network with current students, researchers, professors, and advisors. Lunch and refreshments provided.'
-  ),
-  new Event(
-    'EE/CS Welcome Night',
-    'Wozniak Lounge, Soda Hall',
-    'Friday - 8/25',
-    '8PM - 10PM',
-    'CSUA wants to welcome all new students with a board game night! Come and meet us and socialize with peers.'
-  ),
   facebookEvent,
   gm1Event
 ];
 
 let workshops = [
+  new Event(
+    'LaTeX',
+    'TBD',
+    'TBD',
+    'TBD',
+    'Make your proofs, papers, and homework look stunning using the power of LaTeX.'
+  ),
   new Event(
     'Machine Learning',
     'TBD',
@@ -64,13 +57,6 @@ let workshops = [
     'TBD',
     'TBD',
     'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'
-  ),
-  new Event(
-    'LaTeX',
-    'TBD',
-    'TBD',
-    'TBD',
-    'Make your proofs, papers, and homework look stunning using the power of LaTeX.'
   ),
   new Event(
     'Web Development',
