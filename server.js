@@ -12,11 +12,12 @@ import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 
 var certificate = fs.readFileSync('/etc/letsencrypt/live/www.csua.berkeley.edu/fullchain.pem');
-var privateKey = fs.readFileSync('/webserver/csua-website/certs/privkey.pem');
+var privateKey = fs.readFileSync('/etc/letsencrypt/live/www.csua.berkeley.edu/privkey.pem');
 var credentials = { key: privateKey, cert: certificate, requestCert: true };
 
-var sslPort = 8080;
+var sslPort = 8443;
 var port = 8081;
+var legacyPort = 8080;
 
 global.window = {
   addEventListener: () => {},
@@ -28,7 +29,7 @@ global.document = {
 
 var AppComponent = require('./src/App').default;
 
-
+/* GZIP everything */
 function sendBase(req, res, next) {
   fs.readFile(__dirname + '/public/index.html', 'utf8', function (error, docData) {
     if (error) throw error;
@@ -49,6 +50,10 @@ const app = express();
 const sslServer = https.createServer(credentials, app);
 
 app.all('*', function(req, res, next){
+  if (req.path.startsWith('/newuser') || req.path.startsWith('/computers')) {
+    res.redirect('https://' + req.hostname + ':' + legacyPort + req.path);
+    return;
+  }
   if (req.secure) {
     return next();
   }

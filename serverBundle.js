@@ -9932,11 +9932,12 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var certificate = _fs2.default.readFileSync('/etc/letsencrypt/live/www.csua.berkeley.edu/fullchain.pem');
-var privateKey = _fs2.default.readFileSync('/webserver/csua-website/certs/privkey.pem');
+var privateKey = _fs2.default.readFileSync('/etc/letsencrypt/live/www.csua.berkeley.edu/privkey.pem');
 var credentials = { key: privateKey, cert: certificate, requestCert: true };
 
-var sslPort = 8080;
+var sslPort = 8443;
 var port = 8081;
+var legacyPort = 8080;
 
 global.window = {
   addEventListener: function addEventListener() {},
@@ -9948,6 +9949,7 @@ global.document = {
 
 var AppComponent = __webpack_require__(230).default;
 
+/* GZIP everything */
 function sendBase(req, res, next) {
   _fs2.default.readFile(__dirname + '/public/index.html', 'utf8', function (error, docData) {
     if (error) throw error;
@@ -9968,6 +9970,10 @@ var app = (0, _express2.default)();
 var sslServer = _https2.default.createServer(credentials, app);
 
 app.all('*', function (req, res, next) {
+  if (req.path.startsWith('/newuser') || req.path.startsWith('/computers')) {
+    res.redirect('https://' + req.hostname + ':' + legacyPort + req.path);
+    return;
+  }
   if (req.secure) {
     return next();
   }
@@ -23895,10 +23901,14 @@ var Header = function (_React$Component) {
           style: { paddingTop: '12px', boxSizing: 'border-box' },
           className: 'z-depth-1',
           backgroundColor: 'white' },
-        React.createElement('img', { style: { display: 'inline-block',
-            height: '40px',
-            marginBottom: '-8px' },
-          src: _logo2.default }),
+        React.createElement(
+          'a',
+          { href: '/' },
+          React.createElement('img', { style: { display: 'inline-block',
+              height: '40px',
+              marginBottom: '-8px' },
+            src: _logo2.default })
+        ),
         React.createElement(
           'h4',
           { style: { display: 'inline-block' } },
@@ -31671,7 +31681,7 @@ var Join = function (_React$Component) {
                     null,
                     'We host a large number of workshops to help you develop skills that recruiters are looking for and present those skills in unique and professional resumes, websites, and personal branding. We also tutor many different classes and are dedicated in helping you succeed in your undergraduate career here at Berkeley.'
                   ),
-                  React.createElement(_lib.Divider, { margin: true }),
+                  React.createElement(_lib.Divider, { horizontal: true, margin: true }),
                   React.createElement(
                     'p',
                     { className: 'centered subheader' },

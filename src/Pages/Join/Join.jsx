@@ -48,7 +48,7 @@ class Join extends React.Component {
                     unique and professional resumes, websites, and personal branding.
                     We also tutor many different classes and are dedicated in helping
                     you succeed in your undergraduate career here at Berkeley.</p>
-                  <Divider margin/>
+                  <Divider horizontal margin/>
                   <p className={'centered subheader'}>Networking</p>
                   <p>Meet fellow researchers, professionals, hackers, and CS enthusiasts.
                     Here, you can find a co-founder for your new startup, join a

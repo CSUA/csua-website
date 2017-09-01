@@ -37,10 +37,12 @@ class Header extends React.Component {
         style={{paddingTop: '12px', boxSizing: 'border-box'}}
         className={'z-depth-1'}
         backgroundColor={'white'}>
-        <img style={{display: 'inline-block',
-                      height: '40px',
-                      marginBottom: '-8px'}}
-              src={logo}/>
+        <a href={'/'}>
+          <img style={{display: 'inline-block',
+                        height: '40px',
+                        marginBottom: '-8px'}}
+                src={logo}/>
+        </a>
         <h4 style={{display: 'inline-block'}}>&nbsp;&nbsp;CSUA</h4>
         <_NavCreator/>
       </AppBar>
