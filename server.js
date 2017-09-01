@@ -11,9 +11,12 @@ import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 
-var cert = fs.readFileSync('/webserver/csua-website/certs/cert.pem', 'utf8');
-var privateKey = fs.readFileSync('/webserver/csua-website/certs/privkey.pem', 'utf8');
-var credentials = { key: privateKey, cert: certificate };
+var certificate = fs.readFileSync('/etc/letsencrypt/live/www.csua.berkeley.edu/fullchain.pem');
+var privateKey = fs.readFileSync('/webserver/csua-website/certs/privkey.pem');
+var credentials = { key: privateKey, cert: certificate, requestCert: true };
+
+var sslPort = 8080;
+var port = 8081;
 
 global.window = {
   addEventListener: () => {},
@@ -43,8 +46,13 @@ function sendBase(req, res, next) {
 }
 
 const app = express();
-const server = https.createServer(credentials, app);
-const io = require('socket.io')(server);
+const sslServer = https.createServer(credentials, app);
+
+app.all('*', function(req, res, next){
+  if (req.secure) {
+    return next();
+  }
+});
 
 app.use(favicon(path.join(__dirname, 'public/static/images/logos/favicon.ico')));
 
@@ -68,17 +76,12 @@ app.use(express.static('public'));
 
 app.get('*', sendBase);
 
-io.on('connection', (socket) => {
-  console.log('New connection.');
-  socket.on('test', (data) => {
-    console.log(data);
-    socket.emit('testemit', {testemit: 'testemit'})
-  });
-});
+sslServer.listen(sslPort,
+  () => console.log('Node/express SSL server started on port ' + sslPort)
+);
 
-app.listen(8080,
-  () => console.log('Node/express server started on port 8080')
-);
-server.listen(8081,
-  () => console.log('Socket.io server started on port 8081')
-);
+var server = express();
+server.get('*', function(req, res) {  
+  res.redirect('https://' + req.hostname + ':' + sslPort);
+});
+server.listen(port);
