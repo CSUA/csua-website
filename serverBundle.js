@@ -28153,8 +28153,8 @@ var pb = [new PolitburoMember('President', 'Megan Zhu', 'president@csua.berkeley
       events. An external event is defined as an event sponsored\
       by a company. The External Events Coordinator works closely\
       with the VP of Industrial Relations and the Internal Events\
-      Coordinator.', 'Please contact Yitz for questions about the CSUA\'s budget,\
-      resources, or records.'), new PolitburoMember('Internal Events Coordinator', 'Jason Ji', 'internalevents@csua.berkeley.edu', _Jason_Ji2.default, 'The Internal Events Coordinator plans all internal CSUA\
+      Coordinator.', 'Please contact Ray for any questions regarding upcoming\
+      external events or with offers for potential future events.'), new PolitburoMember('Internal Events Coordinator', 'Jason Ji', 'internalevents@csua.berkeley.edu', _Jason_Ji2.default, 'The Internal Events Coordinator plans all internal CSUA\
       events. An internal event is defined as an event that does\
       not have a company sponsor. This includes general meetings,\
       intersocial events, and alumni events. The Internal Events\

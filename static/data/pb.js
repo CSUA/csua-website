@@ -80,8 +80,8 @@ let pb = [
       by a company. The External Events Coordinator works closely\
       with the VP of Industrial Relations and the Internal Events\
       Coordinator.',
-    'Please contact Yitz for questions about the CSUA\'s budget,\
-      resources, or records.'
+    'Please contact Ray for any questions regarding upcoming\
+      external events or with offers for potential future events.'
   ),
   new PolitburoMember(
     'Internal Events Coordinator',
