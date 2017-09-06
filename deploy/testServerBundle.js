@@ -28657,7 +28657,7 @@ module.exports = __webpack_require__.p + "static/images/officers/Jason_Yeung-02b
 /* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-406cc645fd6ea8614b9cadaad77406cf.png";
+module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-a2eac3a9e3ba41e30956dcb378a4d4e7.png";
 
 /***/ }),
 /* 300 */
@@ -31363,25 +31363,25 @@ module.exports = __webpack_require__.p + "static/images/industry/sponsors/Cisco_
 /* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-ae79230f5356f484558d50d264cbe45f.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-d90c3c21029f3769b1f1048c836c504f.png";
 
 /***/ }),
 /* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-86bf9b7b07f723c5e28e852757ea2a86.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-524cdcc72aaec1cec31ce929bb88422a.png";
 
 /***/ }),
 /* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-0e1dab443d0e79da7fde096707c73078.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-f9033be43ddb6761b63874ab35ae6bcf.png";
 
 /***/ }),
 /* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-f1dbc91d98e422db2fade449f321f600.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-b4fef6330d6377defa567fe3ee794357.png";
 
 /***/ }),
 /* 350 */
@@ -31399,7 +31399,7 @@ module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesf
 /* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-b800a0214998c44365be4d22941e75d5.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-bd1af69661b807965a4d839a0ac89afa.png";
 
 /***/ }),
 /* 353 */
