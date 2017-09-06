@@ -1,32 +1,46 @@
 class Event {
-  constructor(name, location='TBD', date='TBD', time='TBD', description) {
+  constructor(name, location='TBD', date='TBD', time='TBD', description='', href) {
     this.name = name;
     this.location = location;
     this.date = date;
     this.time = time;
     this.description = description;
+    this.href = href;
   }
 }
 
-let facebookEvent =  new Event(
-    'Facebook Recruiting Event',
-    'Wozniak Lounge, Soda Hall',
-    'Friday - 9/1',
-    '5PM - 8PM',
-    'Want to work/intern at Facebook? Come learn about their program and submit your resume! Dinner provided.'
-  );
+let pinterestEvent = new Event(
+  'Machine Learning Workshop + Q&A with Pinterest',
+  'HP Auditorium',
+  'Wednesday - 9/6',
+  '6:30PM - 8PM',
+  'Interested in machine learning & computer vision and how they\'re being used by Pinterest? Learn from Berkeley Alumnus, Eric Kim, on how Pinterest uses the latest advances in computer vision and machine learning to power visual discovery experiences for millions of people every day.',
+  'https://www.facebook.com/events/488503018195686/'
+);
 
-let gm1Event =   new Event(
-    'CSUA General Meeting #1',
-    'Wozniak Lounge, Soda Hall',
-    'Friday - 9/1',
-    '8PM - 10PM',
-    'Learn about the resources the CSUA has to offer, how to utilize them, and how to contribute to the university and undergraduate community. Refreshments provided.'
-  )
+let yelpEvent = new Event(
+  'Yelp Tech Talk',
+  'Wozniak Lounge',
+  'Thursday - 9/7',
+  '6PM - 7PM',
+  'Hear about exciting projects at Yelp from both engineers and product managers. Learn about how Yelp\'s infrastructure can handle millions of users, and how to analyze user needs and respond to them.',
+  'https://www.facebook.com/events/114136882618468/'
+);
+
+let qualcommEvent = new Event(
+  'Qualcomm Tech Talk - Graphics Technology',
+  'Cory Hall 540A',
+  'Friday - 9/8',
+  '12PM - 1PM',
+  'Qualcomm’s mobile technology is connecting the world in ways we neverthought possible. Come learn about these emerging technologies and how Qualcomm Graphics innovation is bringing these to our daily lives.',
+  'https://www.facebook.com/events/115035072501800/'
+)
+
 
 let events = [
-  facebookEvent,
-  gm1Event
+  pinterestEvent,
+  yelpEvent,
+  qualcommEvent
 ];
 
 let workshops = [
@@ -89,11 +103,13 @@ let workshops = [
 ];
 
 let recruiting = [
-  facebookEvent
+  pinterestEvent,
+  yelpEvent,
+  qualcommEvent
 ];
 
 let generalMeetings = [
-  gm1Event
+
 ]
 
 export default events;

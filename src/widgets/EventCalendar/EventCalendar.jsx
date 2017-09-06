@@ -24,10 +24,28 @@ class EventCalendar extends React.Component {
     this.bindAllMethods();
   }
 
+  getNameElement(event, small) {
+    if (event.href) {
+      return (
+        <p className={small ? 'title-small' : 'title'}>
+          <a href={event.href}>
+            {event.date} : {event.name}
+          </a>
+        </p>
+      );
+    } else {
+      return (
+        <p className={small ? 'title-small' : 'title'}>
+          {event.date} : {event.name}
+        </p>
+      );
+    }
+  }
+
   calcEventComponent(event, verbose, small, key) {
     return (
       <div key={key}>
-        <p className={small ? 'title-small' : 'title'}>{event.date} : {event.name}</p>
+        {this.getNameElement(event, small)}
         <p className={small ? 'subheader-small' : 'subheader'}>{event.time}&emsp;|&emsp;{event.location}</p>
         {verbose ? (small ? <small>{event.description}</small> : <p>{event.description}</p>) : null}
       </div>

@@ -4188,7 +4188,8 @@ var Event = function Event(name) {
   var location = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'TBD';
   var date = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'TBD';
   var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'TBD';
-  var description = arguments[4];
+  var description = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+  var href = arguments[5];
 
   _classCallCheck(this, Event);
 
@@ -4197,19 +4198,22 @@ var Event = function Event(name) {
   this.date = date;
   this.time = time;
   this.description = description;
+  this.href = href;
 };
 
-var facebookEvent = new Event('Facebook Recruiting Event', 'Wozniak Lounge, Soda Hall', 'Friday - 9/1', '5PM - 8PM', 'Want to work/intern at Facebook? Come learn about their program and submit your resume! Dinner provided.');
+var pinterestEvent = new Event('Machine Learning Workshop + Q&A with Pinterest', 'HP Auditorium', 'Wednesday - 9/6', '6:30PM - 8PM', 'Interested in machine learning & computer vision and how they\'re being used by Pinterest? Learn from Berkeley Alumnus, Eric Kim, on how Pinterest uses the latest advances in computer vision and machine learning to power visual discovery experiences for millions of people every day.', 'https://www.facebook.com/events/488503018195686/');
 
-var gm1Event = new Event('CSUA General Meeting #1', 'Wozniak Lounge, Soda Hall', 'Friday - 9/1', '8PM - 10PM', 'Learn about the resources the CSUA has to offer, how to utilize them, and how to contribute to the university and undergraduate community. Refreshments provided.');
+var yelpEvent = new Event('Yelp Tech Talk', 'Wozniak Lounge', 'Thursday - 9/7', '6PM - 7PM', 'Hear about exciting projects at Yelp from both engineers and product managers. Learn about how Yelp\'s infrastructure can handle millions of users, and how to analyze user needs and respond to them.', 'https://www.facebook.com/events/114136882618468/');
 
-var events = [facebookEvent, gm1Event];
+var qualcommEvent = new Event('Qualcomm Tech Talk - Graphics Technology', 'Cory Hall 540A', 'Friday - 9/8', '12PM - 1PM', 'Qualcomm’s mobile technology is connecting the world in ways we neverthought possible. Come learn about these emerging technologies and how Qualcomm Graphics innovation is bringing these to our daily lives.', 'https://www.facebook.com/events/115035072501800/');
+
+var events = [pinterestEvent, yelpEvent, qualcommEvent];
 
 var workshops = [new Event('LaTeX', 'TBD', 'TBD', 'TBD', 'Make your proofs, papers, and homework look stunning using the power of LaTeX.'), new Event('Machine Learning', 'TBD', 'TBD', 'TBD', 'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'), new Event('Git', 'TBD', 'TBD', 'TBD', 'Learn the basics of using Git as a version control system for better programming workflows.'), new Event('UNIX/BASH', 'TBD', 'TBD', 'TBD', 'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'), new Event('Web Development', 'TBD', 'TBD', 'TBD', 'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'), new Event('Finding an Internship', 'TBD', 'TBD', 'TBD', 'Learn how to break into industry and land your first job or internship.'), new Event('Resume Workshop', 'TBD', 'TBD', 'TBD', 'Crafting a resume is an art. Come listen to a recruiter from Princeton teach you how to boost your resume.'), new Event('Blockchain', 'TBD', 'TBD', 'TBD', 'Bitcoin. Ethereum. ')];
 
-var recruiting = [facebookEvent];
+var recruiting = [pinterestEvent, yelpEvent, qualcommEvent];
 
-var generalMeetings = [gm1Event];
+var generalMeetings = [];
 
 exports.default = events;
 exports.events = events;
@@ -27416,18 +27420,37 @@ var EventCalendar = function (_React$Component) {
   }
 
   _createClass(EventCalendar, [{
-    key: 'calcEventComponent',
-    value: function calcEventComponent(event, verbose, small, key) {
-      return React.createElement(
-        'div',
-        { key: key },
-        React.createElement(
+    key: 'getNameElement',
+    value: function getNameElement(event, small) {
+      if (event.href) {
+        return React.createElement(
+          'p',
+          { className: small ? 'title-small' : 'title' },
+          React.createElement(
+            'a',
+            { href: event.href },
+            event.date,
+            ' : ',
+            event.name
+          )
+        );
+      } else {
+        return React.createElement(
           'p',
           { className: small ? 'title-small' : 'title' },
           event.date,
           ' : ',
           event.name
-        ),
+        );
+      }
+    }
+  }, {
+    key: 'calcEventComponent',
+    value: function calcEventComponent(event, verbose, small, key) {
+      return React.createElement(
+        'div',
+        { key: key },
+        this.getNameElement(event, small),
         React.createElement(
           'p',
           { className: small ? 'subheader-small' : 'subheader' },
@@ -28657,7 +28680,7 @@ module.exports = __webpack_require__.p + "static/images/officers/Jason_Yeung-02b
 /* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-a2eac3a9e3ba41e30956dcb378a4d4e7.png";
+module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-406cc645fd6ea8614b9cadaad77406cf.png";
 
 /***/ }),
 /* 300 */
@@ -31363,25 +31386,25 @@ module.exports = __webpack_require__.p + "static/images/industry/sponsors/Cisco_
 /* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-d90c3c21029f3769b1f1048c836c504f.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Facebook-ae79230f5356f484558d50d264cbe45f.png";
 
 /***/ }),
 /* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-524cdcc72aaec1cec31ce929bb88422a.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Microsoft-86bf9b7b07f723c5e28e852757ea2a86.png";
 
 /***/ }),
 /* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-f9033be43ddb6761b63874ab35ae6bcf.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/OpenTable-0e1dab443d0e79da7fde096707c73078.png";
 
 /***/ }),
 /* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-b4fef6330d6377defa567fe3ee794357.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Pinterest-f1dbc91d98e422db2fade449f321f600.png";
 
 /***/ }),
 /* 350 */
@@ -31399,7 +31422,7 @@ module.exports = __webpack_require__.p + "static/images/industry/sponsors/Salesf
 /* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-bd1af69661b807965a4d839a0ac89afa.png";
+module.exports = __webpack_require__.p + "static/images/industry/sponsors/Yelp-b800a0214998c44365be4d22941e75d5.png";
 
 /***/ }),
 /* 353 */
