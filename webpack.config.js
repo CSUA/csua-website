@@ -115,7 +115,8 @@ module.exports = [
   ]
 },
 {
-  entry: {serverBundle: './server.js'},
+  entry: {serverBundle: './server.js',
+          testServerBundle: './testServer.js'},
   target: 'node',
   node: {
     __dirname: false,
@@ -124,7 +125,7 @@ module.exports = [
   output: {
     path: path.resolve(__dirname, './'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: './deploy/[name].js'
   },
   resolve: {
     alias: {
