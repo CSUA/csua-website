@@ -70,7 +70,7 @@ app.get('/bundle.css', function (req, res, next) {
 
 app.get('/', sendBase);
 
-app.use(express.static('../public'));
+app.use(express.static('./public'));
 
 app.get('*', sendBase);
 

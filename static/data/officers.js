@@ -21,11 +21,12 @@ import yannanImg from 'static/images/officers/Yannan_Tuo.jpg';
 import yitzImg from 'static/images/officers/Yitz_Deng.jpg';
 
 class Officer {
-  constructor(name, hours, img, quote) {
+  constructor(name, hours, img, quote, tutorSubjects) {
     this.name = name;
     this.hours = hours;
     this.img = img;
     this.quote = quote;
+    this.tutorSubjects = tutorSubjects;
   }
 }
 
@@ -34,7 +35,8 @@ let officers = [
     'Benjamin Li',
     'Mon 11AM-12PM',
     benjaminImg,
-    '"Ask me about my sick skills in Super Smash Bros Melee!"'
+    '"Ask me about my sick skills in Super Smash Bros Melee!"',
+    'CS61A'
   ),
   new Officer(
     'Caleb Wyllie',

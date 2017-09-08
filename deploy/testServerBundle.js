@@ -28483,8 +28483,15 @@ var _OfficerCreator = function (_React$Component) {
               React.createElement(
                 'p',
                 { className: 'name subheader' },
+                'OH:\xA0',
                 officer.hours
               ),
+              officer.tutorSubjects ? React.createElement(
+                'p',
+                { className: 'name subheader' },
+                'Tutors:\xA0',
+                officer.tutorSubjects
+              ) : null,
               React.createElement(_lib.Divider, { horizontal: true, margin: true }),
               React.createElement(
                 'p',
@@ -28617,16 +28624,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } //These resolve to image strings that webpack outputs
 
 
-var Officer = function Officer(name, hours, img, quote) {
+var Officer = function Officer(name, hours, img, quote, tutorSubjects) {
   _classCallCheck(this, Officer);
 
   this.name = name;
   this.hours = hours;
   this.img = img;
   this.quote = quote;
+  this.tutorSubjects = tutorSubjects;
 };
 
-var officers = [new Officer('Benjamin Li', 'Mon 11AM-12PM', _Benjamin_Li2.default, '"Ask me about my sick skills in Super Smash Bros Melee!"'), new Officer('Caleb Wyllie', 'Thu 1PM-2PM', _Caleb_Wyllie2.default, '"I like to climb things and browse memes"'), new Officer('Charlie Tian', 'Tue 6PM-7PM', _Charlie_Tian2.default, '"hiu machines"'), new Officer('Emily Gosti', 'Wed 4PM-5PM', _Emily_Gosti2.default, '"Livin\' la vida boba"'), new Officer('Eric Hou', 'Thu 4PM-5PM', _Eric_Hou2.default, '"TensorFlow sucks"'), new Officer('Jason Ji', 'Thu 6PM-7PM', _Jason_Ji2.default, "I say okay, okay, okay, okidokie"), new Officer('Jason Yeung', 'Tue 11PM-12PM', _Jason_Yeung2.default, "Blurp."), new Officer('Jessica Kuo', 'Thurs 12PM-1PM', _Jessica_Kuo2.default, '"Biology tells you you\'re 70% water, chemistry tells you\
+var officers = [new Officer('Benjamin Li', 'Mon 11AM-12PM', _Benjamin_Li2.default, '"Ask me about my sick skills in Super Smash Bros Melee!"', 'CS61A'), new Officer('Caleb Wyllie', 'Thu 1PM-2PM', _Caleb_Wyllie2.default, '"I like to climb things and browse memes"'), new Officer('Charlie Tian', 'Tue 6PM-7PM', _Charlie_Tian2.default, '"hiu machines"'), new Officer('Emily Gosti', 'Wed 4PM-5PM', _Emily_Gosti2.default, '"Livin\' la vida boba"'), new Officer('Eric Hou', 'Thu 4PM-5PM', _Eric_Hou2.default, '"TensorFlow sucks"'), new Officer('Jason Ji', 'Thu 6PM-7PM', _Jason_Ji2.default, "I say okay, okay, okay, okidokie"), new Officer('Jason Yeung', 'Tue 11PM-12PM', _Jason_Yeung2.default, "Blurp."), new Officer('Jessica Kuo', 'Thurs 12PM-1PM', _Jessica_Kuo2.default, '"Biology tells you you\'re 70% water, chemistry tells you\
       you\'re 60% oxygen, and physics tells you you\'re 99.99%\
       empty space. But I tell you you\'re 100% a cutie! :)"'), new Officer('Jimmy Kim', 'Fri 6PM-7PM', _Jimmy_Kim2.default, '"I play children\'s card games."'), new Officer('Jonathan Tan', 'Fri 5PM-6PM', _Jonathan_Tan2.default, '"praise the sun"'), new Officer('Juntai Zheng', 'Thu 10AM-11AM', _Juntai_Zheng2.default, '"real coders type with only their index fingers"'), new Officer('Loren McIntyre', 'Tue 1PM-2PM', _Loren_McIntyre2.default, '"Can\'t stand unnecessary acronyms"'), new Officer('Megan Zhu', 'Mon 6PM-7PM', _Megan_Zhu2.default, '"I like coding and AI stuff and games (overwatch!)"'), new Officer('Michelle Hsueh', 'Mon 3PM-4PM', _Michelle_Hsueh2.default, '"Two kittens are on a roof. Which one slides off first? The one with the\
     smaller μ (mew)! ＾• ω •＾"'), new Officer('Neil Lingarkar', 'Thu 2PM-3PM', _Neil_Lingarkar2.default, '"hi"'), new Officer('Parth Singal', 'Wed 12PM-1PM', _Parth_Singal2.default, '"Random powers: Levitation, Time"'), new Officer('Ray Pan', 'Mon 4PM-5PM', _Ray_Pan2.default, '"I for one welcome our new robot overlords"'), new Officer('Robert Quitt', 'Fri 2PM-3PM', _Robert_Quitt2.default, '"I\'d just like to interject for a moment..."'), new Officer('Yannan Tuo', 'Fri 4PM-5PM', _Yannan_Tuo2.default, '"Will sing for food (will sing regardless)"'), new Officer('Yitz Deng', 'Tue 4PM-5PM', _Yitz_Deng2.default, '"GIF is pronounced like gift but without the t."')];
@@ -32075,7 +32083,7 @@ app.get('/bundle.css', function (req, res, next) {
 
 app.get('/', sendBase);
 
-app.use(_express2.default.static('../public'));
+app.use(_express2.default.static('./public'));
 
 app.get('*', sendBase);
 

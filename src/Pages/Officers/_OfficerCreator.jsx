@@ -33,7 +33,14 @@ class _OfficerCreator extends React.Component {
             </CardImageArea>
             <CardTextArea>
               <p className={'title'}>{officer.name}</p>
-              <p className={'name subheader'}>{officer.hours}</p>
+              <p className={'name subheader'}>OH:&nbsp;{officer.hours}</p>
+              {
+                officer.tutorSubjects
+                ?
+                <p className={'name subheader'}>Tutors:&nbsp;{officer.tutorSubjects}</p>
+                :
+                null
+              }
               <Divider horizontal margin/>
               <p>{officer.quote}</p>
             </CardTextArea>
