@@ -35,7 +35,7 @@ class _OfficerCreator extends React.Component {
               <p className={'title'}>{officer.name}</p>
               <p className={'name subheader'}>OH:&nbsp;{officer.hours}</p>
               <Divider horizontal margin/>
-              <p>{officer.quote}</p>
+              <p>"{officer.quote}"</p>
                 {
                   officer.tutorSubjects
                   ?

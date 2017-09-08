@@ -9,24 +9,6 @@ class Event {
   }
 }
 
-let pinterestEvent = new Event(
-  'Machine Learning Workshop + Q&A with Pinterest',
-  'HP Auditorium',
-  'Wednesday - 9/6',
-  '6:30PM - 8PM',
-  'Interested in machine learning & computer vision and how they\'re being used by Pinterest? Learn from Berkeley Alumnus, Eric Kim, on how Pinterest uses the latest advances in computer vision and machine learning to power visual discovery experiences for millions of people every day.',
-  'https://www.facebook.com/events/488503018195686/'
-);
-
-let yelpEvent = new Event(
-  'Yelp Tech Talk',
-  'Wozniak Lounge',
-  'Thursday - 9/7',
-  '6PM - 7PM',
-  'Hear about exciting projects at Yelp from both engineers and product managers. Learn about how Yelp\'s infrastructure can handle millions of users, and how to analyze user needs and respond to them.',
-  'https://www.facebook.com/events/114136882618468/'
-);
-
 let qualcommEvent = new Event(
   'Qualcomm Tech Talk - Graphics Technology',
   'Cory Hall 540A',
@@ -36,76 +18,96 @@ let qualcommEvent = new Event(
   'https://www.facebook.com/events/115035072501800/'
 )
 
+let riotEvent = new Event(
+  'Riot Tech Talk',
+  'Sibley Auditorium',
+  'Tuesday, 9/12',
+  '7PM - 9PM',
+  'Riot Games is looking for the next generation of Software Engineers! As the most played PC game in the world, League of Legends boasts over 100 million players every month. We’re looking for humble but ambitious, razor-sharp professionals who can teach us a thing or two. We promise to return the favor. Like us, you take play seriously; you’re passionate about games. We embrace those who see things differently, aren’t afraid to experiment, and who have a healthy disregard for constraints. ',
+  'https://www.facebook.com/events/1739631732760887/'
+)
+
+let riotLanEvent = new Event(
+  'Riot LAN Party - Hosted by Berkeley Legends',
+  'East Pauley Ballroom (3rd Floor MLK)',
+  'Wednesday - 9/13',
+  '7PM',
+  'Come out to meet and play games with Rioters on a casual level -- expect pizza, board games, and a 1v1 tournament where the top 5 victors will receive figurines!',
+  'https://www.facebook.com/events/1441722959209903'
+)
+
+let merakiEvent = new Event(
+  'Meraki Tech Talk',
+  'TBD',
+  'TBD',
+  'TBD',
+  'TBD'
+)
 
 let events = [
-  pinterestEvent,
-  yelpEvent,
-  qualcommEvent
+  qualcommEvent,
+  riotEvent,
+  riotLanEvent,
+  merakiEvent
 ];
 
 let workshops = [
   new Event(
-    'LaTeX',
-    'TBD',
-    'TBD',
-    'TBD',
-    'Make your proofs, papers, and homework look stunning using the power of LaTeX.'
-  ),
-  new Event(
-    'Machine Learning',
-    'TBD',
-    'TBD',
-    'TBD',
-    'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'
-  ),
-  new Event(
     'Git',
-    'TBD',
-    'TBD',
-    'TBD',
+    'HP Auditorium',
+    'Friday - 9/8',
+    '5:30 PM - 7:00 PM',
     'Learn the basics of using Git as a version control system for better programming workflows.'
   ),
   new Event(
-    'UNIX/BASH',
-    'TBD',
-    'TBD',
-    'TBD',
-    'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'
-  ),
-  new Event(
-    'Web Development',
-    'TBD',
-    'TBD',
-    'TBD',
-    'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'
-  ),
-  new Event(
-    'Finding an Internship',
-    'TBD',
-    'TBD',
-    'TBD',
+    'Professional Development',
+    'Wozniak Lounge',
+    'Saturday - 9/9',
+    '2PM - 4PM',
     'Learn how to break into industry and land your first job or internship.'
   ),
   new Event(
-    'Resume Workshop',
-    'TBD',
-    'TBD',
-    'TBD',
-    'Crafting a resume is an art. Come listen to a recruiter from Princeton teach you how to boost your resume.'
+    'UNIX/BASH',
+    'HP Auditorium',
+    'Friday - 9/15',
+    '6PM - 8PM',
+    'Throwback to the basics of computing; how to use a terminal effectively, and how to write scripts that make working with computing easier.'
+  ),
+  new Event(
+    'LaTeX',
+    'HP Auditorium',
+    'Tuesday - 9/19',
+    '5PM - 7PM',
+    'Make your proofs, papers, and homework look stunning using the power of LaTeX.'
   ),
   new Event(
     'Blockchain',
-    'TBD',
-    'TBD',
-    'TBD',
-    'Bitcoin. Ethereum. '
+    'HP Auditorium',
+    'Wednesday - 11/8',
+    '6PM - 8PM',
+    'Bitcoin. Ethereum. Cohosted with Blockchain@Berkeley'
+  ),  
+  new Event(
+    'Web Development',
+    'Wozniak Lounge',
+    'Tuesday - 11/14',
+    '6PM - 8PM',
+    'React.js, Node.js, Express.js, MongoDB. You\'ve heard all these buzzwords - now learn how to use them to create stunning and reactive Web Applications.'
+  ),
+  new Event(
+    'Machine Learning',
+    'Wozniak Lounge',
+    'Monday - 11/20',
+    '6PM - 8PM',
+    'Skip the hype; come learn what machine learning is really about and learn how to implement a few key machine learning algorithms.'
   )
 ];
 
 let recruiting = [
-  pinterestEvent,
-  yelpEvent,
-  qualcommEvent
+  qualcommEvent,
+  riotEvent,
+  riotLanEvent,
+  merakiEvent
 ];
 
 let generalMeetings = [

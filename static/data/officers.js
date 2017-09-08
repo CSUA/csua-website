@@ -1,20 +1,20 @@
 //These resolve to image strings that webpack outputs
+import annaImg from 'static/images/officers/Anna_Brewer.jpg';
+import ashleyImg from 'static/images/officers/Ashley_Chien.jpg';
 import benjaminImg from 'static/images/officers/Benjamin_Li.jpg';
-import calebImg from 'static/images/officers/Caleb_Wyllie.jpg';
 import charlieImg from 'static/images/officers/Charlie_Tian.jpg';
-import emilyImg from 'static/images/officers/Emily_Gosti.jpg';
 import ericImg from 'static/images/officers/Eric_Hou.jpg';
 import jasonImg from 'static/images/officers/Jason_Ji.jpg';
 import jasonYImg from 'static/images/officers/Jason_Yeung.jpg';
-import jessicaImg from 'static/images/officers/Jessica_Kuo.png';
+import jessicaImg from 'static/images/officers/Jessica_Kuo.jpg';
 import jimmyImg from 'static/images/officers/Jimmy_Kim.jpg';
-import jonathanImg from 'static/images/officers/Jonathan_Tan.JPG';
+import jonathanImg from 'static/images/officers/Jonathan_Tann.JPG';
 import juntaiImg from 'static/images/officers/Juntai_Zheng.jpg';
-import lorenImg from 'static/images/officers/Loren_McIntyre.jpg';
+import lorenImg from 'static/images/officers/Loren_McIntyre.jpg'
 import meganImg from 'static/images/officers/Megan_Zhu.jpg';
 import michelleImg from 'static/images/officers/Michelle_Hsueh.jpg';
 import neilImg from 'static/images/officers/Neil_Lingarkar.jpg';
-import parthImg from 'static/images/officers/Parth_Singal.jpg';
+import parthImg from 'static/images/officers/Parth_Singhal.jpg';
 import rayImg from 'static/images/officers/Ray_Pan.JPG';
 import robertImg from 'static/images/officers/Robert_Quitt.jpg';
 import yannanImg from 'static/images/officers/Yannan_Tuo.jpg';
@@ -32,128 +32,138 @@ class Officer {
 
 let officers = [
   new Officer(
-    'Benjamin Li',
-    'Mon 11AM-12PM',
-    benjaminImg,
-    '"Ask me about my sick skills in Super Smash Bros Melee!"',
-    'CS61C'
+    'Anna Brewer',
+    'TBD',
+    annaImg,
+    '...'
   ),
   new Officer(
-    'Caleb Wyllie',
-    'Thu 1PM-2PM',
-    calebImg,
-    '"I like to climb things and browse memes"'
+    'Ashley Chien',
+    'Fri 12PM-1PM',
+    ashleyImg,
+    'Meow meow meow meow meow'
   ),
-  new Officer (
+  new Officer(
+    'Benjamin Li',
+    'Tue 4PM-5PM',
+    benjaminImg,
+    'Ask me about my sick skills in Super Smash Bros Melee!',
+    'CS 61C, CS 70, CS 188'
+  ),
+  new Officer(
     'Charlie Tian',
-    'Tue 6PM-7PM',
+    'Mon 6PM-7PM',
     charlieImg,
-    '"hiu machines"'
+    'hiu machines',
+    'CS 61A, CS 70, CS 188, EE 16B, MATH 53, MATH 54, MATH 110, MATH 113'
   ),
-  new Officer (
-    'Emily Gosti',
-    'Wed 4PM-5PM',
-    emilyImg,
-    '"Livin\' la vida boba"'
-  ),
-  new Officer (
+  new Officer(
     'Eric Hou',
-    'Thu 4PM-5PM',
+    'Tue 6PM-7PM',
     ericImg,
-    '"TensorFlow sucks"'
+    'TensorFlow sucks'
   ),
-  new Officer (
+  new Officer(
     'Jason Ji',
     'Thu 6PM-7PM',
     jasonImg,
-    "I say okay, okay, okay, okidokie"
+    'I say okay, okay, okay, okidokie'
   ),
-  new Officer (
+  new Officer(
     'Jason Yeung',
-    'Tue 11PM-12PM',
-    jasonYImg,
-    "Blurp."
-  ),
-  new Officer (
-    'Jessica Kuo',
-    'Thurs 12PM-1PM',
-    jessicaImg,
-    '"Biology tells you you\'re 70% water, chemistry tells you\
-      you\'re 60% oxygen, and physics tells you you\'re 99.99%\
-      empty space. But I tell you you\'re 100% a cutie! :)"'
-  ),
-  new Officer (
-    'Jimmy Kim',
-    'Fri 6PM-7PM',
-    jimmyImg,
-    '"I play children\'s card games."'
-  ),
-  new Officer (
-    'Jonathan Tan',
-    'Fri 5PM-6PM',
-    jonathanImg,
-    '"praise the sun"'
-  ),
-  new Officer (
-    'Juntai Zheng',
-    'Thu 10AM-11AM',
-    juntaiImg,
-    '"real coders type with only their index fingers"'
-  ),
-  new Officer (
-    'Loren McIntyre',
     'Tue 1PM-2PM',
-    lorenImg,
-    '"Can\'t stand unnecessary acronyms"'
+    jasonYImg,
+    'Blurp.',
+    'CS 61A, CS 61B, CS 61C'
   ),
-  new Officer (
-    'Megan Zhu',
-    'Mon 6PM-7PM',
-    meganImg,
-    '"I like coding and AI stuff and games (overwatch!)"'
+  new Officer(
+    'Jessica Kuo',
+    'Thu 11AM-12PM',
+    jessicaImg,
+    'Biology tells you you\'re 70% water, chemistry tells you\
+      you\'re 60% oxygen, and physics tells you you\'re 99.99%\
+      empty space. But I tell you you\'re 100% a cutie! :)'
   ),
-  new Officer (
-    'Michelle Hsueh',
-    'Mon 3PM-4PM',
-    michelleImg,
-    '"Two kittens are on a roof. Which one slides off first? The one with the\
-    smaller μ (mew)! ＾• ω •＾"'
-  ),
-  new Officer (
-    'Neil Lingarkar',
-    'Thu 2PM-3PM',
-    neilImg,
-    '"hi"'
-  ),
-  new Officer (
-    'Parth Singal',
-    'Wed 12PM-1PM',
-    parthImg,
-    '"Random powers: Levitation, Time"'
-  ),
-  new Officer (
-    'Ray Pan',
-    'Mon 4PM-5PM',
-    rayImg,
-    '"I for one welcome our new robot overlords"'
-  ),
-  new Officer (
-    'Robert Quitt',
-    'Fri 2PM-3PM',
-    robertImg,
-    '"I\'d just like to interject for a moment..."'
-  ),
-  new Officer (
-    'Yannan Tuo',
+  new Officer(
+    'Jimmy Kim',
     'Fri 4PM-5PM',
-    yannanImg,
-    '"Will sing for food (will sing regardless)"'
+    jimmyImg,
+    'I play children\'s card games.',
+    'CS 61A, CS 61B, CS 70'
   ),
-  new Officer (
+  new Officer(
+    'Jonathan Tan',
+    'Fri 6PM-7PM',
+    jonathanImg,
+    'praise the sun'
+  ),
+  new Officer(
+    'Juntai Zheng',
+    'Wed 2PM-3PM',
+    juntaiImg,
+    'real coders type with only their index fingers'
+  ),
+  new Officer(
+    'Loren McIntyre',
+    'Fri 3PM-4PM',
+    lorenImg,
+    'Supporting a welcoming environment for CS (& other) undergrads, \
+    and exposure to CS outside the classroom (for myself & for others)'
+  ),
+  new Officer(
+    'Megan Zhu',
+    'Wed 5PM-6PM',
+    meganImg,
+    'Miyazaki fanatic, league enthusiast, sad senior :\'(',
+    'CS 61A, CS 61B, CS 61C, CS 70, CS 168, CS 184, CS 186, CS 188, EE 16A, MATH 54'
+  ),
+  new Officer(
+    'Michelle Hsueh',
+    'Thu 4PM-5PM',
+    michelleImg,
+    'Two kittens are on a roof. Which one slides off first? \
+    The one with the smaller μ (mew)! ＾• ω •＾',
+    'CS C8, CS 61A, CS 61B'
+  ),
+  new Officer(
+    'Neil Lingarkar',
+    'Wed 6PM-7PM',
+    neilImg,
+    ':thinking:'
+  ),
+  new Officer(
+    'Parth Singhal',
+    'Mon 1PM-2PM',
+    parthImg,
+    'Random powers: Levitation, Time',
+    'CS C8, CS 61A, STAT 140'
+  ),
+  new Officer(
+    'Ray Pan',
+    'Mon 11AM-12PM',
+    rayImg,
+    'Where did I go wrong'
+  ),
+  new Officer(
+    'Robert Quitt',
+    'Tue 2PM-3PM',
+    robertImg,
+    'I\'d just like to interject for a moment...'
+  ),
+  new Officer(
+    'Yannan Tuo',
+    'Wed 3PM-4PM',
+    yannanImg,
+    'Will sing for food (will sing regardless)'
+  ),
+  new Officer(
     'Yitz Deng',
-    'Tue 4PM-5PM',
+    'Fri 11AM-12PM',
     yitzImg,
-    '"GIF is pronounced like gift but without the t."'
+    'GIF is pronounced like gift but without the t.',
+    'CS 61A, CS 61B, CS 61C, CS 70, CS 170, CS 174, CS 188, \
+    EE 16A, MATH 54, MATH 110, MATH 113, MATH 128A, MATH 104, \
+    STAT 133, STAT 134, STAT 154, STAT 155'
   )
 ];
 
