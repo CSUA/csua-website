@@ -36,7 +36,7 @@ let officers = [
     'Mon 11AM-12PM',
     benjaminImg,
     '"Ask me about my sick skills in Super Smash Bros Melee!"',
-    'CS61A'
+    'CS61C'
   ),
   new Officer(
     'Caleb Wyllie',

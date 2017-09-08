@@ -28486,18 +28486,18 @@ var _OfficerCreator = function (_React$Component) {
                 'OH:\xA0',
                 officer.hours
               ),
-              officer.tutorSubjects ? React.createElement(
-                'p',
-                { className: 'name subheader' },
-                'Tutors:\xA0',
-                officer.tutorSubjects
-              ) : null,
               React.createElement(_lib.Divider, { horizontal: true, margin: true }),
               React.createElement(
                 'p',
                 null,
                 officer.quote
-              )
+              ),
+              officer.tutorSubjects ? React.createElement(
+                'small',
+                null,
+                'Tutors For:\xA0',
+                officer.tutorSubjects
+              ) : null
             )
           )
         ));
