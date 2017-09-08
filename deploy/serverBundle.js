@@ -27657,7 +27657,7 @@ module.exports = __webpack_require__.p + "static/images/officers/Jason_Yeung-02b
 /* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-7f8dfc5b04c024fa02512a3790067fe6.jpg";
+module.exports = __webpack_require__.p + "static/images/officers/Jessica_Kuo-5063416b8b443a8a3dde0c442cdb7479.jpg";
 
 /***/ }),
 /* 288 */
