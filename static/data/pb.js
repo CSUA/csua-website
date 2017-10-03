@@ -4,7 +4,8 @@ import jonathanImg from 'static/images/pb/Jonathan_Tan.jpg';
 import jasonImg from 'static/images/pb/Jason_Ji.jpg';
 import rayImg from 'static/images/pb/Ray_Pan.jpg';
 import yitzImg from 'static/images/pb/Yitz_Deng.jpg';
-import emilyImg from 'static/images/pb/Emily_Gosti.jpg';
+import robertImg from 'static/images/pb/Robert_Quitt.jpg';
+import jessicaImg from 'static/images/pb/Jessica_Kuo.jpg';
 
 class PolitburoMember {
   constructor(role, name, email, img, description, pitch) {
@@ -20,13 +21,13 @@ class PolitburoMember {
 let pb = [
   new PolitburoMember(
     'President',
-    'Megan Zhu',
+    'Jonathan Tan',
     'president@csua.berkeley.edu',
-    meganImg,
+    jonathanImg,
     'The President leads meetings and represents the CSUA in its duties as the\
       undergraduate computer science students\' representative body. The President\
       liaisons with the University, faculty, staff, and other student organizations.',
-    'Please contact Megan for general questions or concerns about the CSUA.'
+    'Please contact Jonathan for general questions or concerns about the CSUA.'
   ),
   new PolitburoMember(
     'VP - Industry Relations',
@@ -44,9 +45,9 @@ let pb = [
   ),
   new PolitburoMember(
     'VP - Technology',
-    'Jonathan Tan',
+    'Robert Quitt',
     'vp@csua.berkeley.edu',
-    jonathanImg,
+    robertImg,
     'The VP of Technology administers and maintains the technical\
       resources of the CSUA, such as the computer equipment,\
       servers, and list-serves. The VP is also the head of our\
@@ -54,7 +55,7 @@ let pb = [
       services. The VP solves or delegates the solving of any\
       technical issues.',
     'If you have any questions about your account or the CSUA\
-      servers or software, please contact Jonathan.'
+      servers or software, please contact Robert.'
   ),
   new PolitburoMember(
     'Secretary/Treasurer',
@@ -97,16 +98,16 @@ let pb = [
   ),
   new PolitburoMember(
     'Outreach',
-    'Emily Gosti',
+    'Jessica Kuo',
     'outreach@csua.berkeley.edu',
-    emilyImg,
+    jessicaImg,
     'The Outreach chair maintains or delegates the maintenance\
       of the website and various social media accounts. The\
       Outreach chair also publicizes all CSUA events to the\
       student body, promotes interaction between current students\
       and alumni, and welcomes new members.',
     'If you are a student interested in joining the CSUA,\
-      feel free to reach out to Emily.'
+      feel free to reach out to Jessica.'
   )
 ];
 

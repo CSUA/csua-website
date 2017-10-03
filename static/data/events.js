@@ -16,7 +16,7 @@ let qualcommEvent = new Event(
   '12PM - 1PM',
   'Qualcomm’s mobile technology is connecting the world in ways we neverthought possible. Come learn about these emerging technologies and how Qualcomm Graphics innovation is bringing these to our daily lives.',
   'https://www.facebook.com/events/115035072501800/'
-)
+);
 
 let riotEvent = new Event(
   'Riot Tech Talk',
@@ -25,7 +25,7 @@ let riotEvent = new Event(
   '7PM - 9PM',
   'Riot Games is looking for the next generation of Software Engineers! As the most played PC game in the world, League of Legends boasts over 100 million players every month. We’re looking for humble but ambitious, razor-sharp professionals who can teach us a thing or two. We promise to return the favor. Like us, you take play seriously; you’re passionate about games. We embrace those who see things differently, aren’t afraid to experiment, and who have a healthy disregard for constraints. ',
   'https://www.facebook.com/events/1739631732760887/'
-)
+);
 
 let riotLanEvent = new Event(
   'Riot LAN Party - Hosted by Berkeley Legends',
@@ -34,7 +34,7 @@ let riotLanEvent = new Event(
   '7PM',
   'Come out to meet and play games with Rioters on a casual level -- expect pizza, board games, and a 1v1 tournament where the top 5 victors will receive figurines!',
   'https://www.facebook.com/events/1441722959209903'
-)
+);
 
 let merakiEvent = new Event(
   'Meraki Tech Talk',
@@ -42,10 +42,20 @@ let merakiEvent = new Event(
   'TBD',
   'TBD',
   'TBD'
-)
+);
+
+let profDev = 
+new Event(
+  'Professional Development',
+  'Wozniak Lounge',
+  'Saturday - 9/9',
+  '2PM - 4PM',
+  'Learn how to break into industry and land your first job or internship.',
+  'https://www.facebook.com/events/1293138030812322/'
+);
 
 let events = [
-  qualcommEvent,
+  profDev,
   riotEvent,
   riotLanEvent,
   merakiEvent

@@ -11,7 +11,7 @@ import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 
-var port = 8081;
+var port = 8443;
 var legacyPort = 8080;
 
 global.window = {

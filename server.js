@@ -50,6 +50,7 @@ const app = express();
 const sslServer = https.createServer(credentials, app);
 
 app.all('*', function(req, res, next){
+  console.log('Ping');
   if (req.path.startsWith('/newuser') || req.path.startsWith('/computers')) {
     res.redirect('https://' + req.hostname + ':' + legacyPort + req.path);
     return;

@@ -8,7 +8,7 @@ import jasonImg from 'static/images/officers/Jason_Ji.jpg';
 import jasonYImg from 'static/images/officers/Jason_Yeung.jpg';
 import jessicaImg from 'static/images/officers/Jessica_Kuo.jpg';
 import jimmyImg from 'static/images/officers/Jimmy_Kim.jpg';
-import jonathanImg from 'static/images/officers/Jonathan_Tann.JPG';
+import jonathanImg from 'static/images/officers/Jonathan_Tan.jpg';
 import juntaiImg from 'static/images/officers/Juntai_Zheng.jpg';
 import lorenImg from 'static/images/officers/Loren_McIntyre.jpg'
 import meganImg from 'static/images/officers/Megan_Zhu.jpg';
@@ -33,26 +33,26 @@ class Officer {
 let officers = [
   new Officer(
     'Anna Brewer',
-    'TBD',
+    'Thu 2PM-3PM',
     annaImg,
     '...'
   ),
   new Officer(
     'Ashley Chien',
-    'Fri 12PM-1PM',
+    'Wed 1PM-2PM',
     ashleyImg,
     'Meow meow meow meow meow'
   ),
   new Officer(
     'Benjamin Li',
-    'Tue 4PM-5PM',
+    'Thu 12PM-1PM',
     benjaminImg,
     'Ask me about my sick skills in Super Smash Bros Melee!',
     'CS 61C, CS 70, CS 188'
   ),
   new Officer(
     'Charlie Tian',
-    'Mon 6PM-7PM',
+    'Mon 4PM-5PM',
     charlieImg,
     'hiu machines',
     'CS 61A, CS 70, CS 188, EE 16B, MATH 53, MATH 54, MATH 110, MATH 113'
@@ -78,7 +78,7 @@ let officers = [
   ),
   new Officer(
     'Jessica Kuo',
-    'Thu 11AM-12PM',
+    'Tue 11AM-12PM',
     jessicaImg,
     'Biology tells you you\'re 70% water, chemistry tells you\
       you\'re 60% oxygen, and physics tells you you\'re 99.99%\
@@ -101,7 +101,8 @@ let officers = [
     'Juntai Zheng',
     'Wed 2PM-3PM',
     juntaiImg,
-    'real coders type with only their index fingers'
+    'real coders type with only their index fingers',
+    'CS 61B, CS 61C, CS 70'  
   ),
   new Officer(
     'Loren McIntyre',
@@ -119,7 +120,7 @@ let officers = [
   ),
   new Officer(
     'Michelle Hsueh',
-    'Thu 4PM-5PM',
+    'Mon 5PM-6PM',
     michelleImg,
     'Two kittens are on a roof. Which one slides off first? \
     The one with the smaller μ (mew)! ＾• ω •＾',
@@ -142,7 +143,8 @@ let officers = [
     'Ray Pan',
     'Mon 11AM-12PM',
     rayImg,
-    'Where did I go wrong'
+    'Where did I go wrong',
+    'CS 61A, CS 61B, CS 70, EE 16A, Math 54'
   ),
   new Officer(
     'Robert Quitt',
@@ -152,9 +154,10 @@ let officers = [
   ),
   new Officer(
     'Yannan Tuo',
-    'Wed 3PM-4PM',
+    'Thu 5PM-6PM',
     yannanImg,
-    'Will sing for food (will sing regardless)'
+    'Will sing for food (will sing regardless)',
+    'CS 61A, CS 61B, EE 16A, EE 16B, Math 54'
   ),
   new Officer(
     'Yitz Deng',
