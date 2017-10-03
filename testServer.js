@@ -11,9 +11,8 @@ import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 
-var port = 8443;
 var legacyPort = 8080;
-const socket = '/run/node/node.sock';
+const socket = process.env.socket || '/run/node/node.sock';
 
 global.window = {
   addEventListener: () => {},
