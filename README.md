@@ -6,6 +6,16 @@ Featuring the horrors of Node.js
 
 - Update the files in ./static/data
 
+## Getting Started
+
+- `git clone https://github.com/CSUA/csua-website`
+- `git checkout -B "${BRANCH_NAME}"
+- Make changes and commit them, e.g
+- `touch memes.txt`
+- `git add memes.txt`
+- `git commit -m "I added a text file of memes."`
+- git push
+
 ## Developer Guide (Frontend)
 
 - Nonexistant
