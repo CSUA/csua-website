@@ -9,15 +9,15 @@ Featuring the horrors of Node.js
 ## Getting Started
 
 - Navigate to where you want to clone the website. Clone it, get into it, make a new branch, make changes, push that branch, and create a pull request for that branch. For example,
-  - `git clone https://github.com/CSUA/csua-website` #clone the website
+  - `git clone https://github.com/CSUA/csua-website`: clone the website
   - `cd csua-website`
-  - `git checkout -B "${BRANCH_NAME}"` #creates a new branch and checks it out (switches to it)
+  - `git checkout -B "${BRANCH_NAME}"`: creates a new branch and checks it out (switches to it)
   - Make changes and commit them, e.g
     - `touch memes.txt`
     - `git add memes.txt`
     - `git commit -m "I added a text file of memes."`
     - or any other series of changes
-  - `git push --set-upstream origin ${BRANCH_NAME}` #if you try pushing without setting upstream, it'll tell you do git gud and do this
+  - `git push --set-upstream origin ${BRANCH_NAME}`: if you try pushing without setting upstream, it'll tell you do git gud and do this
   - now create a pull request (PR) from your branch to master on Github
 
 ## Developer Guide (Frontend)
