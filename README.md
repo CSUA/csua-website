@@ -9,7 +9,7 @@ Featuring the horrors of Node.js
 ## Getting Started
 
 - `git clone https://github.com/CSUA/csua-website`
-- `git checkout -B "${BRANCH_NAME}"
+- `git checkout -B "${BRANCH_NAME}"`
 - Make changes and commit them, e.g
 - `touch memes.txt`
 - `git add memes.txt`
