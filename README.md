@@ -14,7 +14,8 @@ Featuring the horrors of Node.js
 - `touch memes.txt`
 - `git add memes.txt`
 - `git commit -m "I added a text file of memes."`
-- git push
+- git push --set-upstream origin ${BRANCH_NAME}
+- now create a PR from your branch to master on Github
 
 ## Developer Guide (Frontend)
 
