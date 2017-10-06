@@ -13,9 +13,9 @@ Featuring the horrors of Node.js
   - `cd csua-website`
   - `git checkout -B "${BRANCH_NAME}"`: creates a new branch and checks it out (switches to it)
   - Make changes and commit them, e.g
-    - `touch memes.txt`
-    - `git add memes.txt`
-    - `git commit -m "I added a text file of memes."`
+    - `touch documentation`
+    - `git add documentation`
+    - `git commit -m "I added documentation."`
     - or any other series of changes
   - `git push --set-upstream origin ${BRANCH_NAME}`: if you try pushing without setting upstream, it'll tell you do git gud and do this
   - now create a pull request (PR) from your branch to master on Github
