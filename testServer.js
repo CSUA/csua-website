@@ -11,8 +11,8 @@ import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 
+var port = 8081;
 var legacyPort = 8080;
-const socket = process.env.socket || '/run/node/node.sock';
 
 global.window = {
   addEventListener: () => {},
@@ -74,13 +74,7 @@ app.use(express.static('./public'));
 
 app.get('*', sendBase);
 
-server.listen(
-  socket, () => console.log('Node/express test server listening on ' + socket)
+server.listen(port,
+  () => console.log('Node/express test server started on port ' + port)
 );
 
-server.on('listening', function() { return fs.chmod(socket, '0777') });
-server.on('error', function(e) {
-  if (e.code !== 'EADDRINUSE') throw e;
-  fs.unlinkSync(socket);
-  server.listen(socket, () => console.log('Socket ' + socket + ' in use, attempting unlink'));
-});
