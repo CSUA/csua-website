@@ -44,6 +44,17 @@ function sendBase(req, res, next) {
 const app = express();
 const server = http.createServer(app);
 
+// Reverse proxy to django site
+const httpProxy = require('http-proxy');
+const apiProxy = httpProxy.createProxyServer();
+const djangoServer = 'http://localhost:8000';
+app.all("/media/*", function(req, res, next) {
+    apiProxy.web(req, res, {target: djangoServer});
+});
+app.all("/json/*", function(req, res, next) {
+    apiProxy.web(req, res, {target: djangoServer});
+});
+
 app.all('*', function(req, res, next){
   if (req.path.startsWith('/newuser') || req.path.startsWith('/computers')) {
     res.redirect('https://' + req.hostname + ':' + legacyPort + req.path);
@@ -77,4 +88,3 @@ app.get('*', sendBase);
 server.listen(port,
   () => console.log('Node/express test server started on port ' + port)
 );
-

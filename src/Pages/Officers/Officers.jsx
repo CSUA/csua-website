@@ -3,9 +3,13 @@ import * as React from 'react';
 import _PaperBorder from './_PaperBorder';
 import _OfficerCreator from './_OfficerCreator';
 
+/*
+  Props:
+    - officers <array<object>>: see static/data/officers for structure.
+*/
 class Officers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.render = this.render.bind(this);
   }
 
@@ -23,7 +27,7 @@ class Officers extends React.Component {
           <br/>
         </div>
         <div className={'info-area'}>
-          <_OfficerCreator/>
+          <_OfficerCreator officers={this.props.officers}/>
         </div>
       </div>
     );
