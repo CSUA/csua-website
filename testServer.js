@@ -46,21 +46,23 @@ const server = http.createServer(app);
 
 // Reverse proxy to django site
 const httpProxy = require('http-proxy');
-const apiProxy = httpProxy.createProxyServer();
-const djangoServer = 'http://localhost:8000';
-app.all("/media/*", function(req, res, next) {
-    apiProxy.web(req, res, {target: djangoServer});
+const apiProxy = httpProxy.createProxyServer({
+  target: 'https://www.csua.berkeley.edu:8080',
+  changeOrigin: true,
 });
-app.all("/json/*", function(req, res, next) {
-    apiProxy.web(req, res, {target: djangoServer});
+app.all("/media/*", function(req, res) {
+    apiProxy.web(req, res);
+});
+app.all("/api/*", function(req, res) {
+    apiProxy.web(req, res);
 });
 
 app.all('*', function(req, res, next){
   if (req.path.startsWith('/newuser') || req.path.startsWith('/computers')) {
     res.redirect('https://' + req.hostname + ':' + legacyPort + req.path);
-    return;
+  } else {
+    next();
   }
-  next();
 });
 
 app.use(favicon(path.join(__dirname, '/../public/static/images/logos/favicon.ico')));

@@ -29,6 +29,7 @@ class _OfficerCreator extends React.Component {
               <LazyLoad debounce={false} throttle={50}>
                 <img src={officer.img}/>
               </LazyLoad>
+              <div className={'dummy'}></div>
             </CardImageArea>
             <CardTextArea>
               <p className={'title'}>{officer.name}</p>

@@ -27,7 +27,6 @@ class Pages extends React.Component {
 
   componentDidMount() {
     Ajax.requestDbData().then(response => {
-      console.log(response);
       this.setState({
         data: response.data
       });
