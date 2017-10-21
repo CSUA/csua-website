@@ -71,7 +71,9 @@ module.exports = [
           {
             loader: 'image-webpack-loader',
             query: {
-              progressive: true,
+              mozjpeg: {
+                progressive: true,
+              },
               optipng: {
                 optimizationLevel: 7
               },
@@ -99,7 +101,6 @@ module.exports = [
       }
     }),
     new UglifyEsPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CompressionPlugin({
       asset: "[path].gz[query]",
@@ -163,7 +164,9 @@ module.exports = [
           {
             loader: 'image-webpack-loader',
             query: {
-              progressive: true,
+              mozjpeg: {
+                progressive: true,
+              },
               optipng: {
                 optimizationLevel: 7
               },

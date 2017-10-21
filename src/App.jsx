@@ -9,7 +9,7 @@ import {Content} from 'yui-md/lib/Content';
 import {reducer} from './reducer';
 
 import {Header} from './Header';
-import {Pages} from './Pages';
+import {PagesContainer} from './Pages';
 import {Footer} from './Footer';
 import {Flyer} from './Flyer';
 
@@ -29,7 +29,7 @@ class App extends React.Component {
         <div className={'app-root'}>
           <Header/>
           <Content footerComponent={<Footer/>}>
-            <Pages/>
+            <PagesContainer/>
           </Content>
         </div>
       </Route>

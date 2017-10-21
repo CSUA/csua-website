@@ -84,11 +84,11 @@ class About extends React.Component {
                   <CardTextArea>
                     <p className={'centered title'}>Who We Are</p>
                     <Icon className={'centered'}>face</Icon>
-                    <p>We are a group of smart, enthusiastic,
-                      and fun-loving EECS and CS students who are passionate about
+                    <p>We are a group of smart, enthusiastic, and fun-loving
+                      students from all majors (not just EECS and CS) who are passionate about
                       computer science. We are researchers, TAs, GSIs, hackers, hardware
                       gurus, open-sourcers, professionals, geeks, women, men, and in between.
-                      But most importantly, we're proud members of the CS community.
+                      Most importantly, we are proud members of the CS community.
                     </p>
                   </CardTextArea>
                 </Card>

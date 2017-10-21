@@ -10,7 +10,7 @@ import {_PaperBorder} from './_PaperBorder';
 //These resolve to image strings that webpack outputs
 import pbImg from 'static/images/pb/pb.jpg';
 
-class Politburo extends React.Component {
+class Politburo extends React.PureComponent {
   constructor() {
     super();
     this.bindAllMethods();
@@ -39,7 +39,7 @@ class Politburo extends React.Component {
               <p>Newly elected Politburo members in the Wozniak Lounge.</p>
             </CardTextArea>
           </Card>
-          <_PolitburoCreator/>
+          <_PolitburoCreator remote={this.props.pb}/>
         </div>
       </div>
     );

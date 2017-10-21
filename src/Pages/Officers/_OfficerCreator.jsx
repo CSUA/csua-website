@@ -7,7 +7,6 @@ import {Row, Col, Divider} from 'yui-md/lib';
 import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
 import LazyLoad from 'react-lazy-load';
 
-//import officerData from 'static/data/officers';
 /*
   Props:
     - officers <array<object>>: see static/data/officers for structure.
@@ -60,9 +59,9 @@ class _OfficerCreator extends React.Component {
   }
 }
 
-// _OfficerCreator.defaultProps = {
-//   officers: officerData
-// };
+_OfficerCreator.defaultProps = {
+  officers: []
+};
 
 _OfficerCreator = Guac(_OfficerCreator);
 

@@ -3,11 +3,13 @@ import * as React from 'react';
 import _PaperBorder from './_PaperBorder';
 import _OfficerCreator from './_OfficerCreator';
 
+import officers from 'static/data/officers';
+
 /*
   Props:
     - officers <array<object>>: see static/data/officers for structure.
 */
-class Officers extends React.Component {
+class Officers extends React.PureComponent {
   constructor(props) {
     super(props);
     this.render = this.render.bind(this);
@@ -20,10 +22,15 @@ class Officers extends React.Component {
         <div className={'title-area'}>
           <h3 className={'centered page-title'}>Officers</h3>
           <p className={'centered header'}>Tutoring&emsp;·&emsp;Advising&emsp;·&emsp;Leading</p>
-          <p className={'centered subheader'}>Our officers are here to make your
+          <p className={'centered subheader'}>
+            Our officers are here to make your
             undergraduate computer science experience the best it can be. Need
             tutoring? Want help on a personal project? Looking for a job? Want
-            to find your community? Come visit us in 311 Soda!</p>
+            to find your community? Come visit us in 311 Soda!
+            <br/>
+            For a calendar view of office hours, visit our&nbsp;
+            <a href={officers.officeHours}>office hours sheet</a>.
+          </p>
           <br/>
         </div>
         <div className={'info-area'}>

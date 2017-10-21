@@ -8,6 +8,7 @@ import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
 import LazyLoad from 'react-lazy-load';
 
 import pb from 'static/data/pb';
+import defaultImg from 'static/images/officers/cardigan.jpg';
 /*
   Props:
     - pb <array>: see static/data/pb for structure.
@@ -18,25 +19,29 @@ class _PolitburoCreator extends React.Component {
     this.bindAllMethods();
   }
 
-  calcPolitburoComponents(props) {
-    let pb = props.pb;
+  calcPolitburoComponents(pb, remote) {
     let pbComponents = [];
     for (var i in pb) {
       let pbMember = pb[i];
+      let name = remote[pbMember.position] ?
+        remote[pbMember.position].name : 'Phillip E. Nunez';
+      let firstName = name.split(' ')[0];
+      let img = remote[pbMember.position] ?
+        remote[pbMember.position].img : defaultImg
       pbComponents.push(
         <Card key={i}>
           <CardImageArea xs={12} md={6} lg={5}>
             <LazyLoad debounce={false} throttle={50}>
-              <img src={pbMember.img}/>
+              <img src={img}/>
             </LazyLoad>
           </CardImageArea>
           <CardTextArea xs={12} md={6} lg={7}>
-            <p className={'header'}>{pbMember.role}</p>
-            <p className={'name subheader'}>{pbMember.name}</p>
-            <p className={'email subheader'}>{pbMember.email}</p>
+            <p className={'header'}>{pbMember.title}</p>
+            <p className={'name subheader'}>{name}</p>
+            <p className={'email subheader'}>{pbMember.position}@csua.berkeley.edu</p>
             <Divider horizontal margin/>
             <p>{pbMember.description}</p>
-            <p>{pbMember.pitch}</p>
+            <p>{pbMember.pitch.replace('[name]', firstName)}</p>
           </CardTextArea>
         </Card>);
     }
@@ -46,14 +51,15 @@ class _PolitburoCreator extends React.Component {
   render() {
     return (
       <div>
-        {this.calcPolitburoComponents(this.props)}
+        {this.calcPolitburoComponents(this.props.pb, this.props.remote)}
       </div>
     );
   }
 }
 
 _PolitburoCreator.defaultProps = {
-  pb: pb
+  pb: pb,
+  remote: {}
 };
 
 _PolitburoCreator = Guac(_PolitburoCreator);
