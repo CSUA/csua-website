@@ -74,9 +74,28 @@ let csuaTutoring = new Event(
   'Need help for a class but don\'t know where to find it? Office hours too full? The CSUA is now offering tutoring services for any Berkeley student! Just find an officer who tutors for the class you want and show up to their office hours! Tutoring available every week.',
   'https://www.csua.berkeley.edu/about/officers'
  );
+let ucbStartupFair = new Event(
+	'UCB Startup Fair',
+	'Pauley Ballroom',
+	'Tuesday, 10/24',
+	'11 AM - 3:30 PM',
+	'Interested in a position at a startup? Want to work at a smaller company but don\'t know where to look? The UCB Startup Fair is back again! \n Student-run by IEEE, HKN, and CSUA, students are introduced to small tech companies that typically rely on personal connections for hiring. It\'s a great way for students to find full-time and internship positions! Attendance is free for all UCB students, so please bring your student ID. You must register for entry here: htt[://www.ucbstartupfair.com/student/register',
+	'https://www.facebook.com/events/223576304840572/'
+);
+
+let facebookOpenHouse = new Event(
+	'Facebook Infrastructure Open House',
+	'Menlo Park',
+	'Wednesday, 11/8',
+	'6 PM - 9 PM',
+	'Facebook invites the CSUA to their 5th Annual Infrastructure Open House! Join them for a night of exploring Connectivity Labs, Infrastructure Foundation, Production Engineering, Security Engineering, and more! Learn more about their available opportunities at this event',
+	'http://fbinfraopenhouse17.splashthat.com/2'
+);
+
 //Removing old events from the list, maybe they can be archived?
+//Facebook even seems sort of private or CSUA exclusive, leaving it off the website list
 let events = [
-  gm2,
+  ucbStartupFair,
   csuaTutoring
 ];
 
@@ -143,7 +162,6 @@ let recruiting = [
 ];
 
 let generalMeetings = [
-  gm2
 ]
 
 export default events;
