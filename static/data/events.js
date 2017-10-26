@@ -95,7 +95,6 @@ let facebookOpenHouse = new Event(
 //Removing old events from the list, maybe they can be archived?
 //Facebook even seems sort of private or CSUA exclusive, leaving it off the website list
 let events = [
-  ucbStartupFair,
   csuaTutoring
 ];
 
