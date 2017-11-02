@@ -6,8 +6,9 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/webserver/csua-website
-ExecStart=/usr/local/bin/webpack -w
-Restart=on-abort
+ExecStart=/usr/local/bin/webpack -w -p
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

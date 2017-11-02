@@ -1,4 +1,4 @@
-import {Pages} from './Pages';
+import {PagesContainer} from './PagesContainer';
 
-export default Pages;
-export {Pages};
+export default PagesContainer;
+export {PagesContainer};

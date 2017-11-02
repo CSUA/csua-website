@@ -4,7 +4,9 @@ Featuring the horrors of Node.js
 
 ## Maintainer Guide
 
-- Update the files in ./static/data
+- Go to https://www.csua.berkeley.edu:8080/admin/ to edit
+  officer/sponsor/pb/event data!
+- Only a few things left to update in `./static/data`
 
 ## Contribution Process
 

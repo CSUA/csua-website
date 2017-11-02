@@ -8,9 +8,6 @@
       flex: 1 1 auto;
       .card-image-area {
         position: relative;
-        .dummy {
-          margin-top: 100%;
-        }
         img {
           object-fit: cover;
           max-width: 100%;
@@ -20,6 +17,11 @@
           bottom: 0;
           left: 0;
           right: 0;
+        }
+        ::after {
+          margin-top: 100%;
+          display: block;
+          content: " ";
         }
       }
     }
