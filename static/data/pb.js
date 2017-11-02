@@ -1,4 +1,3 @@
-
 class PolitburoMember {
   constructor(position, title, description, pitch) {
     this.position = position;
