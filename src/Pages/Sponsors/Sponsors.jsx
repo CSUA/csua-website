@@ -23,7 +23,7 @@ class Sponsors extends React.Component {
           <br/>
         </div>
         <div className={'info-area'}>
-          <_SponsorCreator/>
+          <_SponsorCreator sponsors={this.props.sponsors}/>
         </div>
       </div>
     );

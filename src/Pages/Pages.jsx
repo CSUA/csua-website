@@ -28,17 +28,22 @@ class Pages extends React.Component {
       <div className={'page'}>
         <Route path='*' render={() => {window.scrollTo(0, 0); return null;}}/>
         <Switch>
-          <Route path='/about/politburo' render={()=><Politburo pb={this.props.value.pb}/>}/>
-          <Route path='/about/officers' render={()=><Officers officers={this.props.value.officers}/>}/>
+          <Route path='/about/politburo'
+            render={()=><Politburo pb={this.props.value.pb}/>}/>
+          <Route path='/about/officers'
+            render={()=><Officers officers={this.props.value.officers}/>}/>
           <Route path='/about/constitution' component={Constitution}/>
           <Route path='/events/workshops' component={Workshops}/>
           <Route path='/events/recruiting' component={Recruiting}/>
           <Route path='/events/gms' component={GeneralMeetings}/>
-          <Route path='/events' component={Events}/>
-          <Route path='/industry/sponsors' component={Sponsors}/>
+          <Route path='/events'
+            render={()=><Events events={this.props.value.events}/>}/>
+          <Route path='/industry/sponsors'
+            render={()=><Sponsors sponsors={this.props.value.sponsors}/>}/>
           <Route path='/industry' component={Industry}/>
           <Route path='/join' component={Join}/>
-          <Route path='/' component={About}/>
+          <Route path='/'
+            render={()=><About events={this.props.value.events}/>}/>
         </Switch>
       </div>
     );

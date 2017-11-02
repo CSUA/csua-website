@@ -29,7 +29,7 @@ class Events extends React.Component {
           <br/>
         </div>
         <div className={'info-area'}>
-          <EventCalendar verbose/>
+          <EventCalendar events={this.props.events} verbose/>
         </div>
       </div>
     );

@@ -8,9 +8,6 @@ import {Card, CardTextArea} from 'yui-md/lib/Card';
 import {Icon} from 'yui-md/lib/Icon';
 import {Divider} from 'yui-md/lib/Divider';
 
-import {events} from 'static/data/events';
-
-
 /*
   Props:
   - verbose <boolean>: if verbose, shows description as well.
@@ -80,7 +77,7 @@ class EventCalendar extends React.Component {
 }
 
 EventCalendar.defaultProps = {
-  events: events,
+  events: [],
   verbose: false,
   small: false,
   name: 'Calendar'

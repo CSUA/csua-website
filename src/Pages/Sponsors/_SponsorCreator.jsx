@@ -5,8 +5,6 @@ import {Row, Col} from 'yui-md/lib';
 import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
 import LazyLoad from 'react-lazy-load';
 
-import sponsors from 'static/data/sponsors';
-
 /*
   Props:
   - sponsors <array<object>>: see static/data/sponsors for structure.
@@ -51,7 +49,7 @@ class _SponsorCreator extends React.Component {
 }
 
 _SponsorCreator.defaultProps = {
-  sponsors: sponsors
+  sponsors: []
 };
 
 _SponsorCreator = Guac(_SponsorCreator);

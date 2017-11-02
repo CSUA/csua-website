@@ -7,7 +7,10 @@ class PagesContainer extends React.Component {
   constructor() {
     super();
     this.state = { 'data': {
-      'officers': []
+      'officers': [],
+      'pb': {},
+      'events': [],
+      'sponsors': [],
     } };
   }
 

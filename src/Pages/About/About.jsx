@@ -121,7 +121,7 @@ class About extends React.Component {
                 </Card>
               </Col>
               <Col xs={12} md={6}>
-                <EventCalendar small/>
+                <EventCalendar small name={'Upcoming Events'} events={this.props.events}/>
               </Col>
               <Col xs={12} lg={8}>
                 <Card>
