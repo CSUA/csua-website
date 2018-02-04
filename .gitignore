@@ -84,3 +84,4 @@ deploy
 public/bundle*
 public/static/
 .DS_Store
+.idea

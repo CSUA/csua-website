@@ -24,6 +24,11 @@ class _OfficerCreator extends React.Component {
       officerComponents.push(
         <Col key={i} xs={6} lg={4}>
           <Card>
+              <CardImageArea className="officerimg2">
+                  <LazyLoad debounce={false} throttle={50}>
+                      <img src={officer.img2 || officer.img}/>
+                  </LazyLoad>
+              </CardImageArea>
             <CardImageArea>
               <LazyLoad debounce={false} throttle={50}>
                 <img src={officer.img}/>
