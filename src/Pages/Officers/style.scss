@@ -6,8 +6,16 @@
   .info-area {
     .card {
       flex: 1 1 auto;
+      .card-content {
+        position: relative;
+      }
       .card-image-area {
         position: relative;
+        :hover {
+          img {
+            opacity: 0;
+          }
+        }
         img {
           object-fit: cover;
           max-width: 100%;
@@ -17,12 +25,18 @@
           bottom: 0;
           left: 0;
           right: 0;
+          will-change: opacity;
+          opacity: 1;
+          transition: opacity .3s;
         }
         ::after {
           margin-top: 100%;
           display: block;
           content: " ";
         }
+      }
+      .card-image-area.officerimg2 {
+        position: absolute;
       }
     }
   }
