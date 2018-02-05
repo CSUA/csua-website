@@ -11,6 +11,7 @@
       }
       .card-image-area {
         position: relative;
+        min-height: 200px;
         :hover {
           img {
             opacity: 0;
