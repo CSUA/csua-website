@@ -11,5 +11,5 @@ class Officer {
 }
 
 export default {
-  officeHours: 'https://docs.google.com/spreadsheets/d/1CtJUy0QdcrVktfMqcwAaTGB0tXBYtgdXZomNupH1NHE'
+  officeHours: 'https://docs.google.com/spreadsheets/d/15kuC4Q6HmhRSt5BTQCzKbWR4dM_M9FJaazRNqBZnq1k'
 }
