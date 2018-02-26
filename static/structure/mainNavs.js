@@ -11,7 +11,8 @@ class Nav {
 let aboutNavs = [
   new Nav('Politburo', paths.politburo),
   new Nav('Officers', paths.officers),
-  new Nav('Constitution', paths.constitution)
+  new Nav('Constitution', paths.constitution),
+  new Nav('Tutoring', paths.tutoring)
 ];
 
 let eventNavs = [
