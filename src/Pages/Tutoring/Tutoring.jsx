@@ -19,6 +19,9 @@ const CALENDAR_ID = "berkeley.edu_ovluroab46af2sbup6ot2h6m58@group.calendar.goog
 const API_KEY = "AIzaSyCPRfO9EWrZeIYtb2Ql2Ku31JHxBC7zORU";
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`
 let tutoring = /[\w ][ \t]*-[ \t]*[\w]/
+
+let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
+
 function getEvents(callback){
   request
     .get(url)
@@ -54,7 +57,9 @@ class Tutoring extends React.Component {
 
   componentDidMount () {
     getEvents((events) => {
-      this.setState({events});
+      if(events !== undefined){
+        this.setState({events});
+      }
     })
   }
 
@@ -71,6 +76,10 @@ class Tutoring extends React.Component {
                 {height: '60em',
                 width: '100%'}
               }
+              defaultDate={new Date()}
+              views={allViews}
+              step={60}
+              showMultiDayTimes
               events={this.state.events}/>
             </center>
     </div>
