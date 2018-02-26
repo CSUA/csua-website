@@ -18,7 +18,7 @@ BigCalendar.momentLocalizer(moment);
 const CALENDAR_ID = "berkeley.edu_ovluroab46af2sbup6ot2h6m58@group.calendar.google.com";
 const API_KEY = "AIzaSyCPRfO9EWrZeIYtb2Ql2Ku31JHxBC7zORU";
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`
-
+let tutoring = /[\w ][ \t]*-[ \t]*[\w]/
 function getEvents(callback){
   request
     .get(url)
@@ -26,7 +26,10 @@ function getEvents(callback){
       if (!err) {
         let events = [];
         JSON.parse(resp.text).items.map((event) => {
-          if(event.start !== undefined && event.end !== undefined){
+          if(event.start !== undefined 
+              && event.end !== undefined
+              && event.summary.search(tutoring) !== -1
+            ){
             events.push({
               start: new Date(event.start.dateTime),
               end: new Date(event.end.dateTime),
@@ -34,7 +37,6 @@ function getEvents(callback){
             })
         }
         })
-        console.log(events);
         callback(events)
       }
     })
