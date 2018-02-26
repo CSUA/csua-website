@@ -16,6 +16,7 @@ import {GeneralMeetings} from './GeneralMeetings';
 import {Industry} from './Industry';
 import {Sponsors} from './Sponsors';
 import {Join} from './Join';
+import {Tutoring} from './Tutoring';
 
 class Pages extends React.Component {
   constructor() {
@@ -33,6 +34,7 @@ class Pages extends React.Component {
           <Route path='/about/officers'
             render={()=><Officers officers={this.props.value.officers}/>}/>
           <Route path='/about/constitution' component={Constitution}/>
+          <Route path='/about/tutoring' component={Tutoring}/>
           <Route path='/events/workshops' component={Workshops}/>
           <Route path='/events/recruiting' component={Recruiting}/>
           <Route path='/events/gms' component={GeneralMeetings}/>

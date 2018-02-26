@@ -7,6 +7,7 @@ let paths = {
   showcase: '/showcase',
   politburo: '/about/politburo',
   officers: '/about/officers',
+  tutoring: '/about/tutoring',
   constitution: '/about/constitution',
   workshops: '/events/workshops',
   recruiting: '/events/recruiting',
