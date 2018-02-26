@@ -16,7 +16,7 @@ import request from 'superagent';
 BigCalendar.momentLocalizer(moment);
 
 const CALENDAR_ID = "berkeley.edu_ovluroab46af2sbup6ot2h6m58@group.calendar.google.com";
-const API_KEY = "INSERT_API_KEY";
+const API_KEY = "AIzaSyCPRfO9EWrZeIYtb2Ql2Ku31JHxBC7zORU";
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`
 
 function getEvents(callback){
