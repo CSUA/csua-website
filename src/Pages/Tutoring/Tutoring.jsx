@@ -76,7 +76,7 @@ class Tutoring extends React.Component {
               }
               defaultDate={new Date()}
               step={15}
-              views ={['month', 'work_week', 'day', 'agenda']}
+              views ={['work_week', 'month', 'day', 'agenda']}
               events={this.state.events}/>
             </center>
     </div>
