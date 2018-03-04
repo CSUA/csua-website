@@ -10,6 +10,7 @@ Featuring the horrors of Node.js
 
 ## Contribution Process
 
+- Make sure you have push access to the repo first. Email vp@csua.berkeley.edu or message someone on #root-staff on slack to get access.
 - Navigate to where you want to clone the website. Clone it, get into it, make a
   new branch, make changes, push that branch, and create a pull request for that
   branch. For example,
