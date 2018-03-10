@@ -27,7 +27,7 @@ function getEvents(callback){
       if (!err) {
         let events = [];
         JSON.parse(resp.text).items.map((event) => {
-          if(event.start !== undefined 
+          if(event.start !== undefined
               && event.end !== undefined
               && event.summary.search(tutoring) !== -1
             ){
@@ -49,7 +49,7 @@ class Tutoring extends React.Component {
     super();
     this.state = {
       events: []
-    } 
+    }
     this.bindAllMethods();
   }
 
@@ -63,13 +63,13 @@ class Tutoring extends React.Component {
 
   render() {
     return (
-      <div className={'constitution-page'}>
+      <div className={'tutoring-page'}>
         <_PaperBorder/>
         <h3 className={'centered page-title'}>Tutoring Calendar</h3>
         <br/>
           <Divider horizontal margin/>
           <center>
-            <BigCalendar 
+            <BigCalendar
               style={
                 {height: '60em',
                 width: '100%'}
