@@ -35,17 +35,17 @@ Featuring the horrors of Node.js
 ## Setup Dev Site on Local Machine
 
 - Install the latest version of Node and NPM (currently Node 8)
-  - On Debian/Ubuntu, set up the Node 8 PPA with
-    `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -` followed by
-    `sudo apt-get install nodejs` to actually install Node and NPM
+  - On Debian/Ubuntu, install NVM (Node Version Manager) as per
+    https://github.com/creationix/nvm#installation after which you can `nvm
+    install node`
   - Or just download the latest binaries from Node's website
 - Navigate to project directory
 - `npm install` to install dependencies
-- `node node_modules/webpack/bin/webpack.js` will bundle together website assets
-  to be deployed
+- `webpack -p` or `node node_modules/webpack/bin/webpack.js` will bundle
+  together website assets to be deployed
   - Adding the watch `-w` flag to that command lets you run it as a background
     service to regenerate the `deploy/` folder when any files are changed
-- `node deploy/testServerBundle`
+- `node deploy/testServerBundle.js` to start the server at http://localhost:8081/
 
 ## Developer Guide (Frontend) AKA How 2 edit React site
 

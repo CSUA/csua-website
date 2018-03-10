@@ -72,7 +72,7 @@ class About extends React.Component {
                       and more fun! Looking for an&nbsp;
                       <Link to={paths.industry}>internship or a job</Link>?
                       Want to learn more&nbsp;
-                      <Link to={paths.workshops}>CS skills</Link>?
+                      <Link to={paths.events}>CS skills</Link>?
                       Need help in a class? We have it all! Come to our events or visit
                       us at 311 Soda Hall to check us out.
                     </p>

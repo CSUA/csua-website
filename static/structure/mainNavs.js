@@ -11,29 +11,24 @@ class Nav {
 let aboutNavs = [
   new Nav('Politburo', paths.politburo),
   new Nav('Officers', paths.officers),
+  new Nav('Join', paths.join),
   new Nav('Constitution', paths.constitution),
   new Nav('Tutoring', paths.tutoring)
 ];
 
 let eventNavs = [
-  new Nav('Workshops', paths.workshops),
-  new Nav('Recruiting', paths.recruiting),
-  new Nav('General Meetings', paths.generalMeetings)
-  // ,
-  // new Nav('Socials', paths.socials)
-];
+  new Nav('Hackathon', paths.hackathon)
+]
 
 let industryNavs = [
-  // new Nav('Find a Job', paths.findAJob),
   new Nav('Sponsors', paths.sponsors)
 ]
 
 let mainNavs = [
-  new Nav('About', paths.about, aboutNavs),
+  new Nav('About', paths.home, aboutNavs),
   new Nav('Events', paths.events, eventNavs),
   new Nav('Industry', paths.industry, industryNavs),
   // new Nav('Showcase', paths.showcase),
-  new Nav('Join', paths.join)
 ];
 
 export default mainNavs;

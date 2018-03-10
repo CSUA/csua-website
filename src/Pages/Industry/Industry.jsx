@@ -62,10 +62,10 @@ class Industry extends React.Component {
                   <Icon className={'centered'}>school</Icon>
                   <p>If you're a student looking for a job or an internship,
                     please look at our upcoming recruiting events&nbsp;
-                    <Link to={paths.recruiting}>here</Link>. If you
+                    <Link to={paths.events}>here</Link>. If you
                     want to get exposed to skills that employers are looking for,
                     please refer to our workshops&nbsp;
-                    <Link to={paths.workshops}>here</Link>. To be featured in our
+                    <Link to={paths.events}>here</Link>. To be featured in our
                     resume book, stop by any one of our professional development
                     workshops and have your resume approved by a qualified CSUA
                     officer. Finally, opt-in to receive job offers from our

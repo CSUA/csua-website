@@ -10,13 +10,13 @@ import {Politburo} from './Politburo';
 import {Officers} from './Officers';
 import {Constitution} from './Constitution';
 import {Events} from './Events';
-import {Workshops} from './Workshops';
-import {Recruiting} from './Recruiting';
-import {GeneralMeetings} from './GeneralMeetings';
 import {Industry} from './Industry';
 import {Sponsors} from './Sponsors';
 import {Join} from './Join';
 import {Tutoring} from './Tutoring';
+import {Hackathon} from './Hackathon';
+
+import paths from 'static/structure/paths';
 
 class Pages extends React.Component {
   constructor() {
@@ -29,22 +29,20 @@ class Pages extends React.Component {
       <div className={'page'}>
         <Route path='*' render={() => {window.scrollTo(0, 0); return null;}}/>
         <Switch>
-          <Route path='/about/politburo'
+          <Route path={paths.politburo}
             render={()=><Politburo pb={this.props.value.pb}/>}/>
-          <Route path='/about/officers'
+          <Route path={paths.officers}
             render={()=><Officers officers={this.props.value.officers}/>}/>
-          <Route path='/about/constitution' component={Constitution}/>
-          <Route path='/about/tutoring' component={Tutoring}/>
-          <Route path='/events/workshops' component={Workshops}/>
-          <Route path='/events/recruiting' component={Recruiting}/>
-          <Route path='/events/gms' component={GeneralMeetings}/>
-          <Route path='/events'
+          <Route path={paths.constitution} component={Constitution}/>
+          <Route path={paths.tutoring} component={Tutoring}/>
+          <Route path={paths.events}
             render={()=><Events events={this.props.value.events}/>}/>
-          <Route path='/industry/sponsors'
+          <Route path={paths.sponsors}
             render={()=><Sponsors sponsors={this.props.value.sponsors}/>}/>
-          <Route path='/industry' component={Industry}/>
-          <Route path='/join' component={Join}/>
-          <Route path='/'
+          <Route path={paths.industry} component={Industry}/>
+          <Route path={paths.hackathon} component={Hackathon}/>
+          <Route path={paths.join} component={Join}/>
+          <Route path={paths.home}
             render={()=><About events={this.props.value.events}/>}/>
         </Switch>
       </div>
