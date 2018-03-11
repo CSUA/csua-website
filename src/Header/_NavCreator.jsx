@@ -7,8 +7,9 @@ import {Menu} from 'yui-md/lib/Menu';
 import {MenuItem} from 'yui-md/lib/MenuItem';
 import {Button, IconButton} from 'yui-md/lib/Button';
 import {provideSizeClass} from 'yui-md/lib/utils';
-import mainNavs from 'static/structure/mainNavs.js';
 import {withRouter, matchPath} from 'react-router';
+
+import mainNavs from 'static/structure/mainNavs.js';
 
 /*
   Props:
@@ -106,30 +107,27 @@ class _NavCreator extends React.Component {
 
   calcSmallNavComponents(props) {
     let navs = props.navs;
-    let navComponents = [
-    ];
-    navComponents.push(
-      <MenuItem key={-1}
-        onMouseEnter={() => {this.setMenuActive('Main', true)}}
-        onMouseLeave={() => this.setMenuActive('Main', false)}>
-        {'Main'}
-        {this.calcSubNavMenu({subnavs: navs, name: 'Main'}, 'top right', 'top left')}
-      </MenuItem>
-    )
+    let navComponents = [];
     for (var i in navs) {
       let nav = navs[i];
-      let menu = null;
-      if (nav.subnavs) {
-        menu = this.calcSubNavMenu(nav, 'top right', 'top left');
-        navComponents.push(
-          <MenuItem key={i}
-            onMouseEnter={() => {this.setMenuActive(nav.name, true)}}
-            onMouseLeave={() => this.setMenuActive(nav.name, false)}>
-            {nav.name}
-            {menu}
-          </MenuItem>
-        )
-      }
+      let newSub = {
+        name: nav.name,
+        href: nav.href,
+      };
+      let subnavs = nav.subnavs ? [newSub].concat(nav.subnavs) : [newSub];
+      let navSub = {
+        name: nav.name,
+        subnavs: subnavs,
+      };
+      let menu = this.calcSubNavMenu(navSub, 'top right', 'top left');
+      navComponents.push(
+        <MenuItem key={i}
+          onMouseEnter={() => {this.setMenuActive(nav.name, true)}}
+          onMouseLeave={() => this.setMenuActive(nav.name, false)}>
+          {nav.name}
+          {menu}
+        </MenuItem>
+      );
     }
 
     return navComponents;
