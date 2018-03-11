@@ -28,13 +28,15 @@ class _NavCreator extends React.Component {
       buttonMenuActive: false
     };
   }
-
-  calcActiveKey() {
-    for (var i in this.props.navs) {
-      if (matchPath(this.props.location.pathname, {path: this.props.navs[i].href})) {
+  calcActiveKey(navs=this.props.navs) {
+    // iterate in reverse to avoid premature matching with '/'
+    for(var i = navs.length-1; i >= 0; i--) {
+      if (matchPath(this.props.location.pathname, {path: navs[i].href})
+          || (navs[i].subnavs && this.calcActiveKey(navs[i].subnavs) >= 0)) {
         return i;
       }
     }
+    return -1;
   }
 
   setMenuActive(menuName, active) {

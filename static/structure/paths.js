@@ -1,20 +1,16 @@
 let paths = {
   home: '/',
-  about: '/about',
   events: '/events',
   industry: '/industry',
   join: '/join',
   showcase: '/showcase',
-  politburo: '/about/politburo',
-  officers: '/about/officers',
-  tutoring: '/about/tutoring',
-  constitution: '/about/constitution',
-  workshops: '/events/workshops',
-  recruiting: '/events/recruiting',
-  generalMeetings: '/events/gms',
-  socials: '/events/socials',
-  findAJob: '/industry/jobs',
-  sponsors: '/industry/sponsors'
+  politburo: '/politburo',
+  officers: '/officers',
+  tutoring: '/tutoring',
+  constitution: '/constitution',
+  sponsors: '/sponsors',
+  hackathon: '/hackathon',
+  hackathonsp18: '/hackathon/sp18'
 };
 
 export default paths;
