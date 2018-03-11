@@ -52,6 +52,8 @@ Featuring the horrors of Node.js
 - Nonexistant
 - Please write documentation here
 - https://www.youtube.com/watch?v=nnsm2UBH8qE
+- You probably want to edit the subfolders of `src/Pages`
+- Remember to include your new scss files in `src/Pages/style.scss`
 
 ## Source Tree
 

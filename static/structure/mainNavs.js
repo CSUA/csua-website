@@ -17,11 +17,11 @@ let aboutNavs = [
 ];
 
 let eventNavs = [
-  new Nav('Hackathon', paths.hackathon)
+  new Nav('Hackathon', paths.hackathon),
 ]
 
 let industryNavs = [
-  new Nav('Sponsors', paths.sponsors)
+  new Nav('Sponsors', paths.sponsors),
 ]
 
 let mainNavs = [
