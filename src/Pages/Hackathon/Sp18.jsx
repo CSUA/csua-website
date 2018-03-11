@@ -167,8 +167,12 @@ class Sp18 extends React.Component {
                     Submission:
                   </div>
                   <div className="flex">
-                    Congrats on finishing your hack! You can now submit your GitHub repo here! The judges look forward to reviewing your work!
-                    <a className="linkbutton half" href="http://goo.gl/forms/EZoXeXxMAk">Submit Project</a>
+                    <div>
+                      Congrats on finishing your hack! You can now submit your GitHub repo here! The judges look forward to reviewing your work!
+                    </div>
+                    <div className="half">
+                      <a className="linkbutton" href="http://goo.gl/forms/EZoXeXxMAk">Submit Project</a>
+                    </div>
                   </div>
                 </div>
               </CardTextArea>
