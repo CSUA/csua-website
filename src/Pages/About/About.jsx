@@ -20,6 +20,7 @@ import officersImg from 'static/images/Officers_FA16.jpg';
 import wozImg from 'static/images/Woz.jpg';
 import paths from 'static/structure/paths';
 import resourceGroups from 'static/data/resources';
+import noticeablyWhite from 'static/images/when-i-try-to-dance-noticeably-white.png';
 
 class About extends React.Component {
   constructor() {
@@ -52,14 +53,14 @@ class About extends React.Component {
       <div className={'about-page'}>
         <_PaperBorder/>
           <div className={'title-area'}>
-            <h1 className={'centered'}>CSUA</h1>
-            <h4 className={'centered'}>The home for all things CS.</h4>
+            <h1 className={'centered'}>Identity</h1>
+            <h4 className={'centered'}>Literacies in<br/>Language, Culture, and Society</h4>
             <div className={'centered subtitle'}>
                 <IconButton large onClick={() => animateScrollTo(window.innerHeight, {speed: 800  })} icon='keyboard_arrow_down'/>
             </div>
           </div>
           <div className={'info-area'}>
-            <h4 className={'centered'}>The Computer Science Undergraduate Association</h4>
+            <h4 className={'centered'}>Literacies of Caleb Past</h4>
             <br/>
             <Row>
               <Col xs={12} md={6}>

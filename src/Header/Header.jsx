@@ -44,9 +44,8 @@ class Header extends React.Component {
               marginBottom: '-8px'
             }}
             src={logo} />
-          <h4 style={{display: 'inline-block'}}>&nbsp;&nbsp;CSUA</h4>
+          <h4 style={{display: 'inline-block'}}>&nbsp;&nbsp;CALEB</h4>
         </a>
-        <_NavCreator/>
       </AppBar>
     );
   }
