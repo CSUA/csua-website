@@ -44,7 +44,7 @@ class Header extends React.Component {
               marginBottom: '-8px'
             }}
             src={logo} />
-          <h4 style={{display: 'inline-block'}}>&nbsp;&nbsp;CALEB</h4>
+          <h4 style={{display: 'inline-block'}}>&nbsp;&nbsp;Caleb Wyllie</h4>
         </a>
       </AppBar>
     );
