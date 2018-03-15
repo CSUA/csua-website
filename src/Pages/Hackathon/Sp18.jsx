@@ -28,7 +28,7 @@ class Sp18 extends React.Component {
             <Card>
               <CardImageArea>
                 <LazyLoad debounce={false} throttle={50}>
-                  <img src="https://www.csua.berkeley.edu:8080/static/images/events/fall2015/hackathonfa15.jpg" />
+                  <img src="https://legacy.csua.berkeley.edu/static/images/CSUA.jpg" />
                 </LazyLoad>
               </CardImageArea>
             </Card>
@@ -36,7 +36,7 @@ class Sp18 extends React.Component {
             <Col xs={12} md={6}>
             <Card>
               <CardTextArea>
-                <a className="linkbutton" href="https://www.facebook.com/events/190920791296789/">
+                <a className="linkbutton" href="https://www.facebook.com/events/186897821919982/">
                   RSVP on Facebook!
                 </a>
                 <div>
@@ -44,7 +44,7 @@ class Sp18 extends React.Component {
                     Time:
                   </div>
                   <div className="text">
-                    Hacking starts at 8:00 PM on Friday, April 1st. You will have 18 hours to hack whatever you want.
+                    The event starts at 5:30 PM on Saturday, April 14th. You will have 18 hours to hack whatever you want!
                   </div>
                 </div>
                 <div>
@@ -52,7 +52,7 @@ class Sp18 extends React.Component {
                     Judges:
                   </div>
                   <div className="text">
-                    <div className="judge">Three judges from Meraki</div>
+                    <div className="judge">TBA</div>
                   </div>
                 </div>
                 <div>
@@ -60,13 +60,16 @@ class Sp18 extends React.Component {
                     Schedule:
                   </div>
                   <div className="text">
-                    <div className="day">Friday, April 1st
-                      <div className="schedule-item">8:00 PM - Hacking Begins</div>
+                    <div className="day">Saturday, April 14th
+                      <div className="schedule-item">5:30 pm - Dinner, Opening Ceremony</div>
+                      <div className="schedule-item">6:00 pm - Hacking begins</div>
                     </div>
-                    <div className="day">Saturday, April 2nd
-                      <div className="schedule-item">2:00 PM - Hacking ends</div>
-                      <div className="schedule-item">2:30 PM - Presentations/Judging</div>
-                      <div className="schedule-item">4:00 PM - Prizes/Closing</div>
+                    <div className="day">Sunday, April 15th
+                      <div className="schedule-item">12:00 pm - Hacking ends</div>
+                      <div className="schedule-item">12:15 pm - Poster-session style judging session</div>
+                      <div className="schedule-item">1:00 pm - Finalists present</div>
+                      <div className="schedule-item">1:30 pm - Final judging</div>
+                      <div className="schedule-item">2:00 pm - Prize distribution and conclusion</div>
                     </div>
                   </div>
                 </div>
@@ -83,7 +86,17 @@ class Sp18 extends React.Component {
                     Registration:
                   </div>
                   <div className="text">
-                    Registration for the Hackathon is day-of.
+                    Before the event:
+                    <a className="linkbutton" href="https://goo.gl/forms/Oi4IBBtrdElHbd8o2">
+                      Sign up here
+                    </a>
+                    <center>and</center>
+                    <a className="linkbutton" href="https://www.facebook.com/events/186897821919982/">
+                      RSVP as <span className="going">✓ Going</span> on the facebook event
+                    </a>
+                  </div>
+                  <div className="text">
+                    Day of event: Bring your UCB Student ID!
                   </div>
                 </div>
                 <div>
@@ -114,10 +127,9 @@ class Sp18 extends React.Component {
                     Prize Pool:
                   </div>
                   <ul className="prizes">
-                    <li>Four Large HD Monitors</li>
-                    <li>Four Large HD Monitors</li>
-                    <li>Four Large HD Monitors</li>
-                    <li>Four Large HD Monitors</li>
+                    <li>TBA</li>
+                    <li>TBA</li>
+                    <li>TBA</li>
                   </ul>
                 </div>
               </CardTextArea>
@@ -131,10 +143,10 @@ class Sp18 extends React.Component {
                     Prize Rules:
                   </div>
                   <div className="text">
-                    You can code alone or in pairs or in a group of four, but we will only but giving one prize to a lone star, two prizes to a pair, and up to 4 prizes for a team of 4+ people. You'll have to distribute the prizes amongst your group.
+                    You can code alone or in groups of up to four. If your team wins, your team will receive as many prizes as there are members in your group.
                   </div>
                   <div className="text">
-                    To be eligible for prizes, you team must consist entirely of CAL undergraduates, with teams of 4 or lower receiving preference.
+                    To be eligible for prizes, you team must consist entirely of Cal undergraduates, with teams of 4 or lower receiving preference.
                   </div>
                   <div className="text">
                     There are three large prize groups. 1st place winners get first pick at the prize groups, then 2nd place group gets second pick, and 3rd place gets the final pick. This means that the 1st place winner may choose the 2nd place prize if they so desire.
@@ -171,7 +183,7 @@ class Sp18 extends React.Component {
                       Congrats on finishing your hack! You can now submit your GitHub repo here! The judges look forward to reviewing your work!
                     </div>
                     <div className="half">
-                      <a className="linkbutton" href="http://goo.gl/forms/EZoXeXxMAk">Submit Project</a>
+                      <a className="linkbutton" href="https://goo.gl/forms/Oi4IBBtrdElHbd8o2">Coming Soon!</a>
                     </div>
                   </div>
                 </div>
