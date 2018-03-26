@@ -10,7 +10,8 @@ let paths = {
   constitution: '/constitution',
   sponsors: '/sponsors',
   hackathon: '/hackathon',
-  hackathonsp18: '/hackathon/sp18'
+  hackathonsp18: '/hackathon/sp18',
+  computingresources: '/computing-resources'
 };
 
 export default paths;

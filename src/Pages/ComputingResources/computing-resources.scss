@@ -1,0 +1,53 @@
+.hackathon-page {
+  a.linkbutton {
+    font-weight: bold;
+    background-color: #00bcd4;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    color: black;
+  }
+  .going {
+    padding: 4px;
+    background: #f6f7f9;
+    border: 1px solid #ced0d4;
+    color: #4b4f56;
+    border-radius: 5px;
+
+  }
+  .headers {
+    font-weight: bold;
+  }
+  .text {
+    margin-bottom: 10px;
+  }
+  .day {
+    font-style: italic;
+    padding-bottom: 10px;
+
+    .schedule-item {
+      font-style: normal;
+    }
+  }
+  .prizes {
+    margin: 0;
+  }
+  .submission {
+    background-color: rgba(0,188,212,.4);
+    margin-top: 20px;
+    border-radius: 5px;
+    .div {
+      display: block;
+      .flex {
+        display: flex;
+
+        .half {
+          padding-left: 15px;
+          width: 50%;
+        }
+      }
+    }
+  }
+}

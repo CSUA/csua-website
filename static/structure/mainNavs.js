@@ -13,7 +13,8 @@ let aboutNavs = [
   new Nav('Officers', paths.officers),
   new Nav('Join', paths.join),
   new Nav('Constitution', paths.constitution),
-  new Nav('Tutoring', paths.tutoring)
+  new Nav('Tutoring', paths.tutoring),
+  new Nav('Computing Resources', paths.computingresources)
 ];
 
 let eventNavs = [

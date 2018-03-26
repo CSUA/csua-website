@@ -15,6 +15,7 @@ import {Sponsors} from './Sponsors';
 import {Join} from './Join';
 import {Tutoring} from './Tutoring';
 import {Hackathon} from './Hackathon';
+import {ComputingResources} from './ComputingResources';
 
 import paths from 'static/structure/paths';
 
@@ -41,6 +42,7 @@ class Pages extends React.Component {
             render={()=><Sponsors sponsors={this.props.value.sponsors}/>}/>
           <Route path={paths.industry} component={Industry}/>
           <Route path={paths.hackathon} component={Hackathon}/>
+          <Route path={paths.computingresources} component={ComputingResources}/>
           <Route path={paths.join} component={Join}/>
           <Route path={paths.home}
             render={()=><About events={this.props.value.events}/>}/>
