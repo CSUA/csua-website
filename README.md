@@ -1,6 +1,12 @@
 # CSUA Website
 
-Featuring the horrors of Node.js
+This website is hosted at csua.berkeley.edu. It serves to display information
+about CSUA, to students, industry, and anyone interested in what we do.
+
+Featuring the horrors of "modern web development" (Node.js, Meteor.js,
+React.js, Express.js, Sass, webpack)
+
+Features a nice color scheme and material design.
 
 ## Maintainer Guide
 
@@ -10,7 +16,8 @@ Featuring the horrors of Node.js
 
 ## Contribution Process
 
-- Make sure you have push access to the repo first. Email vp@csua.berkeley.edu or message someone on #root-staff on slack to get access.
+- Make sure you have push access to the repo first. Email vp@csua.berkeley.edu
+  or message someone on #root-staff on slack to get access.
 - Navigate to where you want to clone the website. Clone it, get into it, make a
   new branch, make changes, push that branch, and create a pull request for that
   branch. For example,
@@ -54,6 +61,21 @@ Featuring the horrors of Node.js
 - https://www.youtube.com/watch?v=nnsm2UBH8qE
 - You probably want to edit the subfolders of `src/Pages`
 - Remember to include your new scss files in `src/Pages/style.scss`
+
+### Making A New Page
+
+When making a new page, there are multiple places you have to edit in order to
+get the page to work.
+
+- First, create the page in `src/Pages/$PAGENAME`
+  - It's easiest to just copy one of the other pages as a template
+- Update `src/Pages/Pages.jsx` to import the new page's React component and add
+  it to the React router.
+- Modify `static/structure/mainNavs.js` and `static/structure/paths.js`
+  - `paths.js` defines the urls of the pages, while `mainNavs.js` displays them
+    on the navbar at the top of the page.
+  - Make sure the path names match, case matters!
+- Update `src/Pages/style.scss` to include your new sass style files
 
 ## Source Tree
 

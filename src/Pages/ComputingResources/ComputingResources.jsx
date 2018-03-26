@@ -1,7 +1,11 @@
 import * as React from 'react';
 
+import LazyLoad from 'react-lazy-load';
+
+import {Row, Col} from 'yui-md/lib';
+import {Card, CardImageArea, CardTextArea} from 'yui-md/lib/Card';
+
 import _PaperBorder from './_PaperBorder';
-import Sp18 from './Sp18';
 
 class ComputingResources extends React.Component {
   constructor() {
@@ -12,9 +16,51 @@ class ComputingResources extends React.Component {
   render() {
     return (
       <div classname={'computing-resources'}>
-        <_PaperBorder/>
-        <Sp18/>
+      <div className={'wrapper'}>
+        <div className={'title-area'}>
+          <h3 className={'centered page-title'}>Computing Resources</h3>
+          <p className={'centered header'}>Provided to members of the CSUA</p>
+          <p className={'centered subheader'}>Questions? Email root@csua.berkeley.edu</p>
+          <br/>
+        </div>
+        <div className={'info-area'}>
+          <Row>
+            <Card>
+              <CardTextArea>
+                <div>
+                  <div className="headers">
+                    Desktop Machines
+                  </div>
+                  <div className="text">
+                    <ul>
+                      <li>Boba</li>
+                      <li>Mead</li>
+                      <li>Sake</li>
+                      <li>Scotch</li>
+                      <li>Soju</li>
+                      <li>Vodka</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardTextArea>
+            </Card>
+            <Card>
+              <CardTextArea>
+                <div>
+                  <div className="headers">
+                    SSH access
+                  </div>
+		  <div className="text">
+                    <p>soda.berkeley.edu</p>
+                  </div>
+                </div>
+              </CardTextArea>
+            </Card>
+          </Row>
+        </div>
       </div>
+      <_PaperBorder/>
+    </div>
     );
   }
 }
