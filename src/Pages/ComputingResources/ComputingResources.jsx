@@ -15,52 +15,53 @@ class ComputingResources extends React.Component {
 
   render() {
     return (
-      <div classname={'computing-resources'}>
-      <div className={'wrapper'}>
-        <div className={'title-area'}>
-          <h3 className={'centered page-title'}>Computing Resources</h3>
-          <p className={'centered header'}>Provided to members of the CSUA</p>
-          <p className={'centered subheader'}>Questions? Email root@csua.berkeley.edu</p>
-          <br/>
-        </div>
-        <div className={'info-area'}>
-          <Row>
-            <Card>
-              <CardTextArea>
-                <div>
-                  <div className="headers">
-                    Desktop Machines
-                  </div>
-                  <div className="text">
-                    <ul>
-                      <li>Boba</li>
-                      <li>Mead</li>
-                      <li>Sake</li>
-                      <li>Scotch</li>
-                      <li>Soju</li>
-                      <li>Vodka</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardTextArea>
-            </Card>
-            <Card>
-              <CardTextArea>
-                <div>
-                  <div className="headers">
-                    SSH access
-                  </div>
-		  <div className="text">
-                    <p>soda.berkeley.edu</p>
-                  </div>
-                </div>
-              </CardTextArea>
-            </Card>
-          </Row>
-        </div>
+      <div className={'computing-resources-page'}>
+        <_PaperBorder/>
+        <h3 className={'centered page-title'}>Computing Resources</h3>
+	<p className={'centered header'}>Desktop Machines&emsp;·&emsp;SSH
+	  Access&emsp;·&emsp;Web Hosting&emsp;·&emsp;GPU Computing</p>
+	<p className={'centered subheader'}>CSUA provides computing resources
+	  to our members. A CSUA account is required to log in and use the
+	  machines. Ask an officer about setting up an account. Questions about
+	  computing resources should be directed to root@csua.berkeley.edu</p>
+        <br/>
+	<Card>
+	  <CardTextArea>
+	    <b>SSH access</b>
+	    <p>soda.berkeley.edu</p>
+	    <b>Web hosting</b>
+	    <p>Place .html files in your ~/public_html folder and they will be
+	      public at soda.berkeley.edu/~$USER</p>
+	  </CardTextArea>
+	</Card>
+	<Card>
+	  <CardTextArea>
+	    <b>Desktop Machines</b>
+	    <p>We have high-quality desktop machines for you to use. Please
+	      note that the office rules remain: please respect office and
+	      office equipment. Please do not eat or drink over the computing
+	      equipment.</p>
+	    <ul>
+	      <li>Boba</li>
+	      <li>Mead</li>
+	      <li>Sake</li>
+	      <li>Scotch</li>
+	      <li>Soju</li>
+	      <li>Vodka</li>
+	    </ul>
+	  </CardTextArea>
+	</Card>
+	<Card>
+	  <CardTextArea>
+	    <b>GPU Computing on Latte</b>
+	    <p>Thanks to donations from NVIDIA, CSUA has a GPU server available
+	      for public use. It features 8 NVIDIA Tesla P100 datacenter-class
+	      GPUs.</p>
+	    <p><a href={'https://github.com/csua/slurm-docker-cluster'}>Read
+		more about how to access Latte.</a></p>
+	  </CardTextArea>
+	</Card>
       </div>
-      <_PaperBorder/>
-    </div>
     );
   }
 }
