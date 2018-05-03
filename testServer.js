@@ -14,13 +14,19 @@ import {StaticRouter} from 'react-router';
 var port = 8081;
 var legacyPort = 8080;
 
-global.window = {
-  addEventListener: () => {},
-  scrollTo: () => {}
-};
-global.document = {
-  addEventListener: () => {}
-};
+function refreshGlobal() {
+  global.window = {
+    addEventListener: () => {},
+    scrollTo: () => {},
+    innerWidth: 1200,
+    innerHeight: 800,
+    isServer: true
+  };
+  global.document = {
+    addEventListener: () => {}
+  };
+}
+refreshGlobal();
 
 var AppComponent = require('./src/App').default;
 
